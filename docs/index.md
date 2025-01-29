@@ -6,14 +6,14 @@
 Chcete posunout své architektonické vize na novou úroveň? Otevřete bránu k inovativním a efektivním řešením s pomocí geografických informačních systémů (GIS)! Nový volitelný předmět **GIS pro architekty** vám poskytne nástroje a znalosti, díky kterým budete moci plně využít potenciál prostorových dat ve své práci.
 
 <figure markdown>
-  ![](../assets/gis_00.jpg "GIS"){ width=300px }
+  ![](./assets/gis_00.jpg "GIS"){ width=300px }
   <figcaption>GIS</figcaption>
 </figure>
 
 GIS není jen o mapách. Je to mocný nástroj, který vám umožní *analyzovat a interpretovat komplexní prostorové informace*, které jsou nezbytné pro navrhování budov a urbanistických celků. Představte si, že máte k dispozici *podrobné údaje o lokalitě vašeho projektu, včetně informací o terénu, dopravní infrastruktuře, zeleni, ale i sociodemografických datech, slunečním osvitu a mnoha dalších faktorech*. S pomocí GIS můžete tyto informace *efektivně využít pro optimalizaci návrhu, zlepšení energetické účinnosti budov, plánování dopravy a urbanistického rozvoje*. 
 
 <figure markdown>
-  ![](../assets/gis_02.jpg "Analýza budov na základě technicko-hospodářských atributů"){ width=300px }
+  ![](./assets/gis_02.jpg "Analýza budov na základě technicko-hospodářských atributů"){ width=300px }
   <figcaption>Analýza budov na základě technicko-hospodářských atributů</figcaption>
 </figure>
 
@@ -22,11 +22,11 @@ V rámci tohoto předmětu se naučíte pracovat s GIS softwarem a daty, provád
 
 <div style="display: flex; justify-content: center; max-width: 900px; margin: 0 auto;">
   <figure style="margin: 10px; display: flex; flex-direction: column; align-items: center;">
-    <img src="../assets/gis_03.jpg" alt="..." style="width: 300px;">
+    <img src="./assets/gis_03.jpg" alt="..." style="width: 300px;">
     <figcaption style="text-align: center;">3D model s kombinovanou zástavbou <br> vytvořenou procedurálně i přesným modelováním</figcaption>
   </figure>
   <figure style="margin: 10px; display: flex; flex-direction: column; align-items: center;">
-    <img src="../assets/gis_05.jpg" alt="..." style="width: 300px;">
+    <img src="./assets/gis_05.jpg" alt="..." style="width: 300px;">
     <figcaption style="text-align: center;">3D zástavba nad digitálním modelem terénu</figcaption>
   </figure>
 </div>
@@ -36,7 +36,7 @@ GIS vám *umožní lépe porozumět kontextu vašeho projektu a navrhnout budovy
 Připojte se k nám a objevte svět prostorové inteligence, který vám otevře nové možnosti pro vaši tvůrčí práci. Získejte konkurenční výhodu na trhu a staňte se *moderním architektem*, který dokáže efektivně využívat moderní technologie pro navrhování lepších budov a měst.
 
 <figure markdown>
-  ![](../assets/gis_06.jpg "Vrstevnice jako 3D linie vhodné k modelování terénu"){ width=300px }
+  ![](./assets/gis_06.jpg "Vrstevnice jako 3D linie vhodné k modelování terénu"){ width=300px }
   <figcaption>Vrstevnice jako 3D linie vhodné k modelování terénu</figcaption>
 </figure>
 
@@ -70,7 +70,7 @@ Přednášky vás provedou základní teorií, cvičení se věnují praktickém
 
 -   :material-tools:{ .xl }
 
-    aplikovat základní __prostorové funkce__, pracovat s terény a 
+    aplikovat základní __prostorové funkce__, pracovat s terény a modely
 
 -   :material-vector-difference:{ .xl }
 
