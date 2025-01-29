@@ -1,24 +1,68 @@
 
-# GIS 1 {: .page_title}
+# ARCGIS – GEOGRAFICKÉ INFORMAČNÍ SYSTÉMY
 
-Předmět vás seznámí se základy tzv. __geografických informačních systémů__ (GIS). GIS je soubor nástrojů sloužících ke __sběru__, __správě__, __analýze__ a __vizualizaci__ geografických dat. Umožňuje efektivně pracovat s prostorovými informacemi, což zahrnuje __mapy__, __satelitní snímky__, __adresy__, __topografické údaje__ a mnoho dalšího. Dokáže provádět složité analýzy, identifikovat vzory, a tím __lépe porozumět geografickým jevům a vztahům__.
+## Objevte sílu prostorové inteligence ve vašich projektech
 
-GIS má široké uplatnění, od __městského plánování__, přes __správu přírodních zdrojů__ až po __krizový management__. Je nepostradatelným nástrojem pro efektivní rozhodování a řízení v různých odvětvích a pomáhá lépe pochopit složité geografické souvislosti.
+Chcete posunout své architektonické vize na novou úroveň? Otevřete bránu k inovativním a efektivním řešením s pomocí geografických informačních systémů (GIS)! Nový volitelný předmět **GIS pro architekty** vám poskytne nástroje a znalosti, díky kterým budete moci plně využít potenciál prostorových dat ve své práci.
 
-GIS 1 je v tomto tématu úvodním kurzem. Zatímco přednášky vás provedou základní teorií, cvičení se věnují praktickému ovládání GIS software – zejména porozumění práce s daty a provádění jednodušších analýz. Během výuky je používán software __:simple-arcgis: Esri ArcGIS Pro__{: style="white-space: nowrap;"}, ke konci kurzu bude pak věnován prostor i možným alternativám (program __:simple-qgis: QGIS__).
+<figure markdown>
+  ![](../assets/gis_00.jpg "GIS"){ width=300px }
+  <figcaption>GIS</figcaption>
+</figure>
+
+GIS není jen o mapách. Je to mocný nástroj, který vám umožní *analyzovat a interpretovat komplexní prostorové informace*, které jsou nezbytné pro navrhování budov a urbanistických celků. Představte si, že máte k dispozici *podrobné údaje o lokalitě vašeho projektu, včetně informací o terénu, dopravní infrastruktuře, zeleni, ale i sociodemografických datech, slunečním osvitu a mnoha dalších faktorech*. S pomocí GIS můžete tyto informace *efektivně využít pro optimalizaci návrhu, zlepšení energetické účinnosti budov, plánování dopravy a urbanistického rozvoje*. 
+
+<figure markdown>
+  ![](../assets/gis_02.jpg "Analýza budov na základě technicko-hospodářských atributů"){ width=300px }
+  <figcaption>Analýza budov na základě technicko-hospodářských atributů</figcaption>
+</figure>
+
+V rámci tohoto předmětu se naučíte pracovat s GIS softwarem a daty, provádět prostorové analýzy a vizualizace, modelovat vliv budoucích staveb na okolní prostředí a integrovat GIS do procesu navrhování. Získáte praktické dovednosti, které vám umožní efektivně řešit komplexní úkoly spojené s architekturou a urbanismem. Zabývat se se tedy budeme i tématy jako je analýza dat (např. hledání nejbližších objektů, nejkratších cest, viditelnosti ve 3D, hydrologický odtok apod.), naučíte se využívat GIS pro hodnocení lokalit z hlediska jejich potenciálu pro rozvoj, pro tvorbu územních plánů a pro prezentaci vašich projektů.
+
+
+<div style="display: flex; justify-content: center; max-width: 900px; margin: 0 auto;">
+  <figure style="margin: 10px; display: flex; flex-direction: column; align-items: center;">
+    <img src="../assets/gis_03.jpg" alt="..." style="width: 300px;">
+    <figcaption style="text-align: center;">3D model s kombinovanou zástavbou <br> vytvořenou procedurálně i přesným modelováním</figcaption>
+  </figure>
+  <figure style="margin: 10px; display: flex; flex-direction: column; align-items: center;">
+    <img src="../assets/gis_05.jpg" alt="..." style="width: 300px;">
+    <figcaption style="text-align: center;">3D zástavba nad digitálním modelem terénu</figcaption>
+  </figure>
+</div>
+
+
+GIS vám *umožní lépe porozumět kontextu vašeho projektu a navrhnout budovy, které jsou v souladu s okolním prostředím a potřebami komunit*. Budete schopni *efektivněji komunikovat s klienty, developery a dalšími zainteresovanými subjekty*, protože budete mít k dispozici konkrétní data a vizualizace, které podpoří vaše argumenty. GIS vám pomůže optimalizovat náklady projektu, protože budete moci lépe plánovat a předvídat potenciální problémy.
+Připojte se k nám a objevte svět prostorové inteligence, který vám otevře nové možnosti pro vaši tvůrčí práci. Získejte konkurenční výhodu na trhu a staňte se *moderním architektem*, který dokáže efektivně využívat moderní technologie pro navrhování lepších budov a měst.
+
+<figure markdown>
+  ![](../assets/gis_06.jpg "Vrstevnice jako 3D linie vhodné k modelování terénu"){ width=300px }
+  <figcaption>Vrstevnice jako 3D linie vhodné k modelování terénu</figcaption>
+</figure>
+
+Přednášky vás provedou základní teorií, cvičení se věnují praktickému ovládání GIS software – zejména porozumění práci s daty, provádění analýz a vizualizace dat. Během výuky je používán software __:simple-arcgis: Esri ArcGIS Pro__{: style="white-space: nowrap;"}, částečně  věnován prostor i možným alternativám (program __:simple-qgis: QGIS__).
 
 <h2 style="text-align:center;">Naučíte se</h2>
 <!-- styl je zde pridany HTML tagem (ne pomoci '##'), aby se text neobjevil v tabulce obsahu vlevo na strance -->
 
 <div class="grid cards grid_icon_info smaller_padding" markdown> <!-- specificky format gridu (trida "grid_icon_info") na miru uvodni strance predmetu -->
 
--   :material-map-outline:{ .xl }
 
-    __zpracovávat__ a __analyzovat__ prostorová (tj. geografická, mapová) data
+-   :material-vector-union:{ .xl }
 
+    **získávat prostorová data**, geodatabáze a další datové zdroje
+    
 -   :material-vector-polygon:{ .xl }
 
-    porozumět rozdílu mezi __vektorovými__ a __rastrovými__ daty
+    __zpracovávat__ a __analyzovat__ prostorová data, porozumět specifikům __vektorů__ a __rastrů__ 
+
+-   :material-creation-outline:{ .xl }
+
+    __tvořit__ a __editovat__ GIS data ve 2D i 3D
+    
+-   :material-map-outline:{ .xl }
+
+    vytvářet **mapové výstupy a vizualizace**
 
 -   :material-filter-outline:{ .xl }
 
@@ -26,23 +70,15 @@ GIS 1 je v tomto tématu úvodním kurzem. Zatímco přednášky vás provedou z
 
 -   :material-tools:{ .xl }
 
-    aplikovat základní __prostorové funkce__ (nástroje geoprocessingu)
-
--   :material-creation-outline:{ .xl }
-
-    __tvořit__ a __editovat__ GIS data
+    aplikovat základní __prostorové funkce__, pracovat s terény a 
 
 -   :material-vector-difference:{ .xl }
 
-    základy datové __topologie__
+    **kombinovat data** napříč software a platformami
 
 -   :octicons-share-16:{ .xl }
 
     __sdílet__ data prostřednictvím webu (systém _ArcGIS Online_, webové mapové aplikace)
-
--   :simple-qgis:{ .xl }
-
-    získat základy ovládání __alternativního GIS software__ (_QGIS_)
 
 
 </div>
@@ -70,33 +106,5 @@ GIS 1 je v tomto tématu úvodním kurzem. Zatímco přednášky vás provedou z
 4. Hrubý M.: Geografické Informační Systémy (GIS) - Studijní opora. VÚT v Brně, 91 str.
 5. Tuček J.: Geografické informační systémy, Praha Computer Press, 1998. -->
 
-## Přednášky {: style="margin-bottom:0;"}
-
-účast doporučená
-{: style="opacity:50%;margin-top:0;"}
-
-![](https://geomatics.fsv.cvut.cz/wp-content/uploads/2022/01/03-edit_export@0.5x-2.jpg){: .off-glb .no-filter style="height: 1.5em; vertical-align: -.4em; clip-path: circle();"} 
-__prof. Ing. Lena Halounová, CSc.__
-
-1. Definice GIS, informatika, základní pojmy, aplikační oblasti GIS, prostor, topologie, historie GIS
-2. Reálný svět × GIS, model v GIS, vztahy objektů, typy modelů, geometrické typy objektů, rozlišovací schopnost
-3. Geografická poloha v GIS, prostorové vztahy, atributy
-4. Čas v GIS, modelování, druhy modelů, chyby v modelování v GIS
-5. Vektorový a rastrový GIS, datová struktura
-6. Rastrový GIS, atributová data
-7. Vektorový GIS, druhy objektů
-8. Geometrické a topologické vlastnosti objektů ve vektorovém GIS
-9. Vektorová a rastrová reprezentace prostorových objektů
-10. Rastrová reprezentace prostorových objektů, způsob ukládání rastrových objektů
-
-## Harmonogram {: style="margin-bottom:0;"}
-
-[![](./assets/index/schedule.svg#only-light){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/1551GIS/semester/B232){target="_blank"}
-[![](./assets/index/schedule_dark.svg#only-dark){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/1551GIS/semester/B232){target="_blank"}
-
----
-
-[Stránka předmětu v :custom-kos-logo-img-BW:{.middle style="margin-left:3px;"} :custom-kos-logo-BW:{.xl .middle}](https://kos.cvut.cz/course-syllabus/1551GIS/B232){ .md-button .md-button--primary target="_blank"}
-{align=center}
 
 <br>
