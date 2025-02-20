@@ -1,6 +1,14 @@
-# Semestrální práce - Analýza území
+# Semestrální práce – Analýza území
+
+##
 
 ## Zadání
+
+Zadání bude upřesněno začátkem semestru. 
+Bude se jednat o analýzu zadaného území z různých hledisek s využitím poznatků získaných během semestru. 
+
+<!--
+
 Nad zadaným územím proveďte následující analýzy s využitím GIS softwaru. Výsledky jednotlivých úloh následně publikujte formou webové mapové aplikace na ArcGIS Online či pomocí open-source řešení (např. GISQuick). Tato aplikace může mít libovolnou formu, takovou, kterou uznáte za vhodnou či zajímavou (ArcGIS Instant Apps, Story Maps, Experience Builder,...). 
 
 Svou aplikaci na konci semestru **30.4.2024** krátce odprezentujete před ostatními v 5 minutové prezentaci. 
@@ -71,5 +79,7 @@ Rozlišujte následující typy využití ploch (stejně jako v bodě 5 pro da
 ## Konkrétní zadání
 Bude rozesláno emailem.
 
+-->
+
 ## Termín
-- 5 minutová **prezentace** výsledné online aplikace **30.4.2024**
+- **informační den** k semestrální práci proběhne 15. května, **do 31. května** se pak předpokládá **odevzdání**.

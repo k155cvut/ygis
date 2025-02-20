@@ -1,8 +1,14 @@
 site_name: 155YGIS
 nav:
   - 155YGIS – charakteristika: index.md
-  # - Cvičení:
+  - Cvičení:
+      - Úvod do práce v prostředí ArcGIS, prostorová data, datové zdroje, atributová tabulka: cviceni/cviceni1.md
+      - Vektorová data, atributové dotazy, prostorové dotazy: cviceni/cviceni2.md
+      - Souřadnicové referenční systémy v ČR | přehled typů dat a zdrojů, webové mapové služby | připojení externích dat: cviceni/cviceni3.md
+      - Prostorové funkce (geoprocessing), spatial join: cviceni/cviceni4.md
+  - Semestrální práce: semestralka.md
   # - Výuková videa: videa.md
+
   # - Kvíz: quiz.md
 plugins:
   - search
