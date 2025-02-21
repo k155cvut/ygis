@@ -4,7 +4,7 @@ __STRÁNKA: Charakteristika předmětu__{style="font-size:200%;color:var(--md-pr
 
 ## Název předmětu
 
-Třída `page_title` zarovnává na střed a mění váhu fontu.
+Třída `page_title` zarovnává na střed a mění váhu fontu
 
 ``` md
 # Nejlepší předmět {.page_title}
