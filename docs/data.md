@@ -8,6 +8,11 @@
 
 ArcČR 500 je digitální vektorová geografická databáze České republiky, zpracována na úrovni podrobnosti 1 : 500 000. Navazuje na podobné databáze, zpracované firmou Esri. Obsahem databáze jsou přehledné geografické informace o ČR. Data umožňují široké spektrum prostorových analýz a vizualizace a poskytují možnost propojení na statistická data.
 
+Geografické informace v ArcČR 500 jsou rozděleny do dvou základních tematických skupin:
+
+- základní geografické (mapové) prvky a klady listů státních mapových děl,
+- administrativní členění.
+
 ## [Císařské otisky stabilního katastru](<https://geoportal.cuzk.cz/(S(1v4m40zfva0uax45kgek0z45))/default.aspx?mode=TextMeta&side=dSady_archiv&metadataID=CZ-CUZK-COC-R&menu=2901> "Odkaz na stažení")
 
 Jedná se o mapy z let 1826-1843, původně určené k archivaci v Centrálním archivu pozemkového katastru ve Vídni, odkud byly po vzniku Československé republiky v rámci archivní rozluky předány do Prahy. Na rozdíl od tzv. originálních map stabilního katastru zachycují původní stav krajiny bez dodatečného zákresu pozdějších změn. Dodnes patří ze strany badatelů k nejžádanějším a nejvyužívanějším archiváliím ÚAZK. Pro území Čech je archivováno cca 8400 katastrálních map na cca 31 tisících mapových listech. V katastrálních územích, pro která se tyto mapy nedochovaly, jsou postupně nahrazovány originálními mapami stabilního katastru.

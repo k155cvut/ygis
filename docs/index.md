@@ -97,14 +97,16 @@ Přednášky vás provedou základní teorií, cvičení se věnují praktickém
 ![](./assets/index/11.jpg){: .no-filter }
 ![](./assets/index/12.jpg){: .no-filter }
 </div>
+<br>
 
-<!-- ## Doporučená literatura
+### **Doporučená literatura**
 
-1. Kolář, J.: Geografické informační systémy 10. Vydavatelství ČVUT, Praha 1998.
+1. Kolář, J. (1998): Geografické informační systémy 10. Vydavatelství ČVUT, Praha.
 2. Rapant, P. (2006): Geoinformatika a geoinformační technologie. VŠB-TU Ostrava, 500 str. ISBN 80-248-1264-9.
 3. Břehovský, M., Jedlička, K. (2005): Přednáškové texty pro Úvod do GIS. ZČU Plzeň, 116 s.
 4. Hrubý M.: Geografické Informační Systémy (GIS) - Studijní opora. VÚT v Brně, 91 str.
-5. Tuček J.: Geografické informační systémy, Praha Computer Press, 1998. -->
+5. Tuček J. (1998): Geografické informační systémy, Praha Computer Press, 1998.
+6. Geletič, J., Hladiš, L., Šimáček, P. (2019): [GIS pro geografy. Distanční studijní opora](https://geography.upol.cz/soubory/studium/opory/D_GIS.pdf). Univerzita Palackého v Olomouci, 141 s.
 
 
 <br>

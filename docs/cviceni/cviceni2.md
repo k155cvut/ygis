@@ -21,32 +21,47 @@ title: Cvičení 2 – Vektory, atributové a prostorové dotazy
 
     ---
 
-    Tvořena __vrcholy__ (Vertices) a __cestami__ (Paths) – ty jsou určeny skutečnými souřadnicemi
+    Reprezentují prvky reálného světa pomocí základních geometrických elementů: __bodů, linií a ploch__ (tzv. polygonů)
 
-    Podrobnost je určena __podrobností souřadnic vrcholů__
+    Podrobnost dat je určena __podrobností souřadnic vrcholů__ geometrického prvku
 
-    Vhodné pro __diskrétně rozložená data__ (např. poloha bodů, kategorie pokrytí půdy)
+    Vhodné pro modelování a analýzu __diskrétních objektů__ (např. poloha bodů, kategorie pokrytí půdy)
+
+    Vhodné pro __tvorbu map, měření délek, geometrické výpočty__
 
     Možné problémy s __topologií__ (mezery a překryvy)
+
+    Základními formáty vektorových dat jsou __Esri Shapefile, GeoJSON, GeoPackage__ či __KML/GML__
 
 
 -   :material-grid:{ .lg .middle } __Rastrová data__<span style="font-size:60%;font-style:italic;vertical-align:10%;margin-left:15px;color:#888">součástí budoucích cvičení</span>
 
     ---
 
-    Tvořena pravidelnou mřížkou __pixelů__ – ty jsou určeny pixelovými souřadnicemi (pořadí řádku/sloupce)
+    Reprezentují prvky reálného světa v podobě pravidelné mřížky tvořené tzv. __pixely__ (z angl. *picture element*)
 
-    Podrobnost je určena __velikostí pixelu__ (v metrech)
+    Podrobnost dat je určena __prostorovým rozlišením__ rastru, tj. __velikostí__ hrany __pixelu__ (v metrech)
 
-    Vhodné pro jevy měnící se __spojitě__ (např. model terénu, znečištění ovzduší) i __diskrétně__, dále pak __obrazová data__ (např. satelitní)
+    Vhodné pro modelování a analýzu __spojitých jevů__ (nadmořská výška, teplota, srážky)
+    
+    Využívané pro __obrazová data__ (např. satelitní snímky)
+
+    Nevýhodou velikost souborových dat
+
+    Základními formáty rastrových dat jsou __GeoTIFF, JPEG, PNG__ či __GIF__
 
 </div>
+
+<figure markdown>
+  ![Rozdíl v grafické reprezentaci vektorových a rastrových dat](../assets/cviceni2/VectorVsRaster.png "Rozdíl v grafické reprezentaci vektorových a rastrových dat"){ width=400px }
+  <figcaption>Rozdíl v grafické reprezentaci vektorových a rastrových dat (Geletič et al. 2019)</figcaption>
+</figure>
 
 <hr class="level-1">
 
 ## Atributové dotazy
 
-Atributový dotaz (Attribute Query) je metoda výběru/filtrace prvků na základě **hodnot jejich atributů**. Doplňuje tak metodu [interaktivního výběru prvků](/cviceni/cviceni1/#select-tool) z 1. cvičení. Základem je pravidlo pro výběr – tzv. **výraz** (Expression). ArcGIS Pro umožňuje sestavovat výrazy interaktivně pomocí dialogu, nicméně pro využití plného potenciálu výrazů je vhodné využít kód v jazyce _SQL_.
+Atributový dotaz *(Attribute Query)* je metoda výběru/filtrace prvků na základě **hodnot jejich atributů**. Doplňuje tak metodu [interaktivního výběru prvků](/cviceni/cviceni1/#select-tool) z 1. cvičení. Základem je pravidlo pro výběr – tzv. **výraz** *(Expression)*. ArcGIS Pro umožňuje sestavovat výrazy interaktivně pomocí dialogu, nicméně pro využití plného potenciálu výrazů je vhodné využít kód v jazyce _SQL_.
 <br><br>
 
 **Atributový dotaz** (nad daty v mapě): _:material-tab: Map_{: .outlined_code} → _:material-button-cursor: Select By Attributes_{: .outlined_code} → vyplnit údaje do dialogu nástroje...
@@ -67,8 +82,58 @@ Pomocí přepínátka ![](../assets/cviceni1/img_36.png){: .off-glb style="verti
 [Construct and modify queries](https://pro.arcgis.com/en/pro-app/latest/help/mapping/navigation/construct-and-modify-queries.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="\_blank"}
 {: .button_array}
 
-<div class="table_small_padding" markdown> <!-- trik: vlastnosti tabulky pro vsechny podrizene -->
-???+ task-fg-color "Příklad k vyzkoušení __|__{style="margin: 0rem 1rem"} __testování atributových dotazů na skutečných datech__{.no-dec}"
+???+ task-fg-color "Úlohy k atributovým dotazům"
+
+    K řešení následujících úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složce
+    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete soubor s
+    popisem dat ve formátu PDF.
+
+    1. Kolik je v ČR rybníků?
+
+    2. Jaká je celková délka (v km) přirozených vodních toků v ČR?
+
+    3. Jaká je průměrná nadmořská výška (v m) vodních nádrží v ČR?
+
+    4. Kolik silnic v ČR má více než dva jizdní pruhy?
+
+    5. Jaká je délka (v km) dálnic v ČR, které mají šest jízdních pruhů?
+
+    6. Kolik železničních stanic v ČR obsahuje ve svém názvu předložku 'nad'?
+
+    7. Jaká je celková plocha (v km^2^) sídel v ČR u kterých jejich název začíná na písmeno 'K'?
+
+    8. Ve které obci Ústeckého kraje je největší nezaměstnanost a kolik to je?
+
+    9. Najděte obec v ČR, kde je nejvyšší poměr mezi muži a ženami a kolik to je?
+
+    10. V kolika obcích v ČR převyšuje počet sňatků počet rozvodů. V jaké
+        obci je počet sňatků nejvyšší vzhledem k aktuálnímu počtu
+        obyvatel?
+    
+    11. Jaká je průměrná hodnota nezaměstnanosti v ORP Beroun?
+
+    12. Kolik katastrálních území spadá do oblasti s kódem LAU1 'CZ0327' a
+        jakou mají celkovou výměru (v km^2^)?
+
+    13. V kolika případech se shoduje název obce s názvem katastrálního území?
+
+    14. Kolik katastrálních území začíná na písmeno 'R' a má přesně tři znaky ve svém názvu?
+
+    15. Ve kterých krajích je míra nezaměstranosti mužů větší než u žen?
+
+    16. Jaká je celková délka silnic 1., 2. a 3. třídy?
+
+    17. Jaký název pro obec je nejfrekventovanější, kolik obcí s tímto názvem v ČR je?
+
+    18. Pro každý typ vodní plochy najděte nejvyšší nadmořskou výšku.
+
+    19. Jaký je poměr mezinárodních ku vnitrostátním letištím v ČR?
+
+    20. Který okres v ČR se skládá z největšího počtu obcí a kolik to je?
+
+<!-- <div class="table_small_padding" markdown> <!-- trik: vlastnosti tabulky pro vsechny podrizene -->
+<!--???+ task-fg-color "Příklad k vyzkoušení __|__{style="margin: 0rem 1rem"} __testování atributových dotazů na skutečných datech__{.no-dec}"
 
     <iframe width="100%" height="500" frameborder="0" allowfullscreen src="https://geo.fsv.cvut.cz/data/hoffmann/appquery/"></iframe>
 
@@ -79,13 +144,13 @@ Pomocí přepínátka ![](../assets/cviceni1/img_36.png){: .off-glb style="verti
     |route_type|`integer`|ID druhu dopravy, které obsluhují zastávku, <br>`0=tramvaj`, `1=metro`, `2=vlak`, `3=autobus`, `4=přívoz`, `7=lanovka`, `8=tramvaj i autobus`|
     |on_request|`integer`|Zastávka na znamení `0=není na znamení`, `1=je na znamení`|
     |platf_len|`float`|Délka nástupiště (metry)|
-</div>
+</div>-->
 
 <hr class="level-1">
 
 ## Prostorové dotazy
 
-__Prostorový dotaz__ (Spatial Query) je metoda výběru/filtrace prvků jedné vrstvy __na základě vzájemné polohy s prvky druhé vrstvy__. Funkce využívá jako vstup `vrstvu vybíraných prvků`, `vrstvu pro překryvnou analýzu` a `vztah pro překryvnou analýzu`.
+__Prostorový dotaz__ *(Spatial Query)* je metoda výběru/filtrace prvků jedné vrstvy __na základě vzájemné polohy s prvky druhé vrstvy__. Funkce využívá jako vstup `vrstvu vybíraných prvků`, `vrstvu pro překryvnou analýzu` a `vztah pro překryvnou analýzu`.
 
 ![](../assets/cviceni2/img_01.svg){ .no-filter }
 ![](../assets/cviceni2/img_02.svg){ .no-filter }
@@ -261,65 +326,11 @@ __Prostorový dotaz__ (Spatial Query) je metoda výběru/filtrace prvků jedné 
 [:material-open-in-new: Select By Location graphic examples](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/select-by-location-graphical-examples.htm){ .md-button .md-button--primary .button_smaller target="\_blank"}
 {: align=center style="display:flex; justify-content:center; align-items:center; column-gap:20px; row-gap:10px; flex-wrap:wrap;"}
 
-<hr class="level-1">
+???+ task-fg-color "Úlohy k prostorovým dotazům"
 
-## Úlohy k procvičení
-
-!!! task-fg-color "Úlohy k atributovým dotazům"
-
-    K řešení následujích úloh použijte datovou sadu [ArcČR
-    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
-    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete souboru s
-    popisem dat ve formátu PDF.
-
-    1. Kolik je v ČR rybníků?
-
-    2. Jaká je celková délka (v km) přirozených vodních toků v ČR?
-
-    3. Jaká je průměrná nadmořská výška (v m) vodních nádrží v ČR?
-
-    4. Kolik silnic v ČR má více než dva jizdní pruhy?
-
-    5. Jaká je délka (v km) dálnic v ČR, které mají šest jízdních pruhů?
-
-    6. Kolik železničních stanic v ČR obsahuje ve svém názvu předložku 'nad'?
-
-    7. Jaká je celková plocha (v km^2^) sídel v ČR u kterých jejich název začíná na písmeno 'K'?
-
-    8. Ve které obci Ústeckého kraje je největší nezaměstnanost a kolik to je?
-
-    9. Najděte obec v ČR, kde je nejvyšší poměr mezi muži a ženami a kolik to je?
-
-    10. V kolika obcích v ČR převyšuje počet sňatků počet rozvodů. V jaké
-        obci je počet sňatků nejvyšší vzhledem k aktuálnímu počtu
-        obyvatel?
-    
-    11. Jaká je průměrná hodnota nezaměstnanosti v ORP Beroun?
-
-    12. Kolik katastrálních území spadá do oblasti s kódem LAU1 'CZ0327' a
-        jakou mají celkovou výměru (v km^2^)?
-
-    13. V kolika případech se shoduje název obce s názvem katastrálního území?
-
-    14. Kolik katastrálních území začíná na písmeno 'R' a má přesně tři znaky ve svém názvu?
-
-    15. Ve kterých krajích je míra nezaměstranosti mužů větší než u žen?
-
-    16. Jaká je celková délka silnic 1., 2. a 3. třídy?
-
-    17. Jaký název pro obec je nejfrekventovanější, kolik obcí s tímto názvem v ČR je?
-
-    18. Pro každý typ vodní plochy najděte nejvyšší nadmořskou výšku.
-
-    19. Jaký je poměr mezinárodních ku vnitrostátním letištím v ČR?
-
-    20. Který okres v ČR se skládá z největšího počtu obcí a kolik to je?
-
-!!! task-fg-color "Úlohy k prostorovým dotazům"
-
-    K řešení následujích úloh použijte datovou sadu [ArcČR
-    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
-    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete souboru s
+    K řešení následujících úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složce
+    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete soubor s
     popisem dat ve formátu PDF.
 
     1. Existuje v ČR letiště, jehož reprezentační bod leží v lese? Jak se jmenuje?
@@ -366,6 +377,8 @@ __Prostorový dotaz__ (Spatial Query) je metoda výběru/filtrace prvků jedné 
 
     15. Kolik obcí v ČR leží svoji plochou alespoň na dvou mapových
         listech Základní mapy 1:50 000?
+
+<hr class="level-1">
 
 <br><br><br><br><br>
 
