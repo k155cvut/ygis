@@ -150,7 +150,7 @@ Pomocí přepínátka ![](../assets/cviceni1/img_36.png){: .off-glb style="verti
 
 ## Prostorové dotazy
 
-__Prostorový dotaz__ *(Spatial Query)* je metoda výběru/filtrace prvků jedné vrstvy __na základě vzájemné polohy s prvky druhé vrstvy__. Funkce využívá jako vstup `vrstvu vybíraných prvků`, `vrstvu pro překryvnou analýzu` a `vztah pro překryvnou analýzu`.
+__Prostorový dotaz__ *(Spatial Query)* je metoda výběru/filtrace prvků jedné vrstvy __na základě vzájemné polohy s prvky druhé vrstvy__. Funkce využívá jako vstup `vrstvu vybíraných prvků` *(Input features)*, `vrstvu pro překryvnou analýzu` *(Selecting features)* a `vztah pro překryvnou analýzu` *(Relationship)*.
 
 ![](../assets/cviceni2/img_01.svg){ .no-filter }
 ![](../assets/cviceni2/img_02.svg){ .no-filter }
