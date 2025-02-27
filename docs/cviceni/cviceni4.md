@@ -7,49 +7,73 @@ title: Cvičení 4 – prostorové funkce
 
 ## Cíl cvičení
 
-Seznámení se se základními geoprocessingovými nástroji v GIS v rámci řešení komplexní úlohy.
+Využití základních geoprocessingových nástrojů GIS v rámci řešení komplexní úlohy.
 
 ## Základní pojmy
 
-- [**buffer**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/buffer.htm): Vytváří zóny okolo vstupních geografických prvků ve specifikované vzdálenosti. Tyto zóny mohou být využity například k analýze vlivu určitého objektu na své okolí.
-- [**clip**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/clip.htm): Vyřezává část jednoho datasetu na základě hranic jiného. Výsledkem je nový dataset obsahující pouze oblasti uvnitř klipu.
-- [**select**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/select.htm): Umožňuje vybrat prvky z datasetu, které splňují zadané podmínky, například atributové dotazy nebo prostorové kritérium.
-- [**intersect**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/intersect.htm): Kombinuje dvě nebo více vstupních vrstev a vytváří nové prvky v místech, kde se jejich geometrie překrývají.
-- [**dissolve**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/dissolve.htm): Agreguje prvky podle specifického atributu, čímž redukuje počet prvků a vytváří větší jednotky (např. sloučení polygonů stejného typu).
-- [**spatial join**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/spatial-join.htm): Kombinuje atributy dvou geografických vrstev na základě jejich prostorového vztahu (např. připojení údajů bodů k blízkým polygonům).
-- [**erase**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/erase.htm): Odstraňuje části jedné vrstvy, které se překrývají s druhou vstupní vrstvou, a ponechává zbytek geometrie.
-- [**union**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/union.htm): Kombinuje geometrie a atributy dvou nebo více vrstev do nové vrstvy. Výsledkem jsou oblasti, které reprezentují kombinaci všech vstupů.
-- [**remove overlap**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/remove-overlap-multiple.htm): Identifikuje a odstraňuje překrývající se oblasti mezi prvky v jedné vrstvě nebo mezi více vrstvami.
-- [**symmetrical difference**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/symmetrical-difference.htm): Vytváří novou vrstvu obsahující prvky, které jsou v jedné nebo druhé vstupní vrstvě, ale ne v jejich překryvu.
-- [**count overlapping features**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/count-overlapping-features.htm): Počítá počet prvků, které se překrývají, a výsledek ukládá do nové vrstvy nebo atributové tabulky.
-
-
-<hr class="level-1">
-
-Následující přehled ukazuje nejpoužívanější nástroje prostorových funkcí v ArcGIS Pro.
+- [**buffer**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/buffer.htm){:target="_blank"}: Vytváří zóny okolo vstupních geografických prvků ve specifikované vzdálenosti. Tyto zóny mohou být využity například k analýze vlivu určitého objektu na své okolí.
+- [**clip**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/clip.htm){:target="_blank"}: Vyřezává část jednoho datasetu na základě hranic jiného. Výsledkem je nový dataset obsahující pouze oblasti uvnitř klipu.
+- [**select**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/select.htm){:target="_blank"}: Umožňuje vybrat prvky z datasetu, které splňují zadané podmínky, například atributové dotazy nebo prostorové kritérium.
+- [**intersect**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/intersect.htm){:target="_blank"}: Kombinuje dvě nebo více vstupních vrstev a vytváří nové prvky v místech, kde se jejich geometrie překrývají.
+- [**dissolve**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/dissolve.htm){:target="_blank"}: Agreguje prvky podle specifického atributu, čímž redukuje počet prvků a vytváří větší jednotky (např. sloučení polygonů stejného typu).
+- [**spatial join**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/spatial-join.htm){:target="_blank"}: Kombinuje atributy dvou geografických vrstev na základě jejich prostorového vztahu (např. připojení údajů bodů k blízkým polygonům).
+- [**erase**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/erase.htm){:target="_blank"}: Odstraňuje části jedné vrstvy, které se překrývají s druhou vstupní vrstvou, a ponechává zbytek geometrie.
+- [**union**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/union.htm){:target="_blank"}: Kombinuje geometrie a atributy dvou nebo více vrstev do nové vrstvy. Výsledkem jsou oblasti, které reprezentují kombinaci všech vstupů.
+- [**remove overlap**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/remove-overlap-multiple.htm){:target="_blank"}: Identifikuje a odstraňuje překrývající se oblasti mezi prvky v jedné vrstvě nebo mezi více vrstvami.
+- [**symmetrical difference**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/symmetrical-difference.htm){:target="_blank"}: Vytváří novou vrstvu obsahující prvky, které jsou v jedné nebo druhé vstupní vrstvě, ale ne v jejich překryvu.
+- [**count overlapping features**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/count-overlapping-features.htm){:target="_blank"}: Počítá počet prvků, které se překrývají, a výsledek ukládá do nové vrstvy nebo atributové tabulky.
 
 <figure markdown>
   ![Prostorové funkce](../assets/cviceni3/prost_funkce_srovnani.png "Prostorové funkce")
   <figcaption>Srovnání vstupních vrstev a výsledků operace pro různé nástroje prostorových funkcí</figcaption>
 </figure>
-
-
-
-## Použité datové podklady
-
-- [Pobočky](../assets/cviceni3/PobockyCP_PlzenskyKraj.zip) České pošty v Plzeňském kraji (bodová vrstva)
-- Obce ČR ([ArcČR 500](../../data/#arccr-500), polygonová vrstva)
+<br>
+<hr class="level-1">
 
 ## Náplň cvičení
+!!! abstract "Oblast vysoké hlučnosti"
+    **ZADÁNÍ:**
 
-Představte si, že pracujete jako GIS analytik pro Českou poštu a vaším úkolem je z důvodu úspor navrhnout řešení snížení počtu poboček. Snahou tohoto kroku je však i minimalizace negativních dopadů na obyvatele, proto bylo rozhodnuto o následujících podmínkách, které musíte ve svém návrhu dodržet:
+    V rámci Česka vymezte oblast vysoké hlučnosti, která je definována následujícími kritérii:
 
-1. Rušení poboček nebude probíhat v obcích s méně než 2500 obyvateli.
-2. V obcích nad 2500 obyvatel neklesne počet poboček pod 1.
-3. Vzájemná vzdálenost poboček v jedné obci nebude nižší než 3 km vzdušnou čarou.
+    - do vzdálenosti 10 km od letiště
+    - do vzdálenosti 3 km od dálnic a rychlostních silnic
 
-Jakou finanční úsporu jste schopni svým návrhem zajistit, pokud by provoz jedné pobočky vycházel ročně na 2,5 milionu CZK? Pro zjednodušení budete úlohu řešit pouze v rámci Plzeňského kraje a ke každé pobočce přistupovat rovnocenně.
+    <br>
+    Na základě analýzy zodpovězte následující otázky:
+    
+    - Jak velké území Česka zabírají jednotlivé typy (dle zdroje hluku) oblasti vysoké hlučnosti?
+    - Kolik obcí je ohroženo vysokou mírou hluku jak ze silnic, tak i z letišť? Ve kterém kraji je takto dotčených obcí nejvíce? 
 
+    <br>
+    Vytvořte jednoduchou vizualizaci, která bude rozlišovat 3 typy oblasti vysoké hlučnosti dle zdroje hluku:
+    
+    - silnice
+    - letiště
+    - silnice+letiště
+
+    <figure markdown>
+      ![Ukázka vizualizace oblasti vysoké hlučnosti na území Česka](../assets/cviceni4/VysokaHlucnost_vizualizace.png "Ukázka vizualizace oblasti vysoké hlučnosti na území Česka"){ width=500px }
+      <figcaption>Ukázka vizualizace oblasti vysoké hlučnosti na území Česka</figcaption>
+    </figure>
+ 
+
+    <br>
+    **DATOVÉ ZDROJE:**
+    
+      Datová sada [ArcČR 500](../../data/#arccr-500) v3.3 (dostupné na disku *S* ve složce
+    ``K155\Public\data\GIS\ArcCR500 3.3``).
+    
+    
+    <br>
+    **POSTUP:**
+
+    - Vytvoření obalových kolem letišť a vybraných typů silnic dle zadaných kritérií --> nástroj *Buffer*
+    - Vytvoření odvozené vrstvy, ve které budou geometricky odlišeny 3 typy oblasti vysoké hlučnosti dle zdroje hluku (silnice vs. letiště vs. silnice+letiště) --> nástroj *Union*
+    - Oříznutí vrstvy oblasti vysoké hlučnosti dle hranic Česka --> nástroj *Clip*
+    - Tvorba vizualizace (základní mapa, symbol letiště, barva, prolnutí)
+
+<!--
 ## Pracovní postup
 
 **1.** Výběr obcí v Plzeňském kraji s více než 2500 obyvateli (atributový dotaz) a tvorba samostatné vrstvy selektovaných prvků.
@@ -127,8 +151,9 @@ Jakou finanční úsporu jste schopni svým návrhem zajistit, pokud by provoz j
   <figcaption>Pobočky pošty, kterou mohou být zachovány.</figcaption>
 </figure>
 
-**11**. Závěrem lze porovnat, jak rušení poboček České pošty v r. 2023 skutečně proběhlo; přehled naleznete např. [zde](https://www.seznamzpravy.cz/clanek/fakta-ceska-posta-zrusene-pobocky-seznam-mapa-231064). Celý problém je samozřejmě složitější, jelikož finální výběr ovlivnily další faktory jako priorita pobočky (hlavní vs. vedljší), bezbariérovost, apod.
+**11**. Závěrem lze porovnat, jak rušení poboček České pošty v r. 2023 skutečně proběhlo; přehled naleznete např. [zde](https://www.seznamzpravy.cz/clanek/fakta-ceska-posta-zrusene-pobocky-seznam-mapa-231064). Celý problém je samozřejmě složitější, jelikož finální výběr ovlivnily další faktory jako priorita pobočky (hlavní vs. vedljší), bezbariérovost, apod. -->
 
+<!-- 
 ## Domácí úloha: Kulturní míle
 
 *Pracovní postup:*
@@ -154,14 +179,14 @@ Jakou finanční úsporu jste schopni svým návrhem zajistit, pokud by provoz j
 10. Dokončete rozvržení: vložte mapové okno, přidejte nadpis, podnadpis, legendu a tiráž. Níže inspirace.
 
 ![](../assets/cviceni3/culturemile.png){ .no-filter .off-glb }
-{: align=center}
+{: align=center} -->
 
 ## Úlohy k procvičení
 
 !!! task-fg-color "Úlohy"
 
     K řešení následujích úloh použijte datovou sadu [ArcČR
-    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složce
     ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete souboru s
     popisem dat ve formátu PDF.
 
