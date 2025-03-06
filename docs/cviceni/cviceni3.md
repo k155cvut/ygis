@@ -34,29 +34,41 @@ Využití základních geoprocessingových nástrojů GIS v rámci řešení kom
 !!! abstract "Oblast vysoké hlučnosti"
     **ZADÁNÍ:**
 
-    V rámci Česka vymezte oblast vysoké hlučnosti, která je definována následujícími kritérii:
+    V rámci Česka vymezte oblast vysoké a zvýšené hlučnosti, která jsou definovány následujícími kritérii:
 
-    - do vzdálenosti 10 km od letiště
-    - do vzdálenosti 3 km od dálnic a rychlostních silnic
+    1. oblast vysoké hlučnosti
+    
+        - do vzdálenosti 10 km od letiště
+        - do vzdálenosti 3 km od dálnic a rychlostních silnic
+
+    2. oblast zvýšené hlučnosti
+    
+        - ve vzdálenosti 10–20 km od letiště
+        - ve vzdálenosti 3–6 km od dálnic a rychlostních silnic
+
+    <br>
+    Vytvořte 2 jednoduché vizualizace, která bude rozlišovat hlučné oblasti dle:
+    
+      1. dle stupně hlučnosti (zvýšená vs. vysoká)
+      
+      2. dle zdroje hluku (silnice vs. letiště vs. silnice+letiště)
+
+
+    <figure markdown>
+      ![Ukázka vizualizace oblasti vysoké hlučnosti na území Česka](../assets/cviceni4/Hlucnost_vizualizace.png "Ukázka vizualizace oblasti vysoké hlučnosti na území Česka"){ width=600px }
+      <figcaption>Ukázka vizualizace oblasti vysoké hlučnosti na území Česka</figcaption>
+    </figure>
+ 
 
     <br>
     Na základě analýzy zodpovězte následující otázky:
     
-    - Jak velké území Česka zabírají jednotlivé typy (dle zdroje hluku) oblasti vysoké hlučnosti?
-    - Kolik obcí je ohroženo vysokou mírou hluku jak ze silnic, tak i z letišť? Ve kterém kraji je takto dotčených obcí nejvíce? 
+    - Jak velké území Česka zabírají leží v oblasti vysoké hlučnosti?
+    - Jak velké území Česka zabírají leží v hlučné oblasti způsobené silniční dopravou (bez ohledu na stupeň hlučnosti)?
+    - Kolik obcí je ohroženo hlučností jak ze silnic, tak i z letišť? Ve kterém kraji je takto dotčených obcí nejvíce?
+    - Jak velké území Česka leží v oblasti normální hlučnosti?
+    - Jaké procento chráněných krajinných oblasti je zasaženou zvýšenou nebo vysokou mírou hluku?
 
-    <br>
-    Vytvořte jednoduchou vizualizaci, která bude rozlišovat 3 typy oblasti vysoké hlučnosti dle zdroje hluku:
-    
-    - silnice
-    - letiště
-    - silnice+letiště
-
-    <figure markdown>
-      ![Ukázka vizualizace oblasti vysoké hlučnosti na území Česka](../assets/cviceni4/VysokaHlucnost_vizualizace.png "Ukázka vizualizace oblasti vysoké hlučnosti na území Česka"){ width=600px }
-      <figcaption>Ukázka vizualizace oblasti vysoké hlučnosti na území Česka</figcaption>
-    </figure>
- 
 
     <br>
     **DATOVÉ ZDROJE:**
@@ -69,9 +81,11 @@ Využití základních geoprocessingových nástrojů GIS v rámci řešení kom
     **POSTUP:**
 
     - Vytvoření obalových kolem letišť a vybraných typů silnic dle zadaných kritérií --> nástroj *Buffer*
-    - Vytvoření odvozené vrstvy, ve které budou geometricky odlišeny 3 typy oblasti vysoké hlučnosti dle zdroje hluku (silnice vs. letiště vs. silnice+letiště) --> nástroj *Union*
-    - Oříznutí vrstvy oblasti vysoké hlučnosti dle hranic Česka --> nástroj *Clip*
+    - Vytvoření odvozené vrstvy, ve které budou geometricky odlišeny hlučné oblasti dle stupně hluku (zvýšená vs. vysoká) a dle zdroje hluku (silnice vs. letiště vs. silnice+letiště) --> nástroj *Union* + nástroj "Dissolve"
+    - Oříznutí vrstev dle hranic Česka --> nástroj *Clip*
     - Tvorba vizualizace (základní mapa, symbol letiště, barva, prolnutí)
+
+
 
 <!--
 ## Pracovní postup
