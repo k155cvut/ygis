@@ -34,7 +34,7 @@ Využití základních geoprocessingových nástrojů GIS v rámci řešení kom
 !!! abstract "Oblast vysoké hlučnosti"
     **ZADÁNÍ:**
 
-    V rámci Česka vymezte oblast vysoké a zvýšené hlučnosti, která jsou definovány následujícími kritérii:
+    V rámci Česka vymezte oblasi vysoké a zvýšené hlučnosti, které jsou definovány následujícími kritérii:
 
     1. oblast vysoké hlučnosti
     
