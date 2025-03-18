@@ -119,7 +119,7 @@ Processing templates jsou šablony, které se používají pro získání různ�
 Dostupné šablony pro konkrétní rastrovou službu najdeme v záložce _:material-tab: Data_{: .outlined_code} po vybrání požadvané vrstvy. Možnosti se zobrazí po rozkliknutí tlačítka _:material-button-cursor: Processing Templates_{: .outlined_code}
 
 
-<figure markdown>
+<figure markdown> 
   ![](../assets/cviceni5/processing_tem.png){width="800"}
   <figcaption>Zobrazení dostupných processing templates</figcaption>
 </figure>
