@@ -1,7 +1,5 @@
 # Semestrální práce – Analýza území
 
-##
-
 ## Zadání
 
 Jsou zadána tato ORP:
@@ -23,8 +21,9 @@ Vaším úkolem je připravit mapový poster (infografiku), která se bude věno
 - nová **rozhledna**,
 - nová **skládka**.
 
+<hr class="level-1">
 
-### SOLÁRNÍ ELEKTRÁRNA
+### **SOLÁRNÍ ELEKTRÁRNA**
 
 <div markdown>
 
@@ -71,8 +70,9 @@ __:material-layers: Kritérium využití pozemku__
 
 **Min. součet bodového ohodnocení je 7.**
 
+<hr class="level-1">
 
-### ROZHLEDNA
+### **ROZHLEDNA**
 
 Max. přípustná výška stavby je 35 m, přičemž pozorovací ochoz je ve výšce 32 m.
 Najděte 2–3 místa (v rámci ORP), odkud bude největší plocha rozhledu (včetně okolí ORP). Zjistěte, jaká je viditelnost významných budov (kostel, zámek, hrad)
@@ -81,8 +81,9 @@ Využijte digitální model povrchu DMP1G.
 
 Do mapového posteru vložte několik obrázků ze scény s modelovanou viditelností. Můžete volitelně namodelovat i budovu rozhledny.
 
+<hr class="level-1">
 
-### SKLÁDKA
+### **SKLÁDKA**
 
 #### Podmínky
 
@@ -92,26 +93,14 @@ Do mapového posteru vložte několik obrázků ze scény s modelovanou viditeln
 | Půdy | jíl nebo jiná nepropustná hornina |
 | Hladina podzemní vody | území s nízkou hladinou podzemní vody |
 | Záplavové území | mimo Q20 a nižší |
+| Sklonitost terénu | do 4,5° sklonu  |
 | Vzdálenost od vodního toku nebo plochy | min.	200 m |
 | Vzdálenost od stavebního objektu <br> (`zpusobvyuzitikod = 2,3,4,5,6,7,8,9,10,11,13,14,15`) | min. 300 m |
 | Vzdálenost od MZChÚ | min. 300 m |
 | Vzdálenost od ChOPAV | min. 500 m |
 | Vzdálenost k pozemním komunikacím | silnice III. tř. a vyšší max. 250 m daleko |
 
-<div markdown>
-
-__:material-layers: Kritérium sklonitosti svahu__
-{align="left" style="margin:0px;"}
-
-|OHODNOCENÍ| VLASTNOST                     |
-|---|---------------------------|
-| 3 | Území do 2° sklonu |
-| 2 | Území do 4,5° sklonu  |
-| 1 | Území do 7,5° sklonu  |
-| 0 | Území nad 7,5° sklonu |
-
-</div>
-
+<hr class="level-1">
 
 ## OBECNĚ
 
