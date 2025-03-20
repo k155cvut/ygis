@@ -4,8 +4,124 @@
 
 ## Zadání
 
-Zadání bude upřesněno začátkem semestru. 
-Bude se jednat o analýzu zadaného území z různých hledisek s využitím poznatků získaných během semestru. 
+Jsou zadána tato ORP:
+
+- **Dobruška**
+- **Nový Bor**
+- **Mělník**
+- **Strážnice**
+- **Bystřice n. Pern.**
+- **Kaplice**
+- **Mariánské Lázně**
+- **Chomutov**
+- **Kladno**
+- **Chotěboř**
+
+Vaším úkolem je připravit mapový poster (infografiku), která se bude věnovat analýze území dané ORP s ohledem na vhodnost stavby tří objektů:
+
+- nová **solární elektrárna**,
+- nová **rozhledna**,
+- nová **skládka**.
+
+
+### SOLÁRNÍ ELEKTRÁRNA
+
+<div markdown>
+
+__:material-layers: Kritérium sklonitosti svahu__
+{align="left" style="margin:0px;"}
+
+|OHODNOCENÍ| VLASTNOST  |
+|---|---------------------------|
+| 3 | Území do 1° sklonu |
+| 2 | Území do 4° sklonu   |
+| 1 | Území do 7° sklonu      |
+| 0 | Území nad 7° sklonu    |
+
+</div>
+
+<div markdown>
+
+__:material-layers: Kritérium orientace svahu__
+{align="left" style="margin:0px;"}
+
+|OHODNOCENÍ| VLASTNOST  |
+|---|---------------------------|
+| 1 | 110°–135° |
+| 2 | 135°–160°      |
+| 3 | 160°–200°     |
+| 2 | 200°–225°    |
+| 1 | 225°–250°    |
+| 0 | jinak    |
+
+</div>
+
+<div markdown>
+
+__:material-layers: Kritérium využití pozemku__
+{align="left" style="margin:0px;"}
+
+|OHODNOCENÍ| VLASTNOST                     |
+|---|---------------------------|
+| 3 | louka, trvalý travní porost |
+| 1 | orná půda      |
+| 0 | jinak    |
+
+</div>
+
+**Min. součet bodového ohodnocení je 7.**
+
+
+### ROZHLEDNA
+
+Max. přípustná výška stavby je 35 m, přičemž pozorovací ochoz je ve výšce 32 m.
+Najděte 2–3 místa (v rámci ORP), odkud bude největší plocha rozhledu (včetně okolí ORP). Zjistěte, jaká je viditelnost významných budov (kostel, zámek, hrad)
+
+Využijte digitální model povrchu DMP1G.
+
+Do mapového posteru vložte několik obrázků ze scény s modelovanou viditelností. Můžete volitelně namodelovat i budovu rozhledny.
+
+
+### SKLÁDKA
+
+#### Podmínky
+
+|TYP PODMÍNKY| VZDÁLENOST NEBO HODNOTA                     |
+|---|---------------------------|
+| Plocha | min. 1 ha |
+| Půdy | jíl nebo jiná nepropustná hornina |
+| Hladina podzemní vody | území s nízkou hladinou podzemní vody |
+| Záplavové území | mimo Q20 a nižší |
+| Vzdálenost od vodního toku nebo plochy | min.	200 m |
+| Vzdálenost od stavebního objektu (`zpusobvyuzitityp = 2,3,4,5,6,7,8,9,10,11,13,14,15`) | min. 300 m |
+| Vzdálenost od MZChÚ | min. 300 m |
+| Vzdálenost od ChOPAV | min. 500 m |
+| Vzdálenost k pozemním komunikacím | silnice III. tř. a vyšší max. 250 m daleko |
+
+<div markdown>
+
+__:material-layers: Kritérium sklonitosti svahu__
+{align="left" style="margin:0px;"}
+
+|OHODNOCENÍ| VLASTNOST                     |
+|---|---------------------------|
+| 3 | Území do 2° sklonu |
+| 2 | Území do 4,5° sklonu  |
+| 1 | Území do 7,5° sklonu  |
+| 0 | Území nad 7,5° sklonu |
+
+</div>
+
+
+## OBECNĚ
+
+- Výstup bude formou tištěného mapového posteru velikosti min. A2.
+- Mimo vizualizací by měl poster obsahovat základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území).
+- Výstupy analýz budou doprovozeny textem interpretujícím výsledky.
+
+
+
+
 
 <!--
 
