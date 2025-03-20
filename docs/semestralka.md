@@ -47,11 +47,11 @@ __:material-layers: Kritérium orientace svahu__
 
 |OHODNOCENÍ| VLASTNOST  |
 |---|---------------------------|
-| 1 | 110°–135° |
-| 2 | 135°–160°      |
-| 3 | 160°–200°     |
-| 2 | 200°–225°    |
-| 1 | 225°–250°    |
+| 1 | azimut 110°–135° |
+| 2 | azimut 135°–160°      |
+| 3 | azimut 160°–200°     |
+| 2 | azimut 200°–225°    |
+| 1 | azimut 225°–250°    |
 | 0 | jinak    |
 
 </div>
@@ -93,7 +93,7 @@ Do mapového posteru vložte několik obrázků ze scény s modelovanou viditeln
 | Hladina podzemní vody | území s nízkou hladinou podzemní vody |
 | Záplavové území | mimo Q20 a nižší |
 | Vzdálenost od vodního toku nebo plochy | min.	200 m |
-| Vzdálenost od stavebního objektu (`zpusobvyuzitityp = 2,3,4,5,6,7,8,9,10,11,13,14,15`) | min. 300 m |
+| Vzdálenost od stavebního objektu <br> (`zpusobvyuzitikod = 2,3,4,5,6,7,8,9,10,11,13,14,15`) | min. 300 m |
 | Vzdálenost od MZChÚ | min. 300 m |
 | Vzdálenost od ChOPAV | min. 500 m |
 | Vzdálenost k pozemním komunikacím | silnice III. tř. a vyšší max. 250 m daleko |
