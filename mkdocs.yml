@@ -7,6 +7,8 @@ nav:
       - Prostorové funkce (geoprocessing), spatial join: cviceni/cviceni3.md
       - Souřadnicové referenční systémy v ČR | přehled typů dat a zdrojů, webové mapové služby | připojení externích dat: cviceni/cviceni4.md
       - Rastrová data | georeferencování: cviceni/cviceni5.md
+      - Tvorba digitálního modelu terénu: cviceni/cviceni6.md
+      - Topografická analýza povrchu, reklasifikace rastrových dat: cviceni/cviceni7.md
   - Semestrální práce: semestralka.md
   - Datové zdroje: data.md
   # - Výuková videa: videa.md
