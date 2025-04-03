@@ -40,6 +40,7 @@ Ve cvičení se naučíte
 - [**visibility**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/visibility.htm){target="_blank"}
 - [**raster surface toolset**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/an-overview-of-the-raster-surface-toolset.htm){target="_blank"}
 - [**aspect-slope**](https://pro.arcgis.com/en/pro-app/latest/help/analysis/raster-functions/aspect-slope-function.htm){target="_blank"}
+- [**raster calculator**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/raster-calculator.htm){target="_blank"}
 
 
 ## Náplň cvičení
