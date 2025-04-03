@@ -17,73 +17,88 @@ Jsou zadána tato ORP:
 
 Vaším úkolem je připravit mapový poster (infografiku), která se bude věnovat analýze území dané ORP s ohledem na vhodnost stavby tří objektů:
 
-- nová **solární elektrárna**,
-- nová **rozhledna**,
-- nová **skládka**.
+- nová **solární elektrárna** :material-solar-power-variant:{ .lg .middle } ,
+- nová **rozhledna** :material-tower-fire:{ .lg .middle },
+- nová **skládka** :material-dump-truck:{ .lg .middle }.
 
 <hr class="level-1">
+### :material-solar-power-variant:{ .lg .middle } **SOLÁRNÍ ELEKTRÁRNA**
 
-### **SOLÁRNÍ ELEKTRÁRNA**
+V zadaném ORP identifikujte **vhodné plochy pro výstavbu solární elektrárny**{style="text-transform:uppercase;"}.
 
-<div markdown>
+Při analýze zohledněte následující hodnoticí kritéria:
 
-__:material-layers: Kritérium sklonitosti svahu__
-{align="left" style="margin:0px;"}
+- :material-slope-uphill:{ .lg .middle } **Sklonitost svahu:** Pro instalaci solárních panelů jsou vhodné zejména rovinaté nebo mírně svažité terény.
 
-|OHODNOCENÍ| VLASTNOST  |
+<div style="text-align:center;" markdown>
+
+| Sklonitost | Bodové ohodnocení  |
 |---|---------------------------|
-| 3 | Území do 1° sklonu |
-| 2 | Území do 4° sklonu   |
-| 1 | Území do 7° sklonu      |
-| 0 | Území nad 7° sklonu    |
+| 0–1° | 3 |
+| 1–4° | 2 |
+| 4–7° | 1 |
+| >7° | 0 |
 
 </div>
 
-<div markdown>
+- :material-sun-angle:{ .lg .middle } **Orientace svahu:** Pro instalaci solárních panelů jsou vhodné zejméne plochy orientované na jih, jihovýchod nebo jihozápad.
 
-__:material-layers: Kritérium orientace svahu__
-{align="left" style="margin:0px;"}
+<div style="text-align:center;" markdown>
 
-|OHODNOCENÍ| VLASTNOST  |
+| Orientace svahu | Bodové ohodnocení  |
 |---|---------------------------|
-| 1 | azimut 110°–135° |
-| 2 | azimut 135°–160°      |
-| 3 | azimut 160°–200°     |
-| 2 | azimut 200°–225°    |
-| 1 | azimut 225°–250°    |
-| 0 | jinak    |
+| azimut 0°–112,5° | 0 |
+| azimut 112,5°–135° (VJV-JV)| 1 |
+| azimut 135°–157,5° (JV-JJV) | 2 |
+| azimut 157,5°–202,5° (JJV-J-JJZ) | 3 |
+| azimut 202,5°–225°  (JJZ-JZ)| 2 |
+| azimut 225°–247,5° (JZ-ZJZ) | 1 |
+| azimut 247,5°–360° | 0 |
 
 </div>
 
-<div markdown>
+- :material-island-variant:{ .lg .middle } **Typ využití půdy:** Pro výstavbu solární elektrárny jsou vhodné např. trvalé travní porosty, solární elektrárnu je však možné vybudovat i na orné půdě. 
 
-__:material-layers: Kritérium využití pozemku__
-{align="left" style="margin:0px;"}
+<div style="text-align:center;" markdown>
 
-|OHODNOCENÍ| VLASTNOST                     |
+| Typ využití půdy | Bodové ohodnocení  |
 |---|---------------------------|
-| 3 | louka, trvalý travní porost |
-| 1 | orná půda      |
-| 0 | jinak    |
+| louka, trvalý travní porost | 3 |
+| orná půda   | 1 |
+| ostatní typy | 0 |
 
 </div>
 
-**Min. součet bodového ohodnocení je 7.**
+
+Plocha pro výstavbu solární elektrárny je považována za vhodnou, pokud její celkové bodové ohodnocení dosahuje **MIN. 7 BODŮ**.
+
+Na základě výsledků analýzy vytvořte přehlednou vizualizaci zobrazující lokality vhodné pro výstavbu solární elektrárny v zadaném ORP, jednotlivé lokality rozlište do 3 kategorií dle vhodnosti podmínek *(např. méně vhodná lokalita (7 b.)/ vyhovující lokalita (8–9 b.)/ optimální lokalita (10 b.))*.
+
+- **DATOVÉ ZDROJE:**
+
+    [:material-layers: DMR5G ](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmr5g/ImageServer){ .md-button .md-button--primary .button_smaller target="_blank"}
+    [:material-layers: ZABAGED ]("''OrnaPudaAOstatniDaleNespecifikovanePlochy', 'TrvalyTravniPorost'' "){ .md-button .md-button--primary .button_smaller}
+    {: .button_array style="justify-content:flex-start;"}
+
 
 <hr class="level-1">
 
-### **ROZHLEDNA**
+### :material-tower-fire:{ .lg .middle } **ROZHLEDNA**
 
-Max. přípustná výška stavby je 35 m, přičemž pozorovací ochoz je ve výšce 32 m.
-Najděte 2–3 místa (v rámci ORP), odkud bude největší plocha rozhledu (včetně okolí ORP). Zjistěte, jaká je viditelnost významných budov (kostel, zámek, hrad)
+Z 10 nejvyšších výškových bodů v zadaném ORP identifikujte **3 nejvhodnější lokality pro výstavbu rozhledny**{style="text-transform:uppercase;"}. Hlavním kritériem výběru lokality je viditelnost co největší plochy zadaného ORP. Maximální přípustná výška stavby je 35 m, přičemž pozorovací ochoz je ve výšce 32 m. Zjistěte, jaká je viditelnost významných budov (kostel, zámek, hrad).
 
-Využijte digitální model povrchu DMP1G.
+Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokality pro výstavbu rozhledny s modelovanou viditelností. Ve scéně můžete libovolně vyznačit budovy či významné krajinné prvky, které jsou z dané lokality viditelné. Volitelně můžete namodelovat i samotnou stavbu rozhledny.
 
-Do mapového posteru vložte několik obrázků ze scény s modelovanou viditelností. Můžete volitelně namodelovat i budovu rozhledny.
+- **DATOVÉ ZDROJE:**
+
+    [:material-layers: DMP1G ](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmp1g/ImageServer){ .md-button .md-button--primary .button_smaller target="_blank"}
+    [:material-layers: Data50 ]("''KotovanyBod', 'Kostel', 'VezovitaStavba', 'Zamek', 'Zricenina', 'Hrad''"){ .md-button .md-button--primary .button_smaller}
+    [:material-layers: ZABAGED ]("''KotovanyBod', 'BudovaJednotlivaNeboBlokBudov''"){ .md-button .md-button--primary .button_smaller}
+    {: .button_array style="justify-content:flex-start;"}
 
 <hr class="level-1">
 
-### **SKLÁDKA**
+### :material-dump-truck:{ .lg .middle } **SKLÁDKA**
 
 #### Podmínky
 
