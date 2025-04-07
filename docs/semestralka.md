@@ -70,7 +70,7 @@ Při analýze zohledněte následující hodnoticí kritéria:
 </div>
 
 
-Plocha pro výstavbu solární elektrárny je považována za vhodnou, pokud její celkové bodové ohodnocení dosahuje **MIN. 7 BODŮ**.
+Plocha pro výstavbu solární elektrárny je považována za vhodnou, pokud má rozlohu více než 1ha a její celkové bodové ohodnocení dosahuje **MIN. 7 BODŮ**.
 
 Na základě výsledků analýzy vytvořte přehlednou vizualizaci zobrazující lokality vhodné pro výstavbu solární elektrárny v zadaném ORP.
 
