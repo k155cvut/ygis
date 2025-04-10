@@ -22,6 +22,7 @@ Vaším úkolem je připravit mapový poster (infografiku), která se bude věno
 - nová **skládka** :material-dump-truck:{ .lg .middle }.
 
 <hr class="level-1">
+<div class="annotate" markdown>
 ### :material-solar-power-variant:{ .lg .middle } **SOLÁRNÍ ELEKTRÁRNA**
 
 V zadaném ORP identifikujte **vhodné plochy pro výstavbu solární elektrárny**{style="text-transform:uppercase;"}.
@@ -70,16 +71,33 @@ Při analýze zohledněte následující hodnoticí kritéria:
 </div>
 
 
-Plocha pro výstavbu solární elektrárny je považována za vhodnou, pokud má rozlohu více než 1ha a její celkové bodové ohodnocení dosahuje **MIN. 7 BODŮ**.
+Plocha pro výstavbu solární elektrárny je považována za vhodnou, pokud má **rozlohu více než 1ha** a její celkové bodové ohodnocení dosahuje **min. 7 bodů**.
 
 Na základě výsledků analýzy vytvořte přehlednou vizualizaci zobrazující lokality vhodné pro výstavbu solární elektrárny v zadaném ORP.
 
 - **DATOVÉ ZDROJE:**
 
     [:material-layers: DMR5G ](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmr5g/ImageServer){ .md-button .md-button--primary .button_smaller target="_blank"}
-    [:material-layers: ZABAGED ]("''OrnaPudaAOstatniDaleNespecifikovanePlochy', 'TrvalyTravniPorost'' "){ .md-button .md-button--primary .button_smaller}
+    [:material-layers: ZABAGED ]("disk S, adresář K155\Public\data\ArcGIS\ --> vrstvy 'OrnaPudaAOstatniDaleNespecifikovanePlochy', 'TrvalyTravniPorost'' "){ .md-button .md-button--primary .button_smaller}
     {: .button_array style="justify-content:flex-start;"}
 
+
+???+ note-fg-color "Jak na to?"
+    
+    1. připravte si DMR5G pro své území
+        - *Add Data From Path* --> *Data-Export Raster* __(1)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(2)__{title="nastavení parametrů funkce Extract by Mask"}
+    2. připravte si polygonové vrstvy ``OrnaPudaAOstatniDaleNespecifikovanePlochy`` a ``TrvalyTravniPorost`` ze [**ZABAGED**]("disk S, adresář K155\Public\data\ArcGIS\ ") pro své území
+        - z vrstvy ``OrnaPudaAOstatniDaleNespecifikovanePlochy``vyberte pouze požadované typy ploch *(Select By Attributes)* 
+        - ořízněte vrstvy dle hranic ORP *(Clip)*
+        - jednotlivé vrstvy spojte do jedné vrstvy *(Merge)* 
+        - v atributové tabulce nově vzniklé vrstvy vytvořte nový atribut ``hodnoceni`` *(Add Field)*--> hodnoty pro jednotlivé typy ploch vyplňte dle zadaných kritérií *(Calculate Field)*
+        - polygonovou vrstvu převeďte na rastr *(Feature to Raster)* __(3)__{title="nastavení parametrů funkce Feature to Raster"} __(4)__{title="nastavení Environments funkce Feature to Raster"}
+    3. vytvořte rastry sklonitosti *(Slope)* a orientace svahů *(Aspect)* (nezapomeňte v *Environments* nastavit parametry *Output Coordinate System*, Cell Size** a **Snap Raster**)
+    4. proveďte reklasifikaci rastrů sklonitosti a orientace svahů dle zadaných kritérií *(Reclassify)* __(5)__{title="nastavení parametrů nástroje Reclassify pro rastr orientace svahů"}
+    5. zkombinujte rastry využití plochy, sklonitosti a orientace svahů do jednoho rastru, jež bude území ORP klasifikovat dle bodového hodnocení zadaných podmínek *(Raster Calculator)* __(6)__{title="nástroj Raster Calculator"}
+    6. výstupní rastr opět reklasifikujte, aby zobrazoval pouze území vhodné pro výstavbu solární elektrárny (minimálně 7 bodů)
+    7. převeďte rastr na polygonovou vrstvu *(Raster to Polygon)* a vyberte pouze území splňující zadané kritérium, které je větší než 1 ha *(Select By Attributes)*
+    8. polygonovou vrstvu vhoďte upravte *(Eliminate Polygon Part)* a vizualizujte *(Symbology)*
 
 <hr class="level-1">
 
@@ -114,6 +132,15 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 | Vzdálenost od MZChÚ | min. 300 m |
 | Vzdálenost od ChOPAV | min. 500 m |
 | Vzdálenost k pozemním komunikacím | silnice III. tř. a vyšší max. 250 m daleko |
+
+</div>
+
+1.  ![](../assets/cviceni7/ExportRasterDialog.png){ .no-filter width=500px} nastavení parametrů funkce Export Raster
+2.  ![](../assets/cviceni7/ExtractByMask.png){ .no-filter width=500px} nastavení parametrů funkce Extract by Mask
+3.  ![](../assets/cviceni7/FeatureToRaster.png){ .no-filter width=500px} nastavení parametrů funkce Feature to Raster
+4.  ![](../assets/cviceni7/FeatureToRaster_Environments.png){ .no-filter width=500px} nastavení Environments funkce Feature to Raster
+5.  ![](../assets/cviceni7/Reclassify_Aspect.png){ .no-filter width=500px} nastavení parametrů nástroje Reclassify pro rastr sklonitosti
+6.  ![](../assets/cviceni7/RasterCalculator.png){ .no-filter width=500px} nástroj Raster Calculator
 
 <hr class="level-1">
 
