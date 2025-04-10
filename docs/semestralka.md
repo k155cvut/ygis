@@ -92,7 +92,7 @@ Na základě výsledků analýzy vytvořte přehlednou vizualizaci zobrazující
         - jednotlivé vrstvy spojte do jedné vrstvy *(Merge)* 
         - v atributové tabulce nově vzniklé vrstvy vytvořte nový atribut ``hodnoceni`` *(Add Field)*--> hodnoty pro jednotlivé typy ploch vyplňte dle zadaných kritérií *(Calculate Field)*
         - polygonovou vrstvu převeďte na rastr *(Feature to Raster)* __(3)__{title="nastavení parametrů funkce Feature to Raster"} __(4)__{title="nastavení Environments funkce Feature to Raster"}
-    3. vytvořte rastry sklonitosti *(Slope)* a orientace svahů *(Aspect)* (nezapomeňte v *Environments* nastavit parametry *Output Coordinate System*, Cell Size** a **Snap Raster**)
+    3. vytvořte rastry sklonitosti *(Slope)* a orientace svahů *(Aspect)* (nezapomeňte v *Environments* nastavit parametry *Output Coordinate System*, *Cell Size* a *Snap Raster*)
     4. proveďte reklasifikaci rastrů sklonitosti a orientace svahů dle zadaných kritérií *(Reclassify)* __(5)__{title="nastavení parametrů nástroje Reclassify pro rastr orientace svahů"}
     5. zkombinujte rastry využití plochy, sklonitosti a orientace svahů do jednoho rastru, jež bude území ORP klasifikovat dle bodového hodnocení zadaných podmínek *(Raster Calculator)* __(6)__{title="nástroj Raster Calculator"}
     6. výstupní rastr opět reklasifikujte, aby zobrazoval pouze území vhodné pro výstavbu solární elektrárny (minimálně 7 bodů)
