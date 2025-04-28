@@ -19,7 +19,7 @@ Vaším úkolem je připravit mapový poster (infografiku), která se bude věno
 
 - nová **solární elektrárna** :material-solar-power-variant:{ .lg .middle } ,
 - nová **rozhledna** :material-tower-fire:{ .lg .middle },
-- nová **skládka** :material-dump-truck:{ .lg .middle }.
+- nová **skládka** :material-dump-truck:{ .lg .middle }. *(VOLITELNÉ)*
 
 <hr class="level-1">
 <div class="annotate" markdown>
@@ -114,9 +114,24 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
     [:material-layers: ZABAGED ]("''KotovanyBod', 'BudovaJednotlivaNeboBlokBudov''"){ .md-button .md-button--primary .button_smaller}
     {: .button_array style="justify-content:flex-start;"}
 
+???+ note-fg-color "Jak na to?"
+    
+    1. připravte si DMP1G pro své území
+        - *Add Data From Path* --> *Data-Export Raster* __(1)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(2)__{title="nastavení parametrů funkce Extract by Mask"}
+    2. připravte si bodovou vrstvu ``KotovanyBod`` ze [**ZABAGED**]("disk S, adresář K155\Public\data\ArcGIS\ ") nebo [**Data50**]("disk S, adresář K155\Public\data\ArcGIS\ ") pro své území
+        - ořízněte vrstvu dle hranic ORP *(Clip)* nebo vyhledejte výškové kóty na základě polohy *(Select By Location)* __(7)__{title="výběr prvků na základě polohy"}
+        - v atributové tabulce vrstvy vyberte pouze 10 nejvyšších kót ve Vašem ORP a vytvořte novou vrstvu *(Data-Export Features)*
+    3. vytvořte rastr viditelnosti pro vrstvu s 10 výškovými kótami *(Visibility)* (nezapomeňte v *Observer parameters* nastavit parametr *Observer offset* dle výšky pozorovatele na plošině rozhledny) __(8)__{title="nastavení parametrů funkce Visibility"}
+    4. vyberte 3 lokality, ze kterých je vidět největší plocha Vašeho území
+        - pro jednotlivé výškové kóty (OBSXY) postupně sumarizujte počet viditelných pixelů *(název atributu-Summarize)* __(9)__{title="nastavení funkce Summary Statistics"} 
+        - dle jednotlivých sumarizačních tabulek určete, které tři lokality mají pro hodnotu "1" největší počet pixelů __(10)__{title="počet pixelů viditelných z dané lokality"}
+    5. vytvořte vizualizaci rastru viditelnosti pro vybrané 3 lokality
+        - v nastavení symbologie vrstvy nastavte *Primary symbology-Unique Values* dle atributu vybraného lokality (např. OBS1) __(11)__{title="nastavení symbologie rastru viditelnosti"}
+        - v seznamu vrstev si vytvořte další dvě kopie tohoto rastru a symbolizujte vrstvu dle atributů zbývajících lokalit
+
 <hr class="level-1">
 
-### :material-dump-truck:{ .lg .middle } **SKLÁDKA**
+### :material-dump-truck:{ .lg .middle } **SKLÁDKA** *(VOLITELNÉ)*
 
 #### Podmínky
 
@@ -141,6 +156,11 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 4.  ![](../assets/cviceni7/FeatureToRaster_Environments.png){ .no-filter width=500px} nastavení Environments funkce Feature to Raster
 5.  ![](../assets/cviceni7/Reclassify_Aspect.png){ .no-filter width=500px} nastavení parametrů nástroje Reclassify pro rastr sklonitosti
 6.  ![](../assets/cviceni7/RasterCalculator.png){ .no-filter width=500px} nástroj Raster Calculator
+7.  ![](../assets/cviceni7/SelectByLocation.png){ .no-filter width=500px} výběr prvků na základě polohy
+8.  ![](../assets/cviceni7/Visibility.png){ .no-filter width=500px} nastavení parametrů funkce Visibility
+9.  ![](../assets/cviceni7/SummaryStat.png){ .no-filter width=500px} nastavení funkce Summary Statistics
+10. ![](../assets/cviceni7/SummaryStatTable.png){ .no-filter width=500px} počet pixelů viditelných z dané lokality
+11. ![](../assets/cviceni7/Symbology.png){ .no-filter width=500px} nastavení symbologie rastru viditelnosti
 
 <hr class="level-1">
 
