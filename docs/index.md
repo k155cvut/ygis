@@ -108,5 +108,41 @@ Přednášky vás provedou základní teorií, cvičení se věnují praktickém
 5. Tuček J. (1998): Geografické informační systémy, Praha Computer Press, 1998.
 6. Geletič, J., Hladiš, L., Šimáček, P. (2019): [GIS pro geografy. Distanční studijní opora](https://geography.upol.cz/soubory/studium/opory/D_GIS.pdf). Univerzita Palackého v Olomouci, 141 s.
 
+<hr class="level-1">
 
-<br>
+## **Cvičení** 
+
+účast doporučená
+{: style="opacity:50%;margin-top:0;"}
+
+![](https://geomatics.fsv.cvut.cz/wp-content/uploads/2022/01/03-edit_export@0.5x-1.jpg){: .off-glb .no-filter style="height: 1.5em; vertical-align: -.4em; clip-path: circle();"} 
+[__prof. Ing. Jiří Cajthaml, Ph.D.__](https://geomatics.fsv.cvut.cz/en/employees/jiri-cajthaml/)__&nbsp;__{style="margin-left:1rem;"}
+![](https://geomatics.fsv.cvut.cz/wp-content/uploads/2022/01/iconmonstr-user-male-thin.png){: .off-glb .no-filter style="height: 1.5em; vertical-align: -.4em; clip-path: circle();"} 
+[__Ing. Tomáš Janata, Ph.D.__](https://geomatics.fsv.cvut.cz/en/employees/tomas-janata/)__&nbsp;__{style="margin-left:1rem;"}
+![](https://geomatics.fsv.cvut.cz/wp-content/uploads/2022/01/03-edit_export@0.5x-16.jpg){: .off-glb .no-filter style="height: 1.5em; vertical-align: -.4em; clip-path: circle();"} 
+[__Mgr. Petra Justová, Ph.D.__](https://geomatics.fsv.cvut.cz/en/employees/petra-justova/)__&nbsp;__{style="margin-left:1rem;"}
+![](https://geomatics.fsv.cvut.cz/wp-content/uploads/2022/01/03-edit_export@0.3x.jpg){: .off-glb .no-filter style="height: 1.5em; vertical-align: -.4em; clip-path: circle();"} 
+[__Ing. Vojtěch Cehák__](https://geomatics.fsv.cvut.cz/employees/vojtech-cehak/)
+
+1. Úvod do práce v prostředí ArcGIS. Prostorová data – rastry, vektory, datové zdroje
+2. Vektorová data, atributové dotazy, prostorové dotazy
+3. Prostorové funkce (geoprocessing), spatial join
+4. Souřadnicové referenční systémy v ČR. Přehled typů dat a zdrojů, odkud data získat. Webové mapové služby. Připojení externích dat.
+5. Rastrová data, georeferencování
+6. Výškové rastry, TIN, vrstevnice, analýzy viditelnosti
+7. Analýzy viditelnosti
+8. Topografická analýza povrchu, reklasifikace rastrových dat)
+9. 3D data, reprezentace dat ve 3D prostoru
+10. Tvorba mapy, layout
+
+
+## Harmonogram (LS2025) {: style="margin-bottom:0;"}
+
+Aktuální harmonogram LS2025 je dostupný na [__GeoWikiCZ__](https://geo.fsv.cvut.cz/gwiki/155YGIS_ArcGIS){.color_def .underlined_dotted .external_link_icon target="_blank"}
+
+[![](./assets/index/schedule_LS2025.png){.off-glb .no-filter style="width: 300px;"}](https://kos.cvut.cz/schedule/course/155YGIS/semester/B242){target="_blank"}
+
+---
+
+[Stránka předmětu v :custom-kos-logo-img-BW:{.middle style="margin-left:3px;"} :custom-kos-logo-BW:{.xl .middle}](https://kos.cvut.cz/course-syllabus/155YGIS/B242){ .md-button .md-button--primary target="_blank"}
+{align=center}
