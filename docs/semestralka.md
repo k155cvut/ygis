@@ -117,7 +117,7 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 ???+ note-fg-color "Jak na to?"
     
     1. připravte si DMP1G pro své území
-        - *Add Data From Path* --> *Data-Export Raster* __(1)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(2)__{title="nastavení parametrů funkce Extract by Mask"}
+        - *Add Data From Path* --> *Data-Export Raster* __(12)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(13)__{title="nastavení parametrů funkce Extract by Mask"}
     2. připravte si bodovou vrstvu ``KotovanyBod`` ze [**ZABAGED**]("disk S, adresář K155\Public\data\ArcGIS\ ") nebo [**Data50**]("disk S, adresář K155\Public\data\ArcGIS\ ") pro své území
         - ořízněte vrstvu dle hranic ORP *(Clip)* nebo vyhledejte výškové kóty na základě polohy *(Select By Location)* __(7)__{title="výběr prvků na základě polohy"}
         - v atributové tabulce vrstvy vyberte pouze 10 nejvyšších kót ve Vašem ORP a vytvořte novou vrstvu *(Data-Export Features)*
@@ -161,6 +161,8 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 9.  ![](../assets/cviceni7/SummaryStat.png){ .no-filter width=500px} nastavení funkce Summary Statistics
 10. ![](../assets/cviceni7/SummaryStatTable.png){ .no-filter width=500px} počet pixelů viditelných z dané lokality
 11. ![](../assets/cviceni7/Symbology.png){ .no-filter width=500px} nastavení symbologie rastru viditelnosti
+12.  ![](../assets/cviceni7/ExportRasterDialog.png){ .no-filter width=500px} nastavení parametrů funkce Export Raster
+13.  ![](../assets/cviceni7/ExtractByMask.png){ .no-filter width=500px} nastavení parametrů funkce Extract by Mask
 
 <hr class="level-1">
 
