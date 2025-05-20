@@ -168,7 +168,7 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 
 ## OBECNĚ
 
-- Výstup bude formou tištěného mapového posteru velikosti min. A2.
+- Výstup bude formou tištěného mapového posteru velikosti min. **A1**.
 - Mimo vizualizací by měl poster obsahovat základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území).
 - Výstupy analýz budou doprovozeny textem interpretujícím výsledky.
 
@@ -251,4 +251,4 @@ Bude rozesláno emailem.
 -->
 
 ## Termín
-- **informační den** k semestrální práci proběhne 15. května, **do 31. května** se pak předpokládá **odevzdání**.
+- odevzdání tištěného posteru **DO STŘEDY 18. ČERVNA**
