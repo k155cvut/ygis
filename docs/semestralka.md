@@ -251,4 +251,4 @@ Bude rozesláno emailem.
 -->
 
 ## Termín
-- odevzdání tištěného posteru **DO STŘEDY 18. ČERVNA**
+- odevzdání tištěného posteru **DO STŘEDY 18. ČERVNA, DO 12.00 HOD**
