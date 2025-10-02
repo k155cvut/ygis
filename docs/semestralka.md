@@ -1,7 +1,7 @@
 # Semestrální práce – Analýza území
 
 ## Zadání
-
+<!--
 Jsou zadána tato ORP:
 
 - **Dobruška**
@@ -13,13 +13,13 @@ Jsou zadána tato ORP:
 - **Mariánské Lázně**
 - **Chomutov**
 - **Kladno**
-- **Chotěboř**
+- **Chotěboř** -->
 
-Vaším úkolem je připravit mapový poster (infografiku), která se bude věnovat analýze území dané ORP s ohledem na vhodnost stavby tří objektů:
+Vaším úkolem je připravit tištěný mapový poster či webovou mapovou aplikaci, která se bude věnovat analýze území dané ORP s ohledem na vhodnost stavby tří objektů:
 
 - nová **solární elektrárna** :material-solar-power-variant:{ .lg .middle } ,
 - nová **rozhledna** :material-tower-fire:{ .lg .middle },
-- nová **skládka** :material-dump-truck:{ .lg .middle }. *(VOLITELNÉ)*
+- nová **skládka** :material-dump-truck:{ .lg .middle }.
 
 <hr class="level-1">
 <div class="annotate" markdown>
@@ -131,7 +131,7 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 
 <hr class="level-1">
 
-### :material-dump-truck:{ .lg .middle } **SKLÁDKA** *(VOLITELNÉ)*
+### :material-dump-truck:{ .lg .middle } **SKLÁDKA**
 
 #### Podmínky
 
@@ -168,11 +168,13 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 
 ## OBECNĚ
 
-- Výstup bude formou tištěného mapového posteru velikosti min. **A1**.
-- Mimo vizualizací by měl poster obsahovat základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území).
+- Výstup bude odevzdán ve formě tištěného mapového posteru velikosti min. **A2**.¨nebo v podobě webové mapové aplikace.
+- Kromě vizualizace provedených analýz by měl poster/webová mapová aplikace obsahovat základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území).
 - Výstupy analýz budou doprovozeny textem interpretujícím výsledky.
 
 
+## Termín
+- Prezentace projektu **VE ČTVRTEK 18. PROSINCE**
 
 
 
@@ -250,5 +252,3 @@ Bude rozesláno emailem.
 
 -->
 
-## Termín
-- odevzdání tištěného posteru **DO STŘEDY 18. ČERVNA, DO 12.00 HOD**
