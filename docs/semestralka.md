@@ -1,25 +1,17 @@
 # Semestrální práce – Analýza území
 
 ## Zadání
-<!--
-Jsou zadána tato ORP:
 
-- **Dobruška**
-- **Nový Bor**
-- **Mělník**
-- **Strážnice**
-- **Bystřice n. Pern.**
-- **Kaplice**
-- **Mariánské Lázně**
-- **Chomutov**
-- **Kladno**
-- **Chotěboř** -->
-
-Vaším úkolem je připravit tištěný mapový poster či webovou mapovou aplikaci, která se bude věnovat analýze území dané ORP s ohledem na vhodnost stavby tří objektů:
+Připravte tištěný mapový poster či webovou mapovou aplikaci, který/á se bude věnovat analýze území dané ORP (viz výše) s ohledem na vhodnost stavby tří objektů:
 
 - nová **solární elektrárna** :material-solar-power-variant:{ .lg .middle } ,
 - nová **rozhledna** :material-tower-fire:{ .lg .middle },
 - nová **skládka** :material-dump-truck:{ .lg .middle }.
+
+
+??? task-fg-color "Individuální zadání"
+    <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQfN5ojqTC5jXvkKUlyuNzHbgnunUQHZ2tbxWmFeYRKKgx-a3Mq3v2FXlNcAX9ebQ/pubhtml?gid=967359062&single=true" width="100%" height="300" frameBorder="0"></iframe>
+
 
 <hr class="level-1">
 <div class="annotate" markdown>
@@ -82,7 +74,7 @@ Na základě výsledků analýzy vytvořte přehlednou vizualizaci zobrazující
     {: .button_array style="justify-content:flex-start;"}
 
 
-???+ note-fg-color "Jak na to?"
+???+ task-fg-color "Jak na to?"
     
     1. připravte si DMR5G pro své území
         - *Add Data From Path* --> *Data-Export Raster* __(1)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(2)__{title="nastavení parametrů funkce Extract by Mask"}
@@ -114,7 +106,7 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
     [:material-layers: ZABAGED ]("''KotovanyBod', 'BudovaJednotlivaNeboBlokBudov''"){ .md-button .md-button--primary .button_smaller}
     {: .button_array style="justify-content:flex-start;"}
 
-???+ note-fg-color "Jak na to?"
+???+ task-fg-color "Jak na to?"
     
     1. připravte si DMP1G pro své území
         - *Add Data From Path* --> *Data-Export Raster* __(12)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(13)__{title="nastavení parametrů funkce Extract by Mask"}
@@ -133,7 +125,32 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 
 ### :material-dump-truck:{ .lg .middle } **SKLÁDKA**
 
-#### Podmínky
+V zadaném ORP identifikujte **vhodné plochy pro výstavbu skládky**{style="text-transform:uppercase;"}.
+
+Při analýze zohledněte následující podmínky:
+
+<div style="text-align:center;" markdown>
+
+| Podmínka | vzdálenost/hodnota |
+|---|---------------------------|
+| Plocha | min. 1 ha |
+| Záplavové území | mimo Q20 a nižší |
+| Vzdálenost od vodního toku nebo plochy | min.	200 m |
+| Vzdálenost od OPVZ a OPVN | min. 200 m |
+| Vzdálenost od stavebního objektu <br> (`zpusobvyuzitikod = 2,3,4,5,6,7,8,9,10,11,13,14,15`) | min. 300 m |
+| Vzdálenost od MZChÚ či OP MZChÚ | min. 300 m |
+| Vzdálenost k pozemním komunikacím | silnice III. tř. a vyšší max. 250 m daleko |
+
+</div>
+
+- **DATOVÉ ZDROJE:**
+
+    [:material-layers: HEIS VÚV ](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmp1g/ImageServer){ .md-button .md-button--primary .button_smaller target="_blank"}
+    [:material-layers: AOPK ]("''KotovanyBod', 'Kostel', 'VezovitaStavba', 'Zamek', 'Zricenina', 'Hrad''"){ .md-button .md-button--primary .button_smaller}
+    [:material-layers: ZABAGED ]("''KotovanyBod', 'BudovaJednotlivaNeboBlokBudov''"){ .md-button .md-button--primary .button_smaller}
+    {: .button_array style="justify-content:flex-start;"}
+
+<!-- původní zadání (B241)
 
 |TYP PODMÍNKY| VZDÁLENOST NEBO HODNOTA                     |
 |---|---------------------------|
@@ -146,7 +163,7 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 | Vzdálenost od stavebního objektu <br> (`zpusobvyuzitikod = 2,3,4,5,6,7,8,9,10,11,13,14,15`) | min. 300 m |
 | Vzdálenost od MZChÚ | min. 300 m |
 | Vzdálenost od ChOPAV | min. 500 m |
-| Vzdálenost k pozemním komunikacím | silnice III. tř. a vyšší max. 250 m daleko |
+| Vzdálenost k pozemním komunikacím | silnice III. tř. a vyšší max. 250 m daleko | -->
 
 </div>
 
@@ -166,16 +183,15 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 
 <hr class="level-1">
 
-## OBECNĚ
+## Výstup
 
-- Výstup bude odevzdán ve formě tištěného mapového posteru velikosti min. **A2**.¨nebo v podobě webové mapové aplikace.
-- Kromě vizualizace provedených analýz by měl poster/webová mapová aplikace obsahovat základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území).
-- Výstupy analýz budou doprovozeny textem interpretujícím výsledky.
+???+ note-grey "Základní parametry semestrální práce"
+    - Výstup bude odevzdán ve formě tištěného mapového posteru velikosti min. **A2** nebo v podobě webové mapové aplikace.
+    - Kromě vizualizace provedených analýz by měl poster/webová mapová aplikace obsahovat základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území).
+    - Výstupy analýz budou doprovozeny textem interpretujícím výsledky.
 
 
-## Termín
-- Prezentace projektu **VE ČTVRTEK 18. PROSINCE**
-
+Termín prezentace: __čtvrtek 18. prosince__{.outlined} 
 
 
 <!--

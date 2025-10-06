@@ -1,6 +1,6 @@
 ---
-icon: material/numeric-4-box
-title: Cvičení 4 – Souřadnicové ref. systémy, připojení negisovských dat
+icon: material/numeric-2-box
+title: Souřadnicové ref. systémy, připojení negisovských dat
 ---
 
 # Souřadnicové referenční systémy v ČR | přehled typů dat a zdrojů, webové mapové služby | připojení externích dat

@@ -3,9 +3,9 @@ nav:
   - 155YGIS – charakteristika: index.md
   - Cvičení:
       - Úvod do práce v prostředí ArcGIS, prostorová data, datové zdroje, atributová tabulka: cviceni/cviceni1.md
+      - Souřadnicové referenční systémy v ČR | přehled typů dat a zdrojů, webové mapové služby | připojení externích dat: cviceni/cviceni4.md
       - Vektorová data, atributové dotazy, prostorové dotazy: cviceni/cviceni2.md
       - Prostorové funkce (geoprocessing), spatial join: cviceni/cviceni3.md
-      - Souřadnicové referenční systémy v ČR | přehled typů dat a zdrojů, webové mapové služby | připojení externích dat: cviceni/cviceni4.md
       - Rastrová data | georeferencování: cviceni/cviceni5.md
       - Tvorba digitálního modelu terénu: cviceni/cviceni6.md
       - Topografická analýza povrchu, reklasifikace rastrových dat: cviceni/cviceni7.md
