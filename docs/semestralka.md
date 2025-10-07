@@ -63,9 +63,12 @@ Při analýze zohledněte následující hodnoticí kritéria:
 </div>
 
 
-Plocha pro výstavbu solární elektrárny je považována za vhodnou, pokud má **rozlohu více než 1ha** a její celkové bodové ohodnocení dosahuje **min. 7 bodů**.
+Plocha pro výstavbu solární elektrárny je považována za vhodnou, pokud má **rozlohu více než 1 ha** a její celkové bodové ohodnocení dosahuje **min. 7 bodů**.
 
-Na základě výsledků analýzy vytvořte přehlednou vizualizaci zobrazující lokality vhodné pro výstavbu solární elektrárny v zadaném ORP.
+Z výsledků analýzy vyberte **3 nejvhodnější lokality pro výstavbu solární elektrárny**{style="text-transform:uppercase;"} dle jejich celkové rozlohy a bodového ohodnocení. Ve finálním výběru prioritizujte lokality, které mají nejvyšší bodové ohodnocení. 
+
+Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné vizualizaci uveďte pro jednotlivé lokality následující atributy: plocha v hektarech, celkové bodové ohodnocení.
+
 
 - **DATOVÉ ZDROJE:**
 
@@ -95,7 +98,7 @@ Na základě výsledků analýzy vytvořte přehlednou vizualizaci zobrazující
 
 ### :material-tower-fire:{ .lg .middle } **ROZHLEDNA**
 
-Z 10 nejvyšších výškových bodů v zadaném ORP identifikujte **3 nejvhodnější lokality pro výstavbu rozhledny**{style="text-transform:uppercase;"}. Hlavním kritériem výběru lokality je viditelnost co největší plochy zadaného ORP. Maximální přípustná výška stavby je 35 m, přičemž pozorovací ochoz je ve výšce 32 m. Zjistěte, jaká je viditelnost významných budov (kostel, zámek, hrad).
+Z 5 nejvyšších výškových bodů v zadaném ORP identifikujte **nejvhodnější lokalitu pro výstavbu rozhledny**{style="text-transform:uppercase;"}. Hlavním kritériem výběru lokality je viditelnost co největší plochy zadaného ORP. Maximální přípustná výška stavby je 35 m, přičemž pozorovací ochoz je ve výšce 32 m. Zjistěte, jaká je viditelnost významných budov (kostel, zámek, hrad).
 
 Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokality pro výstavbu rozhledny s modelovanou viditelností. Ve scéně můžete libovolně vyznačit budovy či významné krajinné prvky, které jsou z dané lokality viditelné. Volitelně můžete namodelovat i samotnou stavbu rozhledny.
 
@@ -112,14 +115,13 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
         - *Add Data From Path* --> *Data-Export Raster* __(12)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(13)__{title="nastavení parametrů funkce Extract by Mask"}
     2. připravte si bodovou vrstvu ``KotovanyBod`` ze [**ZABAGED**]("disk S, adresář K155\Public\data\ArcGIS\ ") nebo [**Data50**]("disk S, adresář K155\Public\data\ArcGIS\ ") pro své území
         - ořízněte vrstvu dle hranic ORP *(Clip)* nebo vyhledejte výškové kóty na základě polohy *(Select By Location)* __(7)__{title="výběr prvků na základě polohy"}
-        - v atributové tabulce vrstvy vyberte pouze 10 nejvyšších kót ve Vašem ORP a vytvořte novou vrstvu *(Data-Export Features)*
-    3. vytvořte rastr viditelnosti pro vrstvu s 10 výškovými kótami *(Visibility)* (nezapomeňte v *Observer parameters* nastavit parametr *Observer offset* dle výšky pozorovatele na plošině rozhledny) __(8)__{title="nastavení parametrů funkce Visibility"}
-    4. vyberte 3 lokality, ze kterých je vidět největší plocha Vašeho území
+        - v atributové tabulce vrstvy vyberte pouze 5 nejvyšších kót ve Vašem ORP a vytvořte novou vrstvu *(Data-Export Features)*
+    3. vytvořte rastr viditelnosti pro vrstvu s 5 výškovými kótami *(Visibility)* (nezapomeňte v *Observer parameters* nastavit parametr *Observer offset* dle výšky pozorovatele na plošině rozhledny) __(8)__{title="nastavení parametrů funkce Visibility"}
+    4. vyberte lokalitu, ze které je vidět největší plocha Vašeho území
         - pro jednotlivé výškové kóty (OBSXY) postupně sumarizujte počet viditelných pixelů *(název atributu-Summarize)* __(9)__{title="nastavení funkce Summary Statistics"} 
-        - dle jednotlivých sumarizačních tabulek určete, které tři lokality mají pro hodnotu "1" největší počet pixelů __(10)__{title="počet pixelů viditelných z dané lokality"}
-    5. vytvořte vizualizaci rastru viditelnosti pro vybrané 3 lokality
+        - dle jednotlivých sumarizačních tabulek určete, která lokalita má pro hodnotu "1" největší počet pixelů __(10)__{title="počet pixelů viditelných z dané lokality"}
+    5. vytvořte vizualizaci rastru viditelnosti pro vybranou lokalitu
         - v nastavení symbologie vrstvy nastavte *Primary symbology-Unique Values* dle atributu vybraného lokality (např. OBS1) __(11)__{title="nastavení symbologie rastru viditelnosti"}
-        - v seznamu vrstev si vytvořte další dvě kopie tohoto rastru a symbolizujte vrstvu dle atributů zbývajících lokalit
 
 <hr class="level-1">
 
@@ -127,21 +129,32 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 
 V zadaném ORP identifikujte **vhodné plochy pro výstavbu skládky**{style="text-transform:uppercase;"}.
 
-Při analýze zohledněte následující podmínky:
+V primární fázi analýzy zohledněte následující podmínky:
 
 <div style="text-align:center;" markdown>
 
-| Podmínka | vzdálenost/hodnota |
+| Podmínka | Vzdálenost/hodnota |
 |---|---------------------------|
 | Plocha | min. 1 ha |
+| Krajinný pokryv | trvalý travní porost |
 | Záplavové území | mimo Q20 a nižší |
 | Vzdálenost od vodního toku nebo plochy | min.	200 m |
 | Vzdálenost od OPVZ a OPVN | min. 200 m |
 | Vzdálenost od stavebního objektu <br> (`zpusobvyuzitikod = 2,3,4,5,6,7,8,9,10,11,13,14,15`) | min. 300 m |
 | Vzdálenost od MZChÚ či OP MZChÚ | min. 300 m |
-| Vzdálenost k pozemním komunikacím | silnice III. tř. a vyšší max. 250 m daleko |
 
 </div>
+
+Z výsledků primární fáze analýzy vyberte **3 nejvhodnější lokality pro výstavbu skládky**{style="text-transform:uppercase;"} dle jejich vzdálenosti od pozemní komunikace a lesa. Ve finálním výběru prioritizujte lokality, které se nachází co nejdále od lesa, ale zároveň nejsou příliš vzdáleny od pozemní komunikace (silnice III. třídy a vyšší).
+
+Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné vizualizaci uveďte pro jednotlivé lokality následující atributy: plocha v hektarech, vzdálenost od nejbližší silnice a lesa v metrech.
+
+
+<figure markdown>
+  ![Ukázka vizualizace analýzy pro výstavbu skládky v ORP Mělník](../assets/SP/Melnik_skladka_TOP3.png "Ukázka vizualizace analýzy pro výstavbu skládky v ORP Mělník"){ width=600px }
+  <figcaption>Ukázka vizualizace analýzy pro výstavbu skládky v ORP Mělník</figcaption>
+</figure>
+
 
 - **DATOVÉ ZDROJE:**
 
