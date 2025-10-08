@@ -2,7 +2,7 @@
 
 ## Zadání
 
-Připravte tištěný mapový poster či webovou mapovou aplikaci, který/á se bude věnovat analýze území dané ORP (viz výše) s ohledem na vhodnost stavby tří objektů:
+Připravte tištěný mapový poster či webovou mapovou aplikaci, který/á se bude věnovat analýze území dané ORP (viz níže) s ohledem na vhodnost stavby tří objektů:
 
 - nová **solární elektrárna** :material-solar-power-variant:{ .lg .middle } ,
 - nová **rozhledna** :material-tower-fire:{ .lg .middle },
@@ -92,7 +92,7 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
     5. zkombinujte rastry využití plochy, sklonitosti a orientace svahů do jednoho rastru, jež bude území ORP klasifikovat dle bodového hodnocení zadaných podmínek *(Raster Calculator)* __(6)__{title="nástroj Raster Calculator"}
     6. výstupní rastr opět reklasifikujte, aby zobrazoval pouze území vhodné pro výstavbu solární elektrárny (minimálně 7 bodů)
     7. převeďte rastr na polygonovou vrstvu *(Raster to Polygon)* a vyberte pouze území splňující zadané kritérium, které je větší než 1 ha *(Select By Attributes)*
-    8. polygonovou vrstvu vhoďte upravte *(Eliminate Polygon Part)* a vizualizujte *(Symbology)*
+    8. polygonovou vrstvu vhodně upravte *(Eliminate Polygon Part)* a vizualizujte *(Symbology)*
 
 <hr class="level-1">
 
@@ -129,14 +129,12 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 
 V zadaném ORP identifikujte **vhodné plochy pro výstavbu skládky**{style="text-transform:uppercase;"}.
 
-V primární fázi analýzy zohledněte následující podmínky:
+Při analýze zohledněte následující podmínky:
 
 <div style="text-align:center;" markdown>
 
 | Podmínka | Vzdálenost/hodnota |
 |---|---------------------------|
-| Plocha | min. 1 ha |
-| Krajinný pokryv | trvalý travní porost |
 | Záplavové území | mimo Q20 a nižší |
 | Vzdálenost od vodního toku nebo plochy | min.	200 m |
 | Vzdálenost od OPVZ a OPVN | min. 200 m |
@@ -144,8 +142,9 @@ V primární fázi analýzy zohledněte následující podmínky:
 | Vzdálenost od MZChÚ či OP MZChÚ | min. 300 m |
 
 </div>
+Plocha pro výstavbu skládky je považována za vhodnou, pokud má **rozlohu více než 1 ha** a nachází se na **trvalém travním porostu**.
 
-Z výsledků primární fáze analýzy vyberte **3 nejvhodnější lokality pro výstavbu skládky**{style="text-transform:uppercase;"} dle jejich vzdálenosti od pozemní komunikace a lesa. Ve finálním výběru prioritizujte lokality, které se nachází co nejdále od lesa, ale zároveň nejsou příliš vzdáleny od pozemní komunikace (silnice III. třídy a vyšší).
+Z výsledků analýzy vyberte **3 nejvhodnější lokality pro výstavbu skládky**{style="text-transform:uppercase;"} dle jejich vzdálenosti od pozemní komunikace a lesa. Ve finálním výběru prioritizujte lokality, které se nachází co nejdále od lesa, ale zároveň nejsou příliš vzdáleny od pozemní komunikace (silnice III. třídy a vyšší).
 
 Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné vizualizaci uveďte pro jednotlivé lokality následující atributy: plocha v hektarech, vzdálenost od nejbližší silnice a lesa v metrech.
 
@@ -158,11 +157,43 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
 
 - **DATOVÉ ZDROJE:**
 
-    [:material-layers: HEIS VÚV ](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmp1g/ImageServer){ .md-button .md-button--primary .button_smaller target="_blank"}
-    [:material-layers: AOPK ]("''KotovanyBod', 'Kostel', 'VezovitaStavba', 'Zamek', 'Zricenina', 'Hrad''"){ .md-button .md-button--primary .button_smaller}
-    [:material-layers: ZABAGED ]("''KotovanyBod', 'BudovaJednotlivaNeboBlokBudov''"){ .md-button .md-button--primary .button_smaller}
-    {: .button_array style="justify-content:flex-start;"}
+    [:material-layers: RÚIAN ](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "''StavebniObjekt', 'ObecSRozsirenouPusobnosti''"){ .md-button .md-button--primary .button_smaller target="_blank"}
+    [:material-layers: HEIS VÚV ](https://heis.vuv.cz/data/spusteni/identchk.asp?typ=03 "''Ochranná pásma vodních zdrojů', 'Ochranná pásma vodárenských nádrží', 'Záplavová území Q20''"){ .md-button .md-button--primary .button_smaller target="_blank"}
+    [:material-layers: AOPK ](https://data.nature.cz/ "''Maloplošná zvláště chráněná území', 'Ochranná pásma MZCHÚ''"){ .md-button .md-button--primary .button_smaller}
+    [:material-layers: ZABAGED ](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "''Lesní půda se stromy', 'Silnice, dálnice', 'Trvalý travní porost', 'Vodní plocha', 'Vodní tok''"){ .md-button .md-button--primary .button_smaller}
+    {: .button_array style="justify-content:flex-start;"} 
 
+
+???+ task-fg-color "Jak na to?"
+    
+    1. přidání dat
+        - přes *Add Data From Path* přidejte do mapy požadované vrstvy od [**RÚIAN**](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer"){ target="_blank"} a [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} z mapových služeb ArcGIS REST 
+        - přes *Catalog-Servers* (či *Insert-Connections*) připojte mapové služby WFS od [**AOPK**](https://gis.nature.cz/arcgis/services/Aplikace/Opendata/MapServer/WFSServer "https://gis.nature.cz/arcgis/services/Aplikace/Opendata/MapServer/WFSServer"){ target="_blank"} a [**HEIS VÚV**](https://ags2.vuv.cz/arcgis/services/isvs_voda/isvs_voda/MapServer/WFSServer "https://ags2.vuv.cz/arcgis/services/isvs_voda/isvs_voda/MapServer/WFSServer"){ target="_blank"} a přidejte do mapy požadované vrstvy __(12)__{title="připojení WFS serveru"}
+    2. připrava zadaného území
+        - z vrstvy ``ObecSRozsirenouPusobnosti`` vytvořte novou vrstvu, která bude obsahovat pouze hranice zadaného ORP *(Select)* __(13)__{title="výběr prvku v nástroji Select"}
+        - kolem území ORP vytvořte obalovou zónu o šířce 300 m *(Buffer)* __(14)__{title="nastavení parametrů nástroje Buffer"}
+    3. připrava tematických vrstev
+        - z vrstev mapových služeb hromadně extrahujte pouze prvky v rozsahu území ORP včetně obalové zóny 300 m *(Select-batch)* __(15)__{title="práce s proměnnou %Name% v názvu vrstvy"} __(16)__{title="nastavení rozsahu zpracování v nástroji Select"}
+        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP s obalovou zónou 300m *(Clip-batch)*
+        - z vrstvy ``StavebniObjekty`` vyberte pouze požadované typy ploch *(Select By Attributes)*
+        - vrstvy ``Maloplošná zvláště chráněná území`` a ``Ochranná pásma MZCHÚ`` spojte do jedné vrstvy *(Merge)* 
+    4. příprava omezujících ploch
+        - kolem příslušných vrstev vytvořte obalovou zónu o zadané šířce *(Buffer-batch)*
+        - nově vzniklé vrstvy s obalovými zónami spojte do jedné vrstvy, která bude vymezovat tzv. omezující plochy *(Merge)*
+    5. vlastní analýza
+        - od plochy zadaného území (bez obalové zóny) odečtěte vrstvu s omezujícími plochami *(Erase)* __(17)__{title="nastavení parametrů nástroje Erase"}
+        - nově vzniklou vrstvu prostorově překryjte s vrstvou ``Trvalý travní porost`` *(Intersect)*
+        - z prvků nové vrstvy (vytvořené po prostorovém překrytí) vyberte pouze území větší než 1 ha *(Select By Attributes)*
+        - výběr exportujte do samostatné vrstvy *(Data-Export Features)* či vhodně nastavte výraz v *Definition Query*
+    6. kritérium vzdálenosti
+        - pro finální vrstvu prvků nejprve vypočtěte vzdálenost k pozemním komunikacím *(Near)*, vhodně pojmenujte výstupní atribut, např. ``NEAR_DIST_silnice`` __(18)__{title="nastavení parametrů nástroje Near"}
+        - poté identickým způsobem vypočtěte pro finální vrstvu prvků i vzdálenost k lesům *(Near)*, vhodně pojmenujte výstupní atribut, např. ``NEAR_DIST_les``
+    7. výběr nejvhodnějších lokalit
+        - ve finální vrstvě seřaďte atributy dle vzdálenosti k lesu a ve výběru prioritizujte lokality, které se nachází co nejdále od lesa, ale zároveň nejsou příliš vzdáleny od pozemní komunikace (maximálně do 500 m)
+    8. mapový poster
+        - vybrané prvky vhodně vizualizujte *(Symbology)*
+        - *TBA*
+        
 <!-- původní zadání (B241)
 
 |TYP PODMÍNKY| VZDÁLENOST NEBO HODNOTA                     |
@@ -191,8 +222,17 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
 9.  ![](../assets/cviceni7/SummaryStat.png){ .no-filter width=500px} nastavení funkce Summary Statistics
 10. ![](../assets/cviceni7/SummaryStatTable.png){ .no-filter width=500px} počet pixelů viditelných z dané lokality
 11. ![](../assets/cviceni7/Symbology.png){ .no-filter width=500px} nastavení symbologie rastru viditelnosti
-12.  ![](../assets/cviceni7/ExportRasterDialog.png){ .no-filter width=500px} nastavení parametrů funkce Export Raster
-13.  ![](../assets/cviceni7/ExtractByMask.png){ .no-filter width=500px} nastavení parametrů funkce Extract by Mask
+12. ![](../assets/SP/WFS.png){ .no-filter width=500px} připojení WFS serveru
+13. ![](../assets/SP/Select_VyberORP.png){ .no-filter width=500px} výběr prvku v nástroji Select
+14. ![](../assets/SP/buffer.png){ .no-filter width=500px} nastavení parametrů nástroje Buffer
+15. ![](../assets/SP/SelectBatch.png){ .no-filter width=500px} práce s proměnnou %Name% v názvu vrstvy
+16. ![](../assets/SP/Select_ProcessingExtent_buffer.png){ .no-filter width=500px} nastavení rozsahu zpracování v nástroji Select
+17. ![](../assets/SP/erase.png){ .no-filter width=500px} nastavení parametrů nástroje Erase
+18. ![](../assets/SP/near.png){ .no-filter width=500px} nastavení parametrů nástroje Near
+19. ![](../assets/SP/Select_ProcessingExtent_buffer.png){ .no-filter width=500px} nastavení rozsahu zpracování v nástroji Select
+20. ![](../assets/SP/Select_ProcessingExtent_buffer.png){ .no-filter width=500px} nastavení rozsahu zpracování v nástroji Select
+
+
 
 <hr class="level-1">
 
