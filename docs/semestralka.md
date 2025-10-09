@@ -239,12 +239,15 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
 ## Výstup
 
 ???+ note-grey "Základní parametry semestrální práce"
-    - Výstup bude odevzdán ve formě tištěného mapového posteru velikosti min. **A2** nebo v podobě webové mapové aplikace.
-    - Kromě vizualizace provedených analýz by měl poster/webová mapová aplikace obsahovat základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území).
-    - Výstupy analýz budou doprovozeny textem interpretujícím výsledky.
+    Výstup lze odevzdat jako:
+        a. **tištěný mapový poster** o velikosti min. **A2**, který bude obsahovat základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území), zadání jednotlivých analýz a zejména mapové vizualizace výstupů všech analýz (včetně pohledu 3D scény*), které budou doprovozeny textem interpretujícím výsledky (např. kolik % plochy ORP je vhodných pro výstavbu daného objektu, které lokality a proč byl vybrány jako nejvhodnější). 
+        b. **tištěný dokument**, který bude obsahovat textovou část a obrazové přílohy. V textové části bde uvedena základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území), zadání jednotlivých analýz a text interpretující výsledky (např. kolik % plochy ORP je vhodných pro výstavbu daného objektu, které lokality a proč byl vybrány jako nejvhodnější). Obrazové přílohy pak budou tvořit mapové vizualizace výstupů všech analýz (včetně pohledu 3D scény*).
+        c. **webovou mapovou aplikaci/story mapu**, která bude obsahovat základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území), zadání jednotlivých analýz a zejména vizualizace výstupů všech analýz ve formě webových map (včetně pohledu 3D scény*), které budou doprovozeny textem interpretujícím výsledky (např. kolik % plochy ORP je vhodných pro výstavbu daného objektu, které lokality a proč byl vybrány jako nejvhodnější).
+
+        **3D scénu lze vytvořit webovém prostředí a v tištěném výstupu na ní pouze vhodně odkázat (link, QR kód)*
 
 
-Termín prezentace: __čtvrtek 18. prosince__{.outlined} 
+Termín odevzdání: __čtvrtek 29. ledna 2026__{.outlined} 
 
 
 <!--
