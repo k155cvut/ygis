@@ -191,8 +191,20 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
     7. výběr nejvhodnějších lokalit
         - ve finální vrstvě seřaďte atributy dle vzdálenosti k lesu a ve výběru prioritizujte lokality, které se nachází co nejdále od lesa, ale zároveň nejsou příliš vzdáleny od pozemní komunikace (maximálně do 500 m)
     8. mapový poster
-        - vybrané prvky vhodně vizualizujte *(Symbology)*
-        - *TBA*
+        - vybrané prvky vhodně vizualizujte *(Symbology)* a popište (nový sloupec v AT, např. Lokalita 1–3)
+        - finalizujte layout:
+                
+            a. vhodně nastavte parametry layoutu (formát A3, orientace dle charakteru území)
+            
+            b. vhodně nastavte transparentnost podkladové mapy
+            
+            c. rozsah hlavní mapy omezte dle obalové zóny ORP *(Map-Properties-Clip layers)*
+            
+            d. ve vedlejších mapách zobrazte detail vybraných 3 lokalit (duplikace původní mapy, tvorba záložek, kopie map framů)
+            
+            e. vhodně nastavte referenční měřítko všech map
+            
+            f. u každé vedlejší mapy uveďte název lokality, její plochu a vzdálenost od lesa a pozemní komunikace (vložte jako dynamický text, plochu uvádějte v ha --> výpočet přes *Calculate Field*, uvádějte max. na 2 desetinná místa)
         
 <!-- původní zadání (B241)
 
