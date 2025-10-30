@@ -73,7 +73,7 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
 - **DATOVÉ ZDROJE:**
 
     [:material-layers: DMR5G ](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmr5g/ImageServer){ .md-button .md-button--primary .button_smaller target="_blank"}
-    [:material-layers: ZABAGED ]("disk S, adresář K155\Public\data\ArcGIS\ --> vrstvy 'OrnaPudaAOstatniDaleNespecifikovanePlochy', 'TrvalyTravniPorost'' "){ .md-button .md-button--primary .button_smaller}
+    [:material-layers: ZABAGED ](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer " ''Orná půda a ostatní dále nespecifikované plochy', 'Trvalý travní porost'' "){ .md-button .md-button--primary .button_smaller target="_blank"}
     {: .button_array style="justify-content:flex-start;"}
 
 
@@ -81,9 +81,13 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
     
     1. připravte si DMR5G pro své území
         - *Add Data From Path* --> *Data-Export Raster* __(1)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(2)__{title="nastavení parametrů funkce Extract by Mask"}
-    2. připravte si polygonové vrstvy ``OrnaPudaAOstatniDaleNespecifikovanePlochy`` a ``TrvalyTravniPorost`` ze [**ZABAGED**]("disk S, adresář K155\Public\data\ArcGIS\ ") pro své území
-        - z vrstvy ``OrnaPudaAOstatniDaleNespecifikovanePlochy``vyberte pouze požadované typy ploch *(Select By Attributes)* 
-        - ořízněte vrstvy dle hranic ORP *(Clip)*
+        
+            **pozn. v případě potřeby exportujte rastr pro své území po více (vzájemně se překrývajících) částech, poté oba rastry spojte nástrojem Mosaic to Raster*
+    2. připrava vektorových vrstev
+        -  přes *Add Data From Path* přidejte do mapy požadované vrstvy ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} z mapových služeb ArcGIS REST
+        - z vrstev mapové služby hromadně extrahujte pouze prvky v rozsahu území ORP *(Select-batch)*
+        - z vrstvy ``Orná půda a ostatní dále nespecifikované plochy`` vyberte pouze požadované typy ploch *(Select By Attributes)* 
+        - vybrané vrstvy hromadně ořízněte dle thranic ORP *(Clip-batch)*
         - jednotlivé vrstvy spojte do jedné vrstvy *(Merge)* 
         - v atributové tabulce nově vzniklé vrstvy vytvořte nový atribut ``hodnoceni`` *(Add Field)*--> hodnoty pro jednotlivé typy ploch vyplňte dle zadaných kritérií *(Calculate Field)*
         - polygonovou vrstvu převeďte na rastr *(Feature to Raster)* __(3)__{title="nastavení parametrů funkce Feature to Raster"} __(4)__{title="nastavení Environments funkce Feature to Raster"}
