@@ -136,13 +136,13 @@ Přednášky vás provedou základní teorií, cvičení se věnují praktickém
 10. Tvorba mapy, layout
 
 
-## Harmonogram (LS2025) {: style="margin-bottom:0;"}
+## Harmonogram (ZS 2025/2026) {: style="margin-bottom:0;"}
 
-Aktuální harmonogram LS2025 je dostupný na [__GeoWikiCZ__](https://geo.fsv.cvut.cz/gwiki/155YGIS_ArcGIS){.color_def .underlined_dotted .external_link_icon target="_blank"}
+Aktuální harmonogram na ZS 2025/2026 je dostupný na [__GeoWikiCZ__](https://geo.fsv.cvut.cz/gwiki/155YGIS_ArcGIS){.color_def .underlined_dotted .external_link_icon target="_blank"}
 
-[![](./assets/index/schedule_LS2025.png){.off-glb .no-filter style="width: 300px;"}](https://kos.cvut.cz/schedule/course/155YGIS/semester/B242){target="_blank"}
+[![](./assets/index/schedule_ZS2025.png){.off-glb .no-filter style="width: 300px;"}](https://kos.cvut.cz/schedule/course/155YGIS/semester/B251){target="_blank"}
 
 ---
 
-[Stránka předmětu v :custom-kos-logo-img-BW:{.middle style="margin-left:3px;"} :custom-kos-logo-BW:{.xl .middle}](https://kos.cvut.cz/course-syllabus/155YGIS/B242){ .md-button .md-button--primary target="_blank"}
+[Stránka předmětu v :custom-kos-logo-img-BW:{.middle style="margin-left:3px;"} :custom-kos-logo-BW:{.xl .middle}](https://kos.cvut.cz/course-syllabus/155YGIS/B251){ .md-button .md-button--primary target="_blank"}
 {align=center}

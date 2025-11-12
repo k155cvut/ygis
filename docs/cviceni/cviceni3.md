@@ -64,8 +64,8 @@ Využití základních geoprocessingových nástrojů GIS v rámci řešení kom
     <br>
     Na základě analýzy zodpovězte následující otázky:
     
-    - Jak velké území Česka zabírají leží v oblasti vysoké hlučnosti?
-    - Jak velké území Česka zabírají leží v hlučné oblasti způsobené silniční dopravou (bez ohledu na stupeň hlučnosti)?
+    - Jak velké území Česka leží v oblasti vysoké hlučnosti?
+    - Jak velké území Česka leží v hlučné oblasti způsobené silniční dopravou (bez ohledu na stupeň hlučnosti)?
     - Kolik obcí je ohroženo hlučností jak ze silnic, tak i z letišť? Ve kterém kraji je takto dotčených obcí nejvíce?
     - Jak velké území Česka leží v oblasti normální hlučnosti?
     - Jaké procento chráněných krajinných oblasti je zasaženou zvýšenou nebo vysokou mírou hluku?
