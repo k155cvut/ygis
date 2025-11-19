@@ -125,7 +125,8 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
         - z vrstvy ``KotovanyBod`` extrahujte pouze prvky v rozsahu území ORP *(Select)* __(25)__{title="nastavení rozsahu zpracování v nástroji Select"}
         - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP *(Clip)*
         - v atributové tabulce vrstvy vyberte pouze 5 nejvyšších kót ve Vašem ORP a vytvořte novou vrstvu bodových prvků *(Data-Export Features)*
-    3. vytvořte rastr viditelnosti pro vrstvu s 5 výškovými kótami *(Visibility)* (nezapomeňte v *Observer parameters* nastavit parametr *Observer offset* dle výšky pozorovatele na plošině rozhledny) __(8)__{title="nastavení parametrů funkce Visibility"}
+    3. analýza viditelnosti
+        - vytvořte rastr viditelnosti pro vrstvu s 5 výškovými kótami *(Visibility)* (nezapomeňte v *Observer parameters* nastavit parametr *Observer offset* dle výšky pozorovatele na plošině rozhledny. Pro větší přesnost výpočtu je vhodné nastavit i parametr *Observer elevation*, který lze převzít z atributové tabulky vrstvy s kótovanými body) __(8)__{title="nastavení parametrů funkce Visibility"}
     4. vyberte lokalitu, ze které je vidět největší plocha Vašeho území
         - pro jednotlivé výškové kóty (OBSXY) postupně sumarizujte počet viditelných pixelů *(název atributu-Summarize)* __(9)__{title="nastavení funkce Summary Statistics"} 
         - dle jednotlivých sumarizačních tabulek určete, která lokalita má pro hodnotu "1" největší počet pixelů __(10)__{title="počet pixelů viditelných z dané lokality"}
@@ -239,7 +240,7 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
 5.  ![](../assets/cviceni7/Reclassify_Aspect.png){ .no-filter width=500px} nastavení parametrů nástroje Reclassify pro rastr sklonitosti
 6.  ![](../assets/cviceni7/RasterCalculator.png){ .no-filter width=500px} nástroj Raster Calculator
 7.  ![](../assets/cviceni7/SelectByLocation.png){ .no-filter width=500px} výběr prvků na základě polohy
-8.  ![](../assets/cviceni7/Visibility.png){ .no-filter width=500px} nastavení parametrů funkce Visibility
+8.  ![](../assets/SP/Visibility.png){ .no-filter width=500px} nastavení parametrů funkce Visibility
 9.  ![](../assets/cviceni7/SummaryStat.png){ .no-filter width=500px} nastavení funkce Summary Statistics
 10. ![](../assets/cviceni7/SummaryStatTable.png){ .no-filter width=500px} počet pixelů viditelných z dané lokality
 11. ![](../assets/cviceni7/Symbology.png){ .no-filter width=500px} nastavení symbologie rastru viditelnosti

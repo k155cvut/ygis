@@ -42,6 +42,13 @@ Ve cvičení se naučíte
 - [**aspect-slope**](https://pro.arcgis.com/en/pro-app/latest/help/analysis/raster-functions/aspect-slope-function.htm){target="_blank"}
 - [**raster calculator**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/raster-calculator.htm){target="_blank"}
 
+<br>
+**Další zdroje:**
+
+[<span>pro.arcgis.com</span><br>How Geodesic Viewshed works](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-viewshed-2-works.htm/){ .md-button .md-button--primary .server_name .external_link_icon_small target="\_blank"}
+[<span>pro.arcgis.com</span><br>Viewshed and Observer Points for visibility analysis](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/using-viewshed-and-observer-points-for-visibility.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="\_blank"}
+[<span>pro.arcgis.com</span><br>Visibility toolset](https://pro.arcgis.com/en/pro-app/latest/tool-reference/defense/an-overview-of-the-visibility-toolset.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="\_blank"}
+{: .button_array}
 
 ## Náplň cvičení
 Vaším úkolem bude na základě rastrových dat vybraného území analyzovat lavinové svahy mají. K vyhodnocení lavinového svahu potřebujete znát sklonitost a expozici svahu, nadmořskou výšku či krajinný pokryv. Podmínky pro vznik lavin lze (zjednodušeně) shrnout v následujících bodech:
