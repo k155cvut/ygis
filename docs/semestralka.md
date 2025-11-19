@@ -82,7 +82,7 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
     1. připravte si DMR5G pro své území
         - *Add Data From Path* --> *Data-Export Raster* __(1)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(2)__{title="nastavení parametrů funkce Extract by Mask"}
         
-            **pozn. v případě potřeby exportujte rastr pro své území po více (vzájemně se překrývajících) částech, poté oba rastry spojte nástrojem Mosaic to Raster*
+            **pozn. v případě potřeby exportujte rastr pro své území po více (vzájemně se překrývajících) částech, poté oba rastry spojte nástrojem Mosaic to New Raster*
     2. připrava vektorových vrstev
         -  přes *Add Data From Path* přidejte do mapy požadované vrstvy ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} z mapových služeb ArcGIS REST
         - z vrstev mapové služby hromadně extrahujte pouze prvky v rozsahu území ORP *(Select-batch)*
@@ -114,12 +114,17 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
     {: .button_array style="justify-content:flex-start;"}
 
 ???+ task-fg-color "Jak na to?"
-    
-    1. připravte si DMP1G pro své území
-        - *Add Data From Path* --> *Data-Export Raster* __(12)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(13)__{title="nastavení parametrů funkce Extract by Mask"}
-    2. připravte si bodovou vrstvu ``KotovanyBod`` ze [**ZABAGED**]("disk S, adresář K155\Public\data\ArcGIS\ ") nebo [**Data50**]("disk S, adresář K155\Public\data\ArcGIS\ ") pro své území
-        - ořízněte vrstvu dle hranic ORP *(Clip)* nebo vyhledejte výškové kóty na základě polohy *(Select By Location)* __(7)__{title="výběr prvků na základě polohy"}
-        - v atributové tabulce vrstvy vyberte pouze 5 nejvyšších kót ve Vašem ORP a vytvořte novou vrstvu *(Data-Export Features)*
+    1. příprava území pro analýzu
+        - kolem území ORP vytvořte obalovou zónu o šířce 20 km *(Buffer)* __(21)__{title="nastavení parametrů nástroje Buffer"}
+    2. příprava DMP1G
+        - *Add Data From Path* --> *Data-Export Raster* __(22)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(24)__{title="nastavení parametrů funkce Extract by Mask"}
+        
+            **pozn. v případě potřeby exportujte rastr pro své území po více (vzájemně se překrývajících) částech, poté oba rastry spojte nástrojem Mosaic to New Raster* __(23)__{title="nastavení parametrů funkce Mosaic To New Raster"}       
+    3. přidání dat
+        - přes *Add Data From Path* přidejte do mapy vrstvu ``KotovanyBod`` z mapových služeb ArcGIS REST ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} nebo [**DATA50**](https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"}
+        - z vrstvy ``KotovanyBod`` extrahujte pouze prvky v rozsahu území ORP *(Select)* __(25)__{title="nastavení rozsahu zpracování v nástroji Select"}
+        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP *(Clip)*
+        - v atributové tabulce vrstvy vyberte pouze 5 nejvyšších kót ve Vašem ORP a vytvořte novou vrstvu bodových prvků *(Data-Export Features)*
     3. vytvořte rastr viditelnosti pro vrstvu s 5 výškovými kótami *(Visibility)* (nezapomeňte v *Observer parameters* nastavit parametr *Observer offset* dle výšky pozorovatele na plošině rozhledny) __(8)__{title="nastavení parametrů funkce Visibility"}
     4. vyberte lokalitu, ze které je vidět největší plocha Vašeho území
         - pro jednotlivé výškové kóty (OBSXY) postupně sumarizujte počet viditelných pixelů *(název atributu-Summarize)* __(9)__{title="nastavení funkce Summary Statistics"} 
@@ -173,10 +178,10 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
     1. přidání dat
         - přes *Add Data From Path* přidejte do mapy požadované vrstvy od [**RÚIAN**](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer"){ target="_blank"} a [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} z mapových služeb ArcGIS REST 
         - přes *Catalog-Servers* (či *Insert-Connections*) připojte mapové služby WFS od [**AOPK**](https://gis.nature.cz/arcgis/services/Aplikace/Opendata/MapServer/WFSServer "https://gis.nature.cz/arcgis/services/Aplikace/Opendata/MapServer/WFSServer"){ target="_blank"} a [**HEIS VÚV**](https://ags2.vuv.cz/arcgis/services/isvs_voda/isvs_voda/MapServer/WFSServer "https://ags2.vuv.cz/arcgis/services/isvs_voda/isvs_voda/MapServer/WFSServer"){ target="_blank"} a přidejte do mapy požadované vrstvy __(12)__{title="připojení WFS serveru"}
-    2. připrava zadaného území
+    2. příprava zadaného území
         - z vrstvy ``ObecSRozsirenouPusobnosti`` vytvořte novou vrstvu, která bude obsahovat pouze hranice zadaného ORP *(Select)* __(13)__{title="výběr prvku v nástroji Select"}
         - kolem území ORP vytvořte obalovou zónu o šířce 300 m *(Buffer)* __(14)__{title="nastavení parametrů nástroje Buffer"}
-    3. připrava tematických vrstev
+    3. příprava tematických vrstev
         - z vrstev mapových služeb hromadně extrahujte pouze prvky v rozsahu území ORP včetně obalové zóny 300 m *(Select-batch)* __(15)__{title="práce s proměnnou %Name% v názvu vrstvy"} __(16)__{title="nastavení rozsahu zpracování v nástroji Select"}
         - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP s obalovou zónou 300m *(Clip-batch)*
         - z vrstvy ``StavebniObjekty`` vyberte pouze požadované typy ploch *(Select By Attributes)*
@@ -245,10 +250,13 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
 16. ![](../assets/SP/Select_ProcessingExtent_buffer.png){ .no-filter width=500px} nastavení rozsahu zpracování v nástroji Select
 17. ![](../assets/SP/erase.png){ .no-filter width=500px} nastavení parametrů nástroje Erase
 18. ![](../assets/SP/near.png){ .no-filter width=500px} nastavení parametrů nástroje Near
-19. ![](../assets/SP/Select_ProcessingExtent_buffer.png){ .no-filter width=500px} nastavení rozsahu zpracování v nástroji Select
-20. ![](../assets/SP/Select_ProcessingExtent_buffer.png){ .no-filter width=500px} nastavení rozsahu zpracování v nástroji Select
-
-
+19. ![](../assets/cviceni7/ExportRasterDialog.png){ .no-filter width=500px} nastavení parametrů funkce Export Raster
+20. ![](../assets/cviceni7/ExtractByMask.png){ .no-filter width=500px} nastavení parametrů funkce Extract by Mask
+21. ![](../assets/SP/buffer20km.png){ .no-filter width=500px} nastavení parametrů nástroje Buffer
+22. ![](../assets/SP/ExportRasterDialog_DMP.png){ .no-filter width=500px} nastavení parametrů funkce Export Raster
+23. ![](../assets/SP/MosaicToNewRaster.png){ .no-filter width=500px} nastavení parametrů funkce Mosaic To New Raster
+24. ![](../assets/SP/ExtractByMask_DMP.png){ .no-filter width=500px} nastavení parametrů funkce Extract by Mask
+25. ![](../assets/SP/Select_ProcessingExtent_buffer.png){ .no-filter width=500px} nastavení rozsahu zpracování v nástroji Select
 
 <hr class="level-1">
 
