@@ -102,15 +102,15 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
 
 ### :material-tower-fire:{ .lg .middle } **ROZHLEDNA**
 
-Z 5 nejvyšších výškových bodů v zadaném ORP identifikujte **nejvhodnější lokalitu pro výstavbu rozhledny**{style="text-transform:uppercase;"}. Hlavním kritériem výběru lokality je viditelnost co největší plochy v okruhu 20 km zadaného ORP. Maximální přípustná výška stavby je 35 m, přičemž pozorovací ochoz je ve výšce 32 m. Zjistěte, jaká je viditelnost významných budov (kostel, zámek, hrad).
+Z 5 nejvyšších výškových bodů v zadaném ORP identifikujte **nejvhodnější lokalitu pro výstavbu rozhledny**{style="text-transform:uppercase;"}. Jako hlavní kritérium výběru lokality může být viditelnost co největší plochy v okruhu 20 km zadaného ORP či viditelnost co největšího počtu významných prvků (budovy, krajinné prvky). Maximální přípustná výška stavby je 35 m, přičemž pozorovací ochoz je ve výšce 32 m. Zjistěte, jaká je viditelnost významných budov (kostel, zámek, hrad).
 
 Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokality pro výstavbu rozhledny s modelovanou viditelností. Ve scéně můžete libovolně vyznačit budovy či významné krajinné prvky, které jsou z dané lokality viditelné. Volitelně můžete namodelovat i samotnou stavbu rozhledny.
 
 - **DATOVÉ ZDROJE:**
 
     [:material-layers: DMP1G ](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmp1g/ImageServer){ .md-button .md-button--primary .button_smaller target="_blank"}
-    [:material-layers: Data50 ]("''KotovanyBod', 'Kostel', 'VezovitaStavba', 'Zamek', 'Zricenina', 'Hrad''"){ .md-button .md-button--primary .button_smaller}
-    [:material-layers: ZABAGED ]("''KotovanyBod', 'BudovaJednotlivaNeboBlokBudov''"){ .md-button .md-button--primary .button_smaller}
+    [:material-layers: Data50 ](https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer "''KotovanyBod', 'Kostel', 'VezovitaStavba', 'Zamek', 'Zricenina', 'Hrad''"){ .md-button .md-button--primary .button_smaller}
+    [:material-layers: ZABAGED ](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "''KotovanyBod', 'BudovaJednotlivaNeboBlokBudov''"){ .md-button .md-button--primary .button_smaller}
     {: .button_array style="justify-content:flex-start;"}
 
 ???+ task-fg-color "Jak na to?"
@@ -121,7 +121,7 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
         
             **pozn. v případě potřeby exportujte rastr pro své území po více (vzájemně se překrývajících) částech, poté oba rastry spojte nástrojem Mosaic to New Raster* __(23)__{title="nastavení parametrů funkce Mosaic To New Raster"}       
     3. přidání dat
-        - přes *Add Data From Path* přidejte do mapy vrstvu ``KotovanyBod`` z mapových služeb ArcGIS REST ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} nebo [**DATA50**](https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"}
+        - přes *Add Data From Path* přidejte do mapy vrstvu ``KotovanyBod`` z mapových služeb ArcGIS REST ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} nebo [**DATA50**](https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer"){ target="_blank"}
         - z vrstvy ``KotovanyBod`` extrahujte pouze prvky v rozsahu území ORP *(Select)* __(25)__{title="nastavení rozsahu zpracování v nástroji Select"}
         - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP *(Clip)*
         - v atributové tabulce vrstvy vyberte pouze 5 nejvyšších kót ve Vašem ORP a vytvořte novou vrstvu bodových prvků *(Data-Export Features)*
@@ -132,6 +132,17 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
         - dle jednotlivých sumarizačních tabulek určete, která lokalita má pro hodnotu "1" největší počet pixelů __(10)__{title="počet pixelů viditelných z dané lokality"}
     5. vytvořte vizualizaci rastru viditelnosti pro vybranou lokalitu
         - v nastavení symbologie vrstvy nastavte *Primary symbology-Unique Values* dle atributu vybraného lokality (např. OBS1) __(11)__{title="nastavení symbologie rastru viditelnosti"}
+
+??? task-fg-color "Bonusová otázka č. 1: Ze které lokality je vidět nejvíce zájmových bodů (kostel, zámek, zřícenina, hrad, ...)?"
+    1. spojení zájmových vrstev
+        - zájmové vrstvy ``Kostel``, ``VezovitaStavba``, ``Zamek``, ``Zricenina``, ``Hrad`` spojte do jedné vrstvy *(Merge)* 
+    2. zjistěte, jaké zájmové body se nachází v zóně viditelnosti
+        - pro bodovou vrstvu zájmových prvků extrahujte informaci o zóně viditelnosti z rastru viditelnosti *(Extract Values to Points)*      
+    3. zjistěte, které zóny viditelnosti jsou viditelné z kterých lokalit
+        - vzniklou bodovou vrstvu s informací o zóně viditelnosti (atribut "RASTERVALUE") propojte s informacemi z atributové tabulky rastru viditelnosti, ve které je u každé zóny viditelnosti (atribut "Value") uvedeno, ze které lokality je tato zóna viditelná (atribut "OBSXY") --> *(Join)*
+        - propojenou tabulku exportujte do samostatné vrstvy *(Data-Export Features)*
+    4. zjistěte, ze které lokality je vidět největší počet zájmových bodů
+        - v nově vzniklé vrstvě sumarizujte počet hodnot "1" pro atributy "OBSXY" *(název atributu-Summarize)* __(26)__{title="nastavení funkce Summary Statistics"} 
 
 <hr class="level-1">
 
@@ -258,6 +269,7 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
 23. ![](../assets/SP/MosaicToNewRaster.png){ .no-filter width=500px} nastavení parametrů funkce Mosaic To New Raster
 24. ![](../assets/SP/ExtractByMask_DMP.png){ .no-filter width=500px} nastavení parametrů funkce Extract by Mask
 25. ![](../assets/SP/Select_ProcessingExtent_buffer.png){ .no-filter width=500px} nastavení rozsahu zpracování v nástroji Select
+26.  ![](../assets/SP/SummaryStat.png){ .no-filter width=500px} nastavení funkce Summary Statistics
 
 <hr class="level-1">
 
