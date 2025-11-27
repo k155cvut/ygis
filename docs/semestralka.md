@@ -87,7 +87,7 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
         -  přes *Add Data From Path* přidejte do mapy požadované vrstvy ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} z mapových služeb ArcGIS REST
         - z vrstev mapové služby hromadně extrahujte pouze prvky v rozsahu území ORP *(Select-batch)*
         - z vrstvy ``Orná půda a ostatní dále nespecifikované plochy`` vyberte pouze požadované typy ploch *(Select By Attributes)* 
-        - vybrané vrstvy hromadně ořízněte dle thranic ORP *(Clip-batch)*
+        - vybrané vrstvy hromadně ořízněte dle hranic ORP *(Clip-batch)*
         - jednotlivé vrstvy spojte do jedné vrstvy *(Merge)* 
         - v atributové tabulce nově vzniklé vrstvy vytvořte nový atribut ``hodnoceni`` *(Add Field)*--> hodnoty pro jednotlivé typy ploch vyplňte dle zadaných kritérií *(Calculate Field)*
         - polygonovou vrstvu převeďte na rastr *(Feature to Raster)* __(3)__{title="nastavení parametrů funkce Feature to Raster"} __(4)__{title="nastavení Environments funkce Feature to Raster"}
@@ -134,7 +134,7 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
         - v nastavení symbologie vrstvy nastavte *Primary symbology-Unique Values* dle atributu vybraného lokality (např. OBS1) __(11)__{title="nastavení symbologie rastru viditelnosti"}
 
 ??? task-fg-color "Bonusová otázka č. 1: Ze které lokality je vidět nejvíce zájmových bodů (kostel, zámek, zřícenina, hrad, ...)?"
-    1. spojení zájmových vrstev
+    1. příprava vrstev
         - zájmové vrstvy ``Kostel``, ``VezovitaStavba``, ``Zamek``, ``Zricenina``, ``Hrad`` spojte do jedné vrstvy *(Merge)* 
     2. zjistěte, jaké zájmové body se nachází v zóně viditelnosti
         - pro bodovou vrstvu zájmových prvků extrahujte informaci o zóně viditelnosti z rastru viditelnosti *(Extract Values to Points)*      
@@ -142,7 +142,20 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
         - vzniklou bodovou vrstvu s informací o zóně viditelnosti (atribut "RASTERVALUE") propojte s informacemi z atributové tabulky rastru viditelnosti, ve které je u každé zóny viditelnosti (atribut "Value") uvedeno, ze které lokality je tato zóna viditelná (atribut "OBSXY") --> *(Join)*
         - propojenou tabulku exportujte do samostatné vrstvy *(Data-Export Features)*
     4. zjistěte, ze které lokality je vidět největší počet zájmových bodů
-        - v nově vzniklé vrstvě sumarizujte počet hodnot "1" pro atributy "OBSXY" *(název atributu-Summarize)* __(26)__{title="nastavení funkce Summary Statistics"} 
+        - v nově vzniklé vrstvě sumarizujte počet hodnot "1" pro atributy "OBSXY" *(název atributu-Summarize)* __(26)__{title="nastavení parametrů funkce Summary Statistics"}
+
+??? task-fg-color "Bonusová otázka č. 2: Jaké stavební objekty jsou z dané lokality viditelné? Uveďte, jaká část stavebního objektu (v %) je viditelná."
+    1. přidání dat
+        - přes *Add Data From Path* přidejte do mapy vrstvu ``StavebniObjekt`` z mapové služby [**RÚIAN**](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer"){ target="_blank"}
+        - z vrstvy ``StavebniObjekt`` extrahujte pouze prvky v rozsahu území ORP *(Select)*
+        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP *(Clip)*
+    2. převeďte rastr viditelnosti na vektorovou vrstvu *(Raster to Polygon)*
+        - v nově vzniklé vrstvě vhodně nastavte výraz v *Definition Query*, aby vrstva zobrazovala pouze viditelnou plochu (atribut "gridcode" = 1)
+    3. zjistěte, které SO se nachází v zóně viditelnosti, a vypočítejte, z kolika % jsou dané SO viditelné
+        - pro výpočet plochy překryvu vrstvy stavebních objektů a polygonové vrstvy viditelnosti využijte nástroj [*(Tabulate Intersection)*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/tabulate-intersection.htm), jako "Zone Fields" nastavte atribut "kod", který jednoznačně definuje každý stavební objekt __(27)__{title="nastavení parametrů funkce Tabulate Intersection"}
+        - vzniklou tabulku s informacemi o ploše a procentu překryvu obou vrstev propojte s vrstvou stavebních objektů (atribut "kod") --> *(Join)*
+        - propojenou tabulku exportujte do samostatné vrstvy *(Data-Export Features)*
+    4. vhodným nastavením symbologie vizualizujte SO dle procenta viditelnosti *(Symbology-Graduated Colors)*
 
 <hr class="level-1">
 
@@ -269,7 +282,8 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
 23. ![](../assets/SP/MosaicToNewRaster.png){ .no-filter width=500px} nastavení parametrů funkce Mosaic To New Raster
 24. ![](../assets/SP/ExtractByMask_DMP.png){ .no-filter width=500px} nastavení parametrů funkce Extract by Mask
 25. ![](../assets/SP/Select_ProcessingExtent_buffer.png){ .no-filter width=500px} nastavení rozsahu zpracování v nástroji Select
-26.  ![](../assets/SP/SummaryStat.png){ .no-filter width=500px} nastavení funkce Summary Statistics
+26.  ![](../assets/SP/SummaryStat.png){ .no-filter width=500px} nastavení parametrůfunkce Summary Statistics
+27.  ![](../assets/SP/TabulateIntersection.png){ .no-filter width=500px} nastavení parametrů funkce Tabulate Intersection
 
 <hr class="level-1">
 
