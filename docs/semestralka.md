@@ -147,8 +147,8 @@ Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokal
 ??? task-fg-color "Bonusová otázka č. 2: Jaké stavební objekty jsou z dané lokality viditelné? Uveďte, jaká část stavebního objektu (v %) je viditelná."
     1. přidání dat
         - přes *Add Data From Path* přidejte do mapy vrstvu ``StavebniObjekt`` z mapové služby [**RÚIAN**](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer"){ target="_blank"}
-        - z vrstvy ``StavebniObjekt`` extrahujte pouze prvky v rozsahu území ORP *(Select)*
-        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP *(Clip)*
+        - z vrstvy ``StavebniObjekt`` extrahujte pouze prvky v rozsahu území ORP s obalovou zónou 20km (Select)*
+        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP s obalovou zónou 20km *(Clip)*
     2. převeďte rastr viditelnosti na vektorovou vrstvu *(Raster to Polygon)*
         - v nově vzniklé vrstvě vhodně nastavte výraz v *Definition Query*, aby vrstva zobrazovala pouze viditelnou plochu (atribut "gridcode" = 1)
     3. zjistěte, které SO se nachází v zóně viditelnosti, a vypočítejte, z kolika % jsou dané SO viditelné
