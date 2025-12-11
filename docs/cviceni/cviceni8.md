@@ -225,17 +225,32 @@ graph TD
   U["*není nutné publikovat, web. službu už poskytuje přímo ČÚZK*"]
   V[publikace do ArcGIS Online]
 
-  W[konfigurace webové scény]
+  W[nová webová scéna]
 
+  X([přidat vrstvy])
+
+  Y[DMR5G]
+  Z[budovy]
+  AA[podrobný 3D model budovy]
+  AB[stromy]
+
+  AC(["nastavit symboliku podle atributu viditelnosti (a vhodnou barevnou stupnici)"])
+  AD(["nastavit 3D symbol (případně náhodné natočení)"])
+
+  AE([uložit scénu])
+  AF([nastavit veřejné sdílení])
+
+  
   A-->E
   B-->F
   C-->G
-  D--->H
+  D-->H
 
   E---->N
+  E-->I
   F-->I
   G-->J
-  H-->K
+  H--->K
 
   I-->L
   J-->M
@@ -245,6 +260,7 @@ graph TD
   M-->P
 
   N---->U
+  
   O-->Q
   P--->S
 
@@ -255,6 +271,23 @@ graph TD
   T-->V
 
   V-->W
+
+  W-->X
+
+  X-->Y
+  X-->Z
+  X-->AA
+  X-->AB
+
+  Z-->AC
+  AB-->AD
+
+  Y--->AE
+  AC-->AE
+  AA--->AE
+  AD-->AE
+
+  AE-->AF
 
   click E "https://pro.arcgis.com/en/pro-app/latest/help/data/imagery/export-or-convert-raster-datasets.htm" _blank
   click F "https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/select.htm" _blank
@@ -269,8 +302,10 @@ graph TD
   click R "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/create-3d-object-scene-layer-package.htm" _blank
   click S "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/create-3d-object-scene-layer-package.htm" _blank
   click T "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/create-3d-object-scene-layer-package.htm" _blank
+  click W "https://doc.arcgis.com/en/arcgis-online/get-started/get-started-with-scenes.htm" _blank
 
   classDef default fill:#00948522,stroke:#009485,stroke-width:3px;
+
 
 ```
 
