@@ -10,7 +10,7 @@ Připravte tištěný mapový poster či webovou mapovou aplikaci, který/á se 
 
 
 ??? task-fg-color "Individuální zadání"
-    <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQfN5ojqTC5jXvkKUlyuNzHbgnunUQHZ2tbxWmFeYRKKgx-a3Mq3v2FXlNcAX9ebQ/pubhtml?gid=967359062&single=true" width="100%" height="300" frameBorder="0"></iframe>
+    <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQfN5ojqTC5jXvkKUlyuNzHbgnunUQHZ2tbxWmFeYRKKgx-a3Mq3v2FXlNcAX9ebQ/pubhtml?gid=967359062&single=true&widget=true&headers=false" width="100%" height="300" frameBorder="0"></iframe>
 
 
 <hr class="level-1">
