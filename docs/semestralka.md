@@ -301,7 +301,7 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
     **3D scénu lze vytvořit ve webovém prostředí a v tištěném výstupu na ní pouze vhodně odkázat (link, QR kód)*
 
 
-Termín odevzdání: __čtvrtek 29. ledna 2026__{.outlined} 
+Termín odevzdání: __pondělí 15. června 2026__{.outlined} 
 
 
 <!--

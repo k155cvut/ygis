@@ -136,11 +136,11 @@ Přednášky vás provedou základní teorií, cvičení se věnují praktickém
 10. Tvorba mapy, layout
 
 
-## Harmonogram (ZS 2025/2026) {: style="margin-bottom:0;"}
+## Harmonogram (LS 2025/2026) {: style="margin-bottom:0;"}
 
-Aktuální harmonogram na ZS 2025/2026 je dostupný na [__GeoWikiCZ__](https://geo.fsv.cvut.cz/gwiki/155YGIS_ArcGIS){.color_def .underlined_dotted .external_link_icon target="_blank"}
+Aktuální harmonogram na LS 2025/2026 je dostupný na [__GeoWikiCZ__](https://geo.fsv.cvut.cz/gwiki/155YGIS_ArcGIS){.color_def .underlined_dotted .external_link_icon target="_blank"}
 
-[![](./assets/index/schedule_ZS2025.png){.off-glb .no-filter style="width: 300px;"}](https://kos.cvut.cz/schedule/course/155YGIS/semester/B251){target="_blank"}
+[![](./assets/index/schedule_LS2026.png){.off-glb .no-filter style="width: 300px;"}](https://kos.cvut.cz/schedule/course/155YGIS/semester/B251){target="_blank"}
 
 ---
 
