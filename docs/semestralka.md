@@ -178,7 +178,7 @@ Při analýze zohledněte následující podmínky:
 </div>
 Plocha pro výstavbu skládky je považována za vhodnou, pokud má **rozlohu více než 1 ha** a nachází se na **trvalém travním porostu**.
 
-Z výsledků analýzy vyberte **3 nejvhodnější lokality pro výstavbu skládky**{style="text-transform:uppercase;"} dle jejich vzdálenosti od pozemní komunikace a lesa. Ve finálním výběru prioritizujte lokality, které se nachází co nejdále od lesa, ale zároveň nejsou příliš vzdáleny od pozemní komunikace (silnice III. třídy a vyšší).
+Z výsledků analýzy vyberte **3 nejvhodnější lokality pro výstavbu skládky**{style="text-transform:uppercase;"} **dle vzdálenosti od pozemní komunikace a lesa**. Ve finálním výběru prioritizujte lokality, které se nachází co nejdále od lesa, ale zároveň nejsou příliš vzdáleny od pozemní komunikace (silnice III. třídy a vyšší).
 
 Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné vizualizaci uveďte pro jednotlivé lokality následující atributy: plocha v hektarech, vzdálenost od nejbližší silnice a lesa v metrech.
 
@@ -201,8 +201,8 @@ Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné
 ???+ task-fg-color "Jak na to?"
     
     1. přidání dat
-        - přes *Add Data From Path* přidejte do mapy požadované vrstvy od [**RÚIAN**](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer"){ target="_blank"} a [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} z mapových služeb ArcGIS REST 
-        - přes *Catalog-Servers* (či *Insert-Connections*) připojte mapové služby WFS od [**AOPK**](https://gis.nature.cz/arcgis/services/Aplikace/Opendata/MapServer/WFSServer "https://gis.nature.cz/arcgis/services/Aplikace/Opendata/MapServer/WFSServer"){ target="_blank"} a [**HEIS VÚV**](https://ags2.vuv.cz/arcgis/services/isvs_voda/isvs_voda/MapServer/WFSServer "https://ags2.vuv.cz/arcgis/services/isvs_voda/isvs_voda/MapServer/WFSServer"){ target="_blank"} a přidejte do mapy požadované vrstvy __(12)__{title="připojení WFS serveru"}
+        - přes *Add Data From Path* přidejte do mapy požadované vrstvy od [**RÚIAN**](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer"){ target="_blank"} a [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} z [mapových služeb ArcGIS REST](../cviceni/cviceni4/#mapove-sluzby) 
+        - přes *Catalog-Servers* (či *Insert-Connections*) připojte [mapové služby WFS](../cviceni/cviceni4/#mapove-sluzby) od [**AOPK**](https://gis.nature.cz/arcgis/services/Aplikace/Opendata/MapServer/WFSServer "https://gis.nature.cz/arcgis/services/Aplikace/Opendata/MapServer/WFSServer"){ target="_blank"} a [**HEIS VÚV**](https://ags2.vuv.cz/arcgis/services/isvs_voda/isvs_voda/MapServer/WFSServer "https://ags2.vuv.cz/arcgis/services/isvs_voda/isvs_voda/MapServer/WFSServer"){ target="_blank"} a přidejte do mapy požadované vrstvy __(12)__{title="připojení WFS serveru"}
     2. příprava zadaného území
         - z vrstvy ``ObecSRozsirenouPusobnosti`` vytvořte novou vrstvu, která bude obsahovat pouze hranice zadaného ORP *(Select)* __(13)__{title="výběr prvku v nástroji Select"}
         - kolem území ORP vytvořte obalovou zónu o šířce 300 m *(Buffer)* __(14)__{title="nastavení parametrů nástroje Buffer"}
