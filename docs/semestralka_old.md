@@ -1,10 +1,12 @@
-# Modelové úlohy – Analýza území
+# Semestrální práce – Analýza území
 
-V průběhu semestru jsou zpracovány tři modelové úlohy zaměřené na využití různých typů prostorových analýz při hodnocení území s ohledem na vhodnost stavby tří objektů:
+## Zadání
 
-- nová [**skládka** :material-dump-truck:{ .lg .middle }](/semestralka/#skladka),
-- nová [**solární elektrárna** :material-solar-power-variant:{ .lg .middle }](/semestralka/#solarni-elektrarna),
-- nová [**skládka** :material-dump-truck:{ .lg .middle }](/semestralka/#rozhledna).
+Připravte tištěný mapový poster či webovou mapovou aplikaci, který/á se bude věnovat analýze území dané ORP (viz níže) s ohledem na vhodnost stavby tří objektů:
+
+- nová **solární elektrárna** :material-solar-power-variant:{ .lg .middle } ,
+- nová **rozhledna** :material-tower-fire:{ .lg .middle },
+- nová **skládka** :material-dump-truck:{ .lg .middle }.
 
 
 ??? task-fg-color "Individuální zadání"
@@ -13,15 +15,153 @@ V průběhu semestru jsou zpracovány tři modelové úlohy zaměřené na využ
 
 <hr class="level-1">
 <div class="annotate" markdown>
-## :material-dump-truck:{ .lg .middle } **SKLÁDKA**
+### :material-solar-power-variant:{ .lg .middle } **SOLÁRNÍ ELEKTRÁRNA**
 
-### **Cíl**
+V zadaném ORP identifikujte **vhodné plochy pro výstavbu solární elektrárny**{style="text-transform:uppercase;"}.
 
-Cílem úlohy je procvičit přípravu vektorových prostorových dat z různých datových zdrojů a využití základních nástrojů prostorové analýzy nad vektorovými daty při řešení jednoduché multikriteriální úlohy v zadaném území.
+Při analýze zohledněte následující hodnoticí kritéria:
 
-### **Zadání**
+- :material-slope-uphill:{ .lg .middle } **Sklonitost svahu:** Pro instalaci solárních panelů jsou vhodné zejména rovinaté nebo mírně svažité terény.
 
-V zadané obci identifikujte **vhodné plochy pro výstavbu skládky**{style="text-transform:uppercase;"}.
+<div style="text-align:center;" markdown>
+
+| Sklonitost | Bodové ohodnocení  |
+|---|---------------------------|
+| 0–1° | 3 |
+| 1–4° | 2 |
+| 4–7° | 1 |
+| >7° | 0 |
+
+</div>
+
+- :material-sun-angle:{ .lg .middle } **Orientace svahu:** Pro instalaci solárních panelů jsou vhodné zejméne plochy orientované na jih, jihovýchod nebo jihozápad.
+
+<div style="text-align:center;" markdown>
+
+| Orientace svahu | Bodové ohodnocení  |
+|---|---------------------------|
+| azimut 0°–112,5° | 0 |
+| azimut 112,5°–135° (VJV-JV)| 1 |
+| azimut 135°–157,5° (JV-JJV) | 2 |
+| azimut 157,5°–202,5° (JJV-J-JJZ) | 3 |
+| azimut 202,5°–225°  (JJZ-JZ)| 2 |
+| azimut 225°–247,5° (JZ-ZJZ) | 1 |
+| azimut 247,5°–360° | 0 |
+
+</div>
+
+- :material-island-variant:{ .lg .middle } **Typ využití půdy:** Pro výstavbu solární elektrárny jsou vhodné např. trvalé travní porosty, solární elektrárnu je však možné vybudovat i na orné půdě. 
+
+<div style="text-align:center;" markdown>
+
+| Typ využití půdy | Bodové ohodnocení  |
+|---|---------------------------|
+| louka, trvalý travní porost | 3 |
+| orná půda   | 1 |
+| ostatní typy | 0 |
+
+</div>
+
+
+Plocha pro výstavbu solární elektrárny je považována za vhodnou, pokud má **rozlohu více než 1 ha** a její celkové bodové ohodnocení dosahuje **min. 7 bodů**.
+
+Z výsledků analýzy vyberte **3 nejvhodnější lokality pro výstavbu solární elektrárny**{style="text-transform:uppercase;"} dle jejich celkové rozlohy a bodového ohodnocení. Ve finálním výběru prioritizujte lokality, které mají nejvyšší bodové ohodnocení. 
+
+Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné vizualizaci uveďte pro jednotlivé lokality následující atributy: plocha v hektarech, celkové bodové ohodnocení.
+
+
+- **DATOVÉ ZDROJE:**
+
+    [:material-layers: DMR5G ](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmr5g/ImageServer){ .md-button .md-button--primary .button_smaller target="_blank"}
+    [:material-layers: ZABAGED ](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer " ''Orná půda a ostatní dále nespecifikované plochy', 'Trvalý travní porost'' "){ .md-button .md-button--primary .button_smaller target="_blank"}
+    {: .button_array style="justify-content:flex-start;"}
+
+
+???+ task-fg-color "Jak na to?"
+    
+    1. připravte si DMR5G pro své území
+        - *Add Data From Path* --> *Data-Export Raster* __(1)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(2)__{title="nastavení parametrů funkce Extract by Mask"}
+        
+            **pozn. v případě potřeby exportujte rastr pro své území po více (vzájemně se překrývajících) částech, poté oba rastry spojte nástrojem Mosaic to New Raster*
+    2. připrava vektorových vrstev
+        -  přes *Add Data From Path* přidejte do mapy požadované vrstvy ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} z mapových služeb ArcGIS REST
+        - z vrstev mapové služby hromadně extrahujte pouze prvky v rozsahu území ORP *(Select-batch)*
+        - z vrstvy ``Orná půda a ostatní dále nespecifikované plochy`` vyberte pouze požadované typy ploch *(Select By Attributes)* 
+        - vybrané vrstvy hromadně ořízněte dle hranic ORP *(Clip-batch)*
+        - jednotlivé vrstvy spojte do jedné vrstvy *(Merge)* 
+        - v atributové tabulce nově vzniklé vrstvy vytvořte nový atribut ``hodnoceni`` *(Add Field)*--> hodnoty pro jednotlivé typy ploch vyplňte dle zadaných kritérií *(Calculate Field)*
+        - polygonovou vrstvu převeďte na rastr *(Feature to Raster)* __(3)__{title="nastavení parametrů funkce Feature to Raster"} __(4)__{title="nastavení Environments funkce Feature to Raster"}
+    3. vytvořte rastry sklonitosti *(Slope)* a orientace svahů *(Aspect)* (nezapomeňte v *Environments* nastavit parametry *Output Coordinate System*, *Cell Size* a *Snap Raster*)
+    4. proveďte reklasifikaci rastrů sklonitosti a orientace svahů dle zadaných kritérií *(Reclassify)* __(5)__{title="nastavení parametrů nástroje Reclassify pro rastr orientace svahů"}
+    5. zkombinujte rastry využití plochy, sklonitosti a orientace svahů do jednoho rastru, jež bude území ORP klasifikovat dle bodového hodnocení zadaných podmínek *(Raster Calculator)* __(6)__{title="nástroj Raster Calculator"}
+    6. výstupní rastr opět reklasifikujte, aby zobrazoval pouze území vhodné pro výstavbu solární elektrárny (minimálně 7 bodů)
+    7. převeďte rastr na polygonovou vrstvu *(Raster to Polygon)* a vyberte pouze území splňující zadané kritérium, které je větší než 1 ha *(Select By Attributes)*
+    8. polygonovou vrstvu vhodně upravte *(Eliminate Polygon Part)* a vizualizujte *(Symbology)*
+
+<hr class="level-1">
+
+### :material-tower-fire:{ .lg .middle } **ROZHLEDNA**
+
+Z 5 nejvyšších výškových bodů v zadaném ORP identifikujte **nejvhodnější lokalitu pro výstavbu rozhledny**{style="text-transform:uppercase;"}. Jako hlavní kritérium výběru lokality může být viditelnost co největší plochy v okruhu 20 km zadaného ORP či viditelnost co největšího počtu významných prvků (budovy, krajinné prvky). Maximální přípustná výška stavby je 35 m, přičemž pozorovací ochoz je ve výšce 32 m. Zjistěte, jaká je viditelnost významných budov (kostel, zámek, hrad).
+
+Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokality pro výstavbu rozhledny s modelovanou viditelností. Ve scéně můžete libovolně vyznačit budovy či významné krajinné prvky, které jsou z dané lokality viditelné. Volitelně můžete namodelovat i samotnou stavbu rozhledny.
+
+- **DATOVÉ ZDROJE:**
+
+    [:material-layers: DMP1G ](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmp1g/ImageServer){ .md-button .md-button--primary .button_smaller target="_blank"}
+    [:material-layers: Data50 ](https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer "''KotovanyBod', 'Kostel', 'VezovitaStavba', 'Zamek', 'Zricenina', 'Hrad''"){ .md-button .md-button--primary .button_smaller}
+    [:material-layers: ZABAGED ](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "''KotovanyBod', 'BudovaJednotlivaNeboBlokBudov''"){ .md-button .md-button--primary .button_smaller}
+    {: .button_array style="justify-content:flex-start;"}
+
+???+ task-fg-color "Jak na to?"
+    1. příprava území pro analýzu
+        - kolem území ORP vytvořte obalovou zónu o šířce 20 km *(Buffer)* __(21)__{title="nastavení parametrů nástroje Buffer"}
+    2. příprava DMP1G
+        - *Add Data From Path* --> *Data-Export Raster* __(22)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(24)__{title="nastavení parametrů funkce Extract by Mask"}
+        
+            **pozn. v případě potřeby exportujte rastr pro své území po více (vzájemně se překrývajících) částech, poté oba rastry spojte nástrojem Mosaic to New Raster* __(23)__{title="nastavení parametrů funkce Mosaic To New Raster"}       
+    3. přidání dat
+        - přes *Add Data From Path* přidejte do mapy vrstvu ``KotovanyBod`` z mapových služeb ArcGIS REST ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} nebo [**DATA50**](https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer"){ target="_blank"}
+        - z vrstvy ``KotovanyBod`` extrahujte pouze prvky v rozsahu území ORP *(Select)* __(25)__{title="nastavení rozsahu zpracování v nástroji Select"}
+        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP *(Clip)*
+        - v atributové tabulce vrstvy vyberte pouze 5 nejvyšších kót ve Vašem ORP a vytvořte novou vrstvu bodových prvků *(Data-Export Features)*
+    3. analýza viditelnosti
+        - vytvořte rastr viditelnosti pro vrstvu s 5 výškovými kótami *(Visibility)* (nezapomeňte v *Observer parameters* nastavit parametr *Observer offset* dle výšky pozorovatele na plošině rozhledny. Pro větší přesnost výpočtu je vhodné nastavit i parametr *Observer elevation*, který lze převzít z atributové tabulky vrstvy s kótovanými body) __(8)__{title="nastavení parametrů funkce Visibility"}
+    4. vyberte lokalitu, ze které je vidět největší plocha Vašeho území
+        - pro jednotlivé výškové kóty (OBSXY) postupně sumarizujte počet viditelných pixelů *(název atributu-Summarize)* __(9)__{title="nastavení funkce Summary Statistics"} 
+        - dle jednotlivých sumarizačních tabulek určete, která lokalita má pro hodnotu "1" největší počet pixelů __(10)__{title="počet pixelů viditelných z dané lokality"}
+    5. vytvořte vizualizaci rastru viditelnosti pro vybranou lokalitu
+        - v nastavení symbologie vrstvy nastavte *Primary symbology-Unique Values* dle atributu vybraného lokality (např. OBS1) __(11)__{title="nastavení symbologie rastru viditelnosti"}
+
+??? task-fg-color "Bonusová otázka č. 1: Ze které lokality je vidět nejvíce zájmových bodů (kostel, zámek, zřícenina, hrad, ...)?"
+    1. příprava vrstev
+        - zájmové vrstvy ``Kostel``, ``VezovitaStavba``, ``Zamek``, ``Zricenina``, ``Hrad`` spojte do jedné vrstvy *(Merge)* 
+    2. zjistěte, jaké zájmové body se nachází v zóně viditelnosti
+        - pro bodovou vrstvu zájmových prvků extrahujte informaci o zóně viditelnosti z rastru viditelnosti *(Extract Values to Points)*      
+    3. zjistěte, které zóny viditelnosti jsou viditelné z kterých lokalit
+        - vzniklou bodovou vrstvu s informací o zóně viditelnosti (atribut "RASTERVALUE") propojte s informacemi z atributové tabulky rastru viditelnosti, ve které je u každé zóny viditelnosti (atribut "Value") uvedeno, ze které lokality je tato zóna viditelná (atribut "OBSXY") --> *(Join)*
+        - propojenou tabulku exportujte do samostatné vrstvy *(Data-Export Features)*
+    4. zjistěte, ze které lokality je vidět největší počet zájmových bodů
+        - v nově vzniklé vrstvě sumarizujte počet hodnot "1" pro atributy "OBSXY" *(název atributu-Summarize)* __(26)__{title="nastavení parametrů funkce Summary Statistics"}
+
+??? task-fg-color "Bonusová otázka č. 2: Jaké stavební objekty jsou z dané lokality viditelné? Uveďte, jaká část stavebního objektu (v %) je viditelná."
+    1. přidání dat
+        - přes *Add Data From Path* přidejte do mapy vrstvu ``StavebniObjekt`` z mapové služby [**RÚIAN**](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer"){ target="_blank"}
+        - z vrstvy ``StavebniObjekt`` extrahujte pouze prvky v rozsahu území ORP s obalovou zónou 20km (Select)*
+        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP s obalovou zónou 20km *(Clip)*
+    2. převeďte rastr viditelnosti na vektorovou vrstvu *(Raster to Polygon)*
+        - v nově vzniklé vrstvě vhodně nastavte výraz v *Definition Query*, aby vrstva zobrazovala pouze viditelnou plochu (atribut "gridcode" = 1)
+    3. zjistěte, které SO se nachází v zóně viditelnosti, a vypočítejte, z kolika % jsou dané SO viditelné
+        - pro výpočet plochy překryvu vrstvy stavebních objektů a polygonové vrstvy viditelnosti využijte nástroj [*(Tabulate Intersection)*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/tabulate-intersection.htm), jako "Zone Fields" nastavte atribut "kod", který jednoznačně definuje každý stavební objekt __(27)__{title="nastavení parametrů funkce Tabulate Intersection"}
+        - vzniklou tabulku s informacemi o ploše a procentu překryvu obou vrstev propojte s vrstvou stavebních objektů (atribut "kod") --> *(Join)*
+        - propojenou tabulku exportujte do samostatné vrstvy *(Data-Export Features)*
+    4. vhodným nastavením symbologie vizualizujte SO dle procenta viditelnosti *(Symbology-Graduated Colors)*
+
+<hr class="level-1">
+
+### :material-dump-truck:{ .lg .middle } **SKLÁDKA**
+
+V zadaném ORP identifikujte **vhodné plochy pro výstavbu skládky**{style="text-transform:uppercase;"}.
 
 Při analýze zohledněte následující podmínky:
 
@@ -36,49 +176,19 @@ Při analýze zohledněte následující podmínky:
 | Vzdálenost od MZChÚ či OP MZChÚ | min. 300 m |
 
 </div>
-Za potenciálně vhodné pro výstavbu skládky považujte plochy, které:
+Plocha pro výstavbu skládky je považována za vhodnou, pokud má **rozlohu více než 1 ha** a nachází se na **trvalém travním porostu**.
 
-- splňují výše uvedené prostorové podmínky,
-- nachází se na **trvalém travním porostu**,
-- mají **rozlohu více než 1 ha**.
+Z výsledků analýzy vyberte **3 nejvhodnější lokality pro výstavbu skládky**{style="text-transform:uppercase;"} **dle vzdálenosti od pozemní komunikace a lesa**. Ve finálním výběru prioritizujte lokality, které se nachází co nejdále od lesa, ale zároveň nejsou příliš vzdáleny od pozemní komunikace (silnice III. třídy a vyšší).
 
-Z výsledných ploch vyberte **3 nejvhodnější lokality**. Při jejich výběru **zohledněte vzdálenost od lesa a pozemních komunikací**. Preferujte lokality, které se nacházejí dále od lesa a současně v přiměřené vzdálenosti od pozemní komunikace (silnice III. třídy a vyšší).
+Vytvořte přehlednou vizualizaci zobrazující vybrané lokality. Ve výsledné vizualizaci uveďte pro jednotlivé lokality následující atributy: plocha v hektarech, vzdálenost od nejbližší silnice a lesa v metrech.
 
-### **Výstupy**
 
-Výstupy této analýzy mohou být prezentovány ve formě mapového posteru či webové mapové aplikace / story mapy.
-<!-- #### **1. Polygonová vrstva (povinný)**
+<figure markdown>
+  ![Ukázka vizualizace analýzy pro výstavbu skládky v ORP Mělník](../assets/SP/Melnik_skladka_TOP3.png "Ukázka vizualizace analýzy pro výstavbu skládky v ORP Mělník"){ width=600px }
+  <figcaption>Ukázka vizualizace analýzy pro výstavbu skládky v ORP Mělník</figcaption>
+</figure>
 
-Odevzdejte výslednou **polygonovou vrstvu potenciálně vhodných ploch pro výstavbu skládky** na zadaném území.
 
-V atributové tabulce vrstvy uveďte následující atributy:
-
-- rozloha [ha],
-- vzdálenost od nejbližší pozemní komunikace [m],
-- vzdálenost od lesa [m].
--->
-
-**1. Mapový poster**
-
-Mapový poster ve formátu A3 bude obsahovat přehlednou vizualizaci zobrazující celé území obce a 3 detailní mapy nejvhodnějších lokalit pro výstavbu skládky.
-
-Pro 3 nejvhodnější lokality uveďte následující informace: 
-
-- rozloha [ha],
-- vzdálenost od nejbližší pozemní komunikace [m],
-- vzdálenost od lesa [m].
-
-**2. Webová mapová aplikace / story mapa**
-
-Webová mapová aplikace / story mapa bude vhodným způsobem prezentovat 3 nejvhodnější lokality pro výstavbu skládky.
-
-Pro 3 nejvhodnější lokality budou uvedeny následující informace: 
-
-- rozloha [ha],
-- vzdálenost od nejbližší pozemní komunikace [m],
-- vzdálenost od lesa [m].
-
-### **Postup**
 - **DATOVÉ ZDROJE:**
 
     [:material-layers: RÚIAN ](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "''StavebniObjekt', 'ObecSRozsirenouPusobnosti''"){ .md-button .md-button--primary .button_smaller target="_blank"}
@@ -145,219 +255,6 @@ Pro 3 nejvhodnější lokality budou uvedeny následující informace:
 | Vzdálenost od ChOPAV | min. 500 m |
 | Vzdálenost k pozemním komunikacím | silnice III. tř. a vyšší max. 250 m daleko | -->
 
-<hr class="level-1">
-
-## :material-solar-power-variant:{ .lg .middle } **SOLÁRNÍ ELEKTRÁRNA**
-
-### **Cíl**
-
-Cílem úlohy je využití základních nástrojů prostorové analýzy nad rastrovými daty (topografické analýzy, reklasifikace, mapová algebra).
-
-### **Zadání**
-
-V zadané obci identifikujte **vhodné plochy pro výstavbu solární elektrárny**{style="text-transform:uppercase;"}.
-
-Při analýze zohledněte následující hodnoticí kritéria:
-
-- :material-slope-uphill:{ .lg .middle } **Sklonitost svahu:** Pro instalaci solárních panelů jsou vhodné zejména rovinaté nebo mírně svažité terény.
-
-<div style="text-align:center;" markdown>
-
-| Sklonitost | Bodové ohodnocení  |
-|---|---------------------------|
-| 0–1° | 3 |
-| 1–4° | 2 |
-| 4–7° | 1 |
-| >7° | 0 |
-
-</div>
-
-- :material-sun-angle:{ .lg .middle } **Orientace svahu:** Pro instalaci solárních panelů jsou vhodné zejméne plochy orientované na jih, jihovýchod nebo jihozápad.
-
-<div style="text-align:center;" markdown>
-
-| Orientace svahu | Bodové ohodnocení  |
-|---|---------------------------|
-| azimut 0°–112,5° | 0 |
-| azimut 112,5°–135° (VJV-JV)| 1 |
-| azimut 135°–157,5° (JV-JJV) | 2 |
-| azimut 157,5°–202,5° (JJV-J-JJZ) | 3 |
-| azimut 202,5°–225°  (JJZ-JZ)| 2 |
-| azimut 225°–247,5° (JZ-ZJZ) | 1 |
-| azimut 247,5°–360° | 0 |
-
-</div>
-
-- :material-island-variant:{ .lg .middle } **Typ využití půdy:** Pro výstavbu solární elektrárny jsou vhodné např. trvalé travní porosty, solární elektrárnu je však možné vybudovat i na orné půdě. 
-
-<div style="text-align:center;" markdown>
-
-| Typ využití půdy | Bodové ohodnocení  |
-|---|---------------------------|
-| louka, trvalý travní porost | 3 |
-| orná půda   | 1 |
-| ostatní typy | 0 |
-
-</div>
-
-Za potenciálně vhodné pro výstavbu solární elektrárny považujte plochy, které:
-
-- dosahují celkového **hodnocení min. 7 bodů**,
-- mají **rozlohu více než 1 ha**.
-
-Z výsledných ploch vyberte **3 nejvhodnější lokality**. Při jejich výběru **zohledněte bodové hodnocení a celkovou rozlohu**. Preferujte lokality, které mají vyšší bodové ohodnocení a větší rozlohu.
-
-### **Výstupy**
-
-Výstupy této analýzy mohou být prezentovány ve formě mapového posteru či webové mapové aplikace / story mapy.
-
-<!-- #### **1. Rastrová vrstva (povinný)**
-
-Odevzdejte výsledný **rastr hodnocení vhodnosti území pro výstavbu solární elektrárny** na zadaném území.
-
-V atributové tabulce vrstvy uveďte následující atributy:
-
-- rozloha [ha],
-- celkové bodové ohodnocení.
--->
-
-**1. Mapový poster**
-
-Mapový poster ve formátu A3 bude obsahovat přehlednou vizualizaci zobrazující celé území obce a 3 detailní mapy nejvhodnějších lokalit pro výstavbu solární elektrárny.
-
-Pro 3 nejvhodnější lokality uveďte následující informace: 
-
-- rozloha [ha],
-- celkové bodové ohodnocení.
-
-**2. Webová mapová aplikace / story mapa**
-
-Webová mapová aplikace / story mapa bude vhodným způsobem prezentovat 3 nejvhodnější lokality pro výstavbu solární elektrárny.
-
-Pro 3 nejvhodnější lokality budou uvedeny následující informace: 
-
-- rozloha [ha],
-- celkové bodové ohodnocení.
-
-
-### **Postup**
-- **DATOVÉ ZDROJE:**
-
-    [:material-layers: DMR5G ](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmr5g/ImageServer){ .md-button .md-button--primary .button_smaller target="_blank"}
-    [:material-layers: ZABAGED ](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer " ''Orná půda a ostatní dále nespecifikované plochy', 'Trvalý travní porost'' "){ .md-button .md-button--primary .button_smaller target="_blank"}
-    {: .button_array style="justify-content:flex-start;"}
-
-
-???+ task-fg-color "Jak na to?"
-    
-    1. připravte si DMR5G pro své území
-        - *Add Data From Path* --> *Data-Export Raster* __(1)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(2)__{title="nastavení parametrů funkce Extract by Mask"}
-        
-            **pozn. v případě potřeby exportujte rastr pro své území po více (vzájemně se překrývajících) částech, poté oba rastry spojte nástrojem Mosaic to New Raster*
-    2. připrava vektorových vrstev
-        -  přes *Add Data From Path* přidejte do mapy požadované vrstvy ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} z mapových služeb ArcGIS REST
-        - z vrstev mapové služby hromadně extrahujte pouze prvky v rozsahu území ORP *(Select-batch)*
-        - z vrstvy ``Orná půda a ostatní dále nespecifikované plochy`` vyberte pouze požadované typy ploch *(Select By Attributes)* 
-        - vybrané vrstvy hromadně ořízněte dle hranic ORP *(Clip-batch)*
-        - jednotlivé vrstvy spojte do jedné vrstvy *(Merge)* 
-        - v atributové tabulce nově vzniklé vrstvy vytvořte nový atribut ``hodnoceni`` *(Add Field)*--> hodnoty pro jednotlivé typy ploch vyplňte dle zadaných kritérií *(Calculate Field)*
-        - polygonovou vrstvu převeďte na rastr *(Feature to Raster)* __(3)__{title="nastavení parametrů funkce Feature to Raster"} __(4)__{title="nastavení Environments funkce Feature to Raster"}
-    3. vytvořte rastry sklonitosti *(Slope)* a orientace svahů *(Aspect)* (nezapomeňte v *Environments* nastavit parametry *Output Coordinate System*, *Cell Size* a *Snap Raster*)
-    4. proveďte reklasifikaci rastrů sklonitosti a orientace svahů dle zadaných kritérií *(Reclassify)* __(5)__{title="nastavení parametrů nástroje Reclassify pro rastr orientace svahů"}
-    5. zkombinujte rastry využití plochy, sklonitosti a orientace svahů do jednoho rastru, jež bude území ORP klasifikovat dle bodového hodnocení zadaných podmínek *(Raster Calculator)* __(6)__{title="nástroj Raster Calculator"}
-    6. výstupní rastr opět reklasifikujte, aby zobrazoval pouze území vhodné pro výstavbu solární elektrárny (minimálně 7 bodů)
-    7. převeďte rastr na polygonovou vrstvu *(Raster to Polygon)* a vyberte pouze území splňující zadané kritérium, které je větší než 1 ha *(Select By Attributes)*
-    8. polygonovou vrstvu vhodně upravte *(Eliminate Polygon Part)* a vizualizujte *(Symbology)*
-
-<hr class="level-1">
-
-## :material-tower-fire:{ .lg .middle } **ROZHLEDNA**
-
-### **Cíl**
-
-Cílem úlohy je využití základních nástrojů GIS pro práci s výškovými daty, analýzu viditelnosti a prezentaci prostorových dat ve 3D prostředí
-
-### **Zadání**
-
-Ze 3 výškových bodů v zadané obci identifikujte **nejvhodnější lokalitu pro výstavbu rozhledny**{style="text-transform:uppercase;"}. 
-
-Jako hlavní kritérium výběru lokality je viditelnost co největší plochy v okruhu 10 km od zadaného bodu zadaného ORP či viditelnost co největšího počtu významných prvků (budovy, krajinné prvky).
-
-Uvažuujte následující parametry rozhledny:
-- maximální přípustná výška stavby je 35 m, 
-- pozorovací ochoz je ve výšce 32 m. 
-
-Na základě výsledků analýzy vytvořte 3D scénu zobrazující vhodné lokality pro výstavbu rozhledny s modelovanou viditelností. Ve scéně můžete libovolně vyznačit budovy či významné krajinné prvky, které jsou z dané lokality viditelné. Volitelně můžete namodelovat i samotnou stavbu rozhledny.
-
-### **Výstupy**
-
-Výstupy této analýzy mohou být prezentovány ve formě mapového posteru či webové 3D scény.
-
-
-**1. Mapový poster**
-
-Mapový poster ve formátu A3 bude obsahovat přehlednou vizualizaci zobrazující rastr viditelnosti nad topografickou mapou pro vybranou lokalitu. V mapě budou viditelné také zájmové prvky (kostel, zámek, zřícenina, hrad, ...). V mapovém posteru bude také printscreen jednoho z pohledů z vytvořené 3D scény.
-
-
-**2. Webová 3D scéna**
-
-Webová 3D scéna zobrazující pohled z vybraného lokality pro výstavbu rozhledny s modelovanou viditelností. Ve scéně můžete libovolně vyznačit budovy či významné krajinné prvky, které jsou z dané lokality viditelné. Volitelně můžete namodelovat i samotnou stavbu rozhledny.
-
-### **Postup**
-
-- **DATOVÉ ZDROJE:**
-
-    [:material-layers: DMP1G ](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmp1g/ImageServer){ .md-button .md-button--primary .button_smaller target="_blank"}
-    [:material-layers: Data50 ](https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer "''KotovanyBod', 'Kostel', 'VezovitaStavba', 'Zamek', 'Zricenina', 'Hrad''"){ .md-button .md-button--primary .button_smaller}
-    [:material-layers: ZABAGED ](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "''KotovanyBod', 'BudovaJednotlivaNeboBlokBudov''"){ .md-button .md-button--primary .button_smaller}
-    {: .button_array style="justify-content:flex-start;"}
-
-???+ task-fg-color "Jak na to?"
-    1. příprava území pro analýzu
-        - kolem území ORP vytvořte obalovou zónu o šířce 20 km *(Buffer)* __(21)__{title="nastavení parametrů nástroje Buffer"}
-    2. příprava DMP1G
-        - *Add Data From Path* --> *Data-Export Raster* __(22)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(24)__{title="nastavení parametrů funkce Extract by Mask"}
-        
-            **pozn. v případě potřeby exportujte rastr pro své území po více (vzájemně se překrývajících) částech, poté oba rastry spojte nástrojem Mosaic to New Raster* __(23)__{title="nastavení parametrů funkce Mosaic To New Raster"}       
-    3. přidání dat
-        - přes *Add Data From Path* přidejte do mapy vrstvu ``KotovanyBod`` z mapových služeb ArcGIS REST ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} nebo [**DATA50**](https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer"){ target="_blank"}
-        - z vrstvy ``KotovanyBod`` extrahujte pouze prvky v rozsahu území ORP *(Select)* __(25)__{title="nastavení rozsahu zpracování v nástroji Select"}
-        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP *(Clip)*
-        - v atributové tabulce vrstvy vyberte pouze 5 nejvyšších kót ve Vašem ORP a vytvořte novou vrstvu bodových prvků *(Data-Export Features)*
-    3. analýza viditelnosti
-        - vytvořte rastr viditelnosti pro vrstvu s 5 výškovými kótami *(Visibility)* (nezapomeňte v *Observer parameters* nastavit parametr *Observer offset* dle výšky pozorovatele na plošině rozhledny. Pro větší přesnost výpočtu je vhodné nastavit i parametr *Observer elevation*, který lze převzít z atributové tabulky vrstvy s kótovanými body) __(8)__{title="nastavení parametrů funkce Visibility"}
-    4. vyberte lokalitu, ze které je vidět největší plocha Vašeho území
-        - pro jednotlivé výškové kóty (OBSXY) postupně sumarizujte počet viditelných pixelů *(název atributu-Summarize)* __(9)__{title="nastavení funkce Summary Statistics"} 
-        - dle jednotlivých sumarizačních tabulek určete, která lokalita má pro hodnotu "1" největší počet pixelů __(10)__{title="počet pixelů viditelných z dané lokality"}
-    5. vytvořte vizualizaci rastru viditelnosti pro vybranou lokalitu
-        - v nastavení symbologie vrstvy nastavte *Primary symbology-Unique Values* dle atributu vybraného lokality (např. OBS1) __(11)__{title="nastavení symbologie rastru viditelnosti"}
-
-??? task-fg-color "Bonusová otázka č. 1: Ze které lokality je vidět nejvíce zájmových bodů (kostel, zámek, zřícenina, hrad, ...)?"
-    1. příprava vrstev
-        - zájmové vrstvy ``Kostel``, ``VezovitaStavba``, ``Zamek``, ``Zricenina``, ``Hrad`` spojte do jedné vrstvy *(Merge)* 
-    2. zjistěte, jaké zájmové body se nachází v zóně viditelnosti
-        - pro bodovou vrstvu zájmových prvků extrahujte informaci o zóně viditelnosti z rastru viditelnosti *(Extract Values to Points)*      
-    3. zjistěte, které zóny viditelnosti jsou viditelné z kterých lokalit
-        - vzniklou bodovou vrstvu s informací o zóně viditelnosti (atribut "RASTERVALUE") propojte s informacemi z atributové tabulky rastru viditelnosti, ve které je u každé zóny viditelnosti (atribut "Value") uvedeno, ze které lokality je tato zóna viditelná (atribut "OBSXY") --> *(Join)*
-        - propojenou tabulku exportujte do samostatné vrstvy *(Data-Export Features)*
-    4. zjistěte, ze které lokality je vidět největší počet zájmových bodů
-        - v nově vzniklé vrstvě sumarizujte počet hodnot "1" pro atributy "OBSXY" *(název atributu-Summarize)* __(26)__{title="nastavení parametrů funkce Summary Statistics"}
-
-??? task-fg-color "Bonusová otázka č. 2: Jaké stavební objekty jsou z dané lokality viditelné? Uveďte, jaká část stavebního objektu (v %) je viditelná."
-    1. přidání dat
-        - přes *Add Data From Path* přidejte do mapy vrstvu ``StavebniObjekt`` z mapové služby [**RÚIAN**](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer"){ target="_blank"}
-        - z vrstvy ``StavebniObjekt`` extrahujte pouze prvky v rozsahu území ORP s obalovou zónou 20km (Select)*
-        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP s obalovou zónou 20km *(Clip)*
-    2. převeďte rastr viditelnosti na vektorovou vrstvu *(Raster to Polygon)*
-        - v nově vzniklé vrstvě vhodně nastavte výraz v *Definition Query*, aby vrstva zobrazovala pouze viditelnou plochu (atribut "gridcode" = 1)
-    3. zjistěte, které SO se nachází v zóně viditelnosti, a vypočítejte, z kolika % jsou dané SO viditelné
-        - pro výpočet plochy překryvu vrstvy stavebních objektů a polygonové vrstvy viditelnosti využijte nástroj [*(Tabulate Intersection)*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/tabulate-intersection.htm), jako "Zone Fields" nastavte atribut "kod", který jednoznačně definuje každý stavební objekt __(27)__{title="nastavení parametrů funkce Tabulate Intersection"}
-        - vzniklou tabulku s informacemi o ploše a procentu překryvu obou vrstev propojte s vrstvou stavebních objektů (atribut "kod") --> *(Join)*
-        - propojenou tabulku exportujte do samostatné vrstvy *(Data-Export Features)*
-    4. vhodným nastavením symbologie vizualizujte SO dle procenta viditelnosti *(Symbology-Graduated Colors)*
-
-
-
 </div>
 
 1.  ![](../assets/cviceni7/ExportRasterDialog.png){ .no-filter width=500px} nastavení parametrů funkce Export Raster
@@ -390,11 +287,9 @@ Webová 3D scéna zobrazující pohled z vybraného lokality pro výstavbu rozhl
 
 <hr class="level-1">
 
-## Podmínky zápočtu
+## Výstup
 
-Každý student odevzdává jeden mapový poster formátu A3 či webovou mapovou aplikaci / story mapu / 3D scénu, na kterém kartograficky prezentuje výsledky jedné z řešených úloh dle vlastního výběru.
-
-<!-- ???+ note-grey "Forma a obsah semestrální práce"
+???+ note-grey "Forma a obsah semestrální práce"
     Výstup lze odevzdat jako:
 
     a. **tištěný mapový poster** o velikosti min. **A2**, který bude obsahovat základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území), zadání jednotlivých analýz a zejména mapové vizualizace výstupů všech analýz (včetně pohledu 3D scény*), které budou doprovozeny textem interpretujícím výsledky (např. kolik % plochy ORP je vhodných pro výstavbu daného objektu, které lokality a proč byly vybrány jako nejvhodnější). 
@@ -404,14 +299,9 @@ Každý student odevzdává jeden mapový poster formátu A3 či webovou mapovou
     c. **webovou mapovou aplikaci/story mapu**, která bude obsahovat základní charakteristiku území ORP (rozloha, počet obyvatel a slovní popis území), zadání jednotlivých analýz a zejména vizualizace výstupů všech analýz ve formě webových map (včetně pohledu 3D scény*), které budou doprovozeny textem interpretujícím výsledky (např. kolik % plochy ORP je vhodných pro výstavbu daného objektu, které lokality a proč byly vybrány jako nejvhodnější).
 
     **3D scénu lze vytvořit ve webovém prostředí a v tištěném výstupu na ní pouze vhodně odkázat (link, QR kód)*
--->
 
-Termín odevzdání: __neděle 31. ledna 2027__{.outlined} 
 
-<figure markdown>
-  ![Ukázka vizualizace analýzy pro výstavbu skládky v ORP Mělník](../assets/SP/Melnik_skladka_TOP3.png "Ukázka vizualizace analýzy pro výstavbu skládky v ORP Mělník"){ width=600px }
-  <figcaption>Ukázka vizualizace analýzy pro výstavbu skládky v ORP Mělník</figcaption>
-</figure>
+Termín odevzdání: __pondělí 15. června 2026__{.outlined} 
 
 
 <!--

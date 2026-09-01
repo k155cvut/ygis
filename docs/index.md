@@ -1,16 +1,14 @@
 
-# ARCGIS – GEOGRAFICKÉ INFORMAČNÍ SYSTÉMY
+# ArcGIS – Objevte sílu prostorové inteligence ve vašich projektech
 
-## Objevte sílu prostorové inteligence ve vašich projektech
-
-Chcete posunout své architektonické vize na novou úroveň? Otevřete bránu k inovativním a efektivním řešením s pomocí geografických informačních systémů (GIS)! Nový volitelný předmět **GIS pro architekty** vám poskytne nástroje a znalosti, díky kterým budete moci plně využít potenciál prostorových dat ve své práci.
+Chcete posunout své architektonické vize na novou úroveň? Otevřete bránu k inovativním a efektivním řešením s pomocí geografických informačních systémů (GIS)! Nový volitelný předmět **ArcGIS** vám představí nástroj, díky kterýmu budete moci plně využít potenciál prostorových dat ve své práci.
 
 <figure markdown>
   ![](./assets/gis_00.jpg "GIS"){ width=300px }
   <figcaption>GIS</figcaption>
 </figure>
 
-GIS není jen o mapách. Je to mocný nástroj, který vám umožní *analyzovat a interpretovat komplexní prostorové informace*, které jsou nezbytné pro navrhování budov a urbanistických celků. Představte si, že máte k dispozici *podrobné údaje o lokalitě vašeho projektu, včetně informací o terénu, dopravní infrastruktuře, zeleni, ale i sociodemografických datech, slunečním osvitu a mnoha dalších faktorech*. S pomocí GIS můžete tyto informace *efektivně využít pro optimalizaci návrhu, zlepšení energetické účinnosti budov, plánování dopravy a urbanistického rozvoje*. 
+GIS není jen o mapách. Je to mocný nástroj, který vám umožní **analyzovat a interpretovat komplexní prostorové informace**, které jsou nezbytné pro navrhování budov a urbanistických celků. Představte si, že máte k dispozici **podrobné údaje o lokalitě vašeho projektu, včetně informací o terénu, dopravní infrastruktuře, zeleni, ale i sociodemografických datech, slunečním osvitu a mnoha dalších faktorech**. S pomocí GIS můžete tyto informace **efektivně využít pro optimalizaci návrhu, zlepšení energetické účinnosti budov, plánování dopravy a urbanistického rozvoje**. 
 
 <figure markdown>
   ![](./assets/gis_02.jpg "Analýza budov na základě technicko-hospodářských atributů"){ width=300px }
@@ -32,15 +30,16 @@ V rámci tohoto předmětu se naučíte pracovat s GIS softwarem a daty, provád
 </div>
 
 
-GIS vám *umožní lépe porozumět kontextu vašeho projektu a navrhnout budovy, které jsou v souladu s okolním prostředím a potřebami komunit*. Budete schopni *efektivněji komunikovat s klienty, developery a dalšími zainteresovanými subjekty*, protože budete mít k dispozici konkrétní data a vizualizace, které podpoří vaše argumenty. GIS vám pomůže optimalizovat náklady projektu, protože budete moci lépe plánovat a předvídat potenciální problémy.
-Připojte se k nám a objevte svět prostorové inteligence, který vám otevře nové možnosti pro vaši tvůrčí práci. Získejte konkurenční výhodu na trhu a staňte se *moderním architektem*, který dokáže efektivně využívat moderní technologie pro navrhování lepších budov a měst.
+GIS vám **umožní lépe porozumět kontextu vašeho projektu a navrhnout budovy, které jsou v souladu s okolním prostředím a potřebami komunit**. Budete schopni **efektivněji komunikovat s klienty, developery a dalšími zainteresovanými subjekty**, protože budete mít k dispozici konkrétní data a vizualizace, které podpoří vaše argumenty. GIS vám pomůže optimalizovat náklady projektu, protože budete moci lépe plánovat a předvídat potenciální problémy.
+Připojte se k nám a objevte svět prostorové inteligence, který vám otevře nové možnosti pro vaši tvůrčí práci. Získejte konkurenční výhodu na trhu a staňte se **moderním architektem**, který dokáže efektivně využívat moderní technologie pro navrhování lepších budov a měst.
 
 <figure markdown>
   ![](./assets/gis_06.jpg "Vrstevnice jako 3D linie vhodné k modelování terénu"){ width=300px }
   <figcaption>Vrstevnice jako 3D linie vhodné k modelování terénu</figcaption>
 </figure>
 
-Přednášky vás provedou základní teorií, cvičení se věnují praktickému ovládání GIS software – zejména porozumění práci s daty, provádění analýz a vizualizace dat. Během výuky je používán software __:simple-arcgis: Esri ArcGIS Pro__{: style="white-space: nowrap;"}, částečně  věnován prostor i možným alternativám (program __:simple-qgis: QGIS__).
+V předmětu je kladen důraz zejména na praktickou práci s prostorovými daty, jejich získávání, zpracování, analýzu a vizualizaci. Studenti si na modelových úlohách osvojí základní metody vektorových a rastrových prostorových analýz, práci s digitálními modely terénu, analýzu viditelnosti a 3D vizualizaci. Výuka probíhá převážně v prostředí software __:simple-arcgis: Esri ArcGIS Pro__{: style="white-space: nowrap;"}.
+
 
 <h2 style="text-align:center;">Naučíte se</h2>
 <!-- styl je zde pridany HTML tagem (ne pomoci '##'), aby se text neobjevil v tabulce obsahu vlevo na strance -->
@@ -99,15 +98,6 @@ Přednášky vás provedou základní teorií, cvičení se věnují praktickém
 </div>
 <br>
 
-### **Doporučená literatura**
-
-1. Kolář, J. (1998): Geografické informační systémy 10. Vydavatelství ČVUT, Praha.
-2. Rapant, P. (2006): Geoinformatika a geoinformační technologie. VŠB-TU Ostrava, 500 str. ISBN 80-248-1264-9.
-3. Břehovský, M., Jedlička, K. (2005): Přednáškové texty pro Úvod do GIS. ZČU Plzeň, 116 s.
-4. Hrubý M.: Geografické Informační Systémy (GIS) - Studijní opora. VÚT v Brně, 91 str.
-5. Tuček J. (1998): Geografické informační systémy, Praha Computer Press, 1998.
-6. Geletič, J., Hladiš, L., Šimáček, P. (2019): [GIS pro geografy. Distanční studijní opora](https://geography.upol.cz/soubory/studium/opory/D_GIS.pdf). Univerzita Palackého v Olomouci, 141 s.
-
 <hr class="level-1">
 
 ## **Cvičení** 
@@ -115,14 +105,17 @@ Přednášky vás provedou základní teorií, cvičení se věnují praktickém
 účast doporučená
 {: style="opacity:50%;margin-top:0;"}
 
-![](https://geomatics.fsv.cvut.cz/wp-content/uploads/2022/01/03-edit_export@0.5x-1.jpg){: .off-glb .no-filter style="height: 1.5em; vertical-align: -.4em; clip-path: circle();"} 
-[__prof. Ing. Jiří Cajthaml, Ph.D.__](https://geomatics.fsv.cvut.cz/en/employees/jiri-cajthaml/)__&nbsp;__{style="margin-left:1rem;"}
-![](https://geomatics.fsv.cvut.cz/wp-content/uploads/2022/01/iconmonstr-user-male-thin.png){: .off-glb .no-filter style="height: 1.5em; vertical-align: -.4em; clip-path: circle();"} 
-[__Ing. Tomáš Janata, Ph.D.__](https://geomatics.fsv.cvut.cz/en/employees/tomas-janata/)__&nbsp;__{style="margin-left:1rem;"}
+
 ![](https://geomatics.fsv.cvut.cz/wp-content/uploads/2022/01/03-edit_export@0.5x-16.jpg){: .off-glb .no-filter style="height: 1.5em; vertical-align: -.4em; clip-path: circle();"} 
 [__Mgr. Petra Justová, Ph.D.__](https://geomatics.fsv.cvut.cz/en/employees/petra-justova/)__&nbsp;__{style="margin-left:1rem;"}
 ![](https://geomatics.fsv.cvut.cz/wp-content/uploads/2022/01/03-edit_export@0.3x.jpg){: .off-glb .no-filter style="height: 1.5em; vertical-align: -.4em; clip-path: circle();"} 
 [__Ing. Vojtěch Cehák__](https://geomatics.fsv.cvut.cz/employees/vojtech-cehak/)
+
+
+[![](./assets/index/schedule_ZS2026.png){.off-glb .no-filter style="width: 500px;"}](https://kos.cvut.cz/schedule/course/155YGIS/semester/B261){target="_blank"}
+
+Aktuální harmonogram je dostupný na [__GeoWikiCZ__](https://geo.fsv.cvut.cz/gwiki/155YGIS_ArcGIS){.color_def .underlined_dotted .external_link_icon target="_blank"}
+
 
 1. Úvod do práce v prostředí ArcGIS. Prostorová data – rastry, vektory, datové zdroje
 2. Vektorová data, atributové dotazy, prostorové dotazy
@@ -136,13 +129,32 @@ Přednášky vás provedou základní teorií, cvičení se věnují praktickém
 10. Tvorba mapy, layout
 
 
-## Harmonogram (LS 2025/2026) {: style="margin-bottom:0;"}
+### **Podmínky zápočtu**
 
-Aktuální harmonogram na LS 2025/2026 je dostupný na [__GeoWikiCZ__](https://geo.fsv.cvut.cz/gwiki/155YGIS_ArcGIS){.color_def .underlined_dotted .external_link_icon target="_blank"}
+Každý student odevzdává jeden mapový poster formátu A3 či webovou mapovou aplikaci / story mapu / 3D scénu, kde budou prezentovány výsledky jedné z [modelových úloh](/semestralka) dle vlastního výběru. Modelové úlohy jsou zpracovány v průběhu praktických cvičení a jsou tak z převážné části zpracovány během výuky.
 
-[![](./assets/index/schedule_LS2026.png){.off-glb .no-filter style="width: 300px;"}](https://kos.cvut.cz/schedule/course/155YGIS/semester/B251){target="_blank"}
+Termín odevzdání: __neděle 31. ledna 2027__{.outlined} 
+
+## **Doporučené zdroje**
+### **Literatura**
+
+1. Kolář, J. (1998): Geografické informační systémy 10. Vydavatelství ČVUT, Praha.
+2. Rapant, P. (2006): Geoinformatika a geoinformační technologie. VŠB-TU Ostrava, 500 str. ISBN 80-248-1264-9.
+3. Břehovský, M., Jedlička, K. (2005): Přednáškové texty pro Úvod do GIS. ZČU Plzeň, 116 s.
+4. Hrubý M.: Geografické Informační Systémy (GIS) - Studijní opora. VÚT v Brně, 91 str.
+5. Tuček J. (1998): Geografické informační systémy, Praha Computer Press, 1998.
+6. Geletič, J., Hladiš, L., Šimáček, P. (2019): [GIS pro geografy. Distanční studijní opora](https://geography.upol.cz/soubory/studium/opory/D_GIS.pdf). Univerzita Palackého v Olomouci, 141 s.
+
+### **Tutoriály**
+
+1. Webové stránky předmětu [GIS1](https://k155cvut.github.io/gis-1/)
+2. Webové stránky předmětu [GIS2](https://k155cvut.github.io/gis-2/)
+3. [Learn ArcGIS Hub](https://learn.arcgis.com/en/gallery/#?p=arcgispro)
+4. [Esri Training Catalog](https://www.esri.com/en-us/training/catalog/all-training)
+5. [MOOCs and Live Training Seminars](https://www.esri.com/en-us/training/catalog/live-training-seminars-moocs)
+6. [Urban Planning, Design & Development Software](https://www.esri.com/en-us/arcgis/products/arcgis-urban/overview)
 
 ---
 
-[Stránka předmětu v :custom-kos-logo-img-BW:{.middle style="margin-left:3px;"} :custom-kos-logo-BW:{.xl .middle}](https://kos.cvut.cz/course-syllabus/155YGIS/B251){ .md-button .md-button--primary target="_blank"}
+[Stránka předmětu v :custom-kos-logo-img-BW:{.middle style="margin-left:3px;"} :custom-kos-logo-BW:{.xl .middle}](https://kos.cvut.cz/course-syllabus/155YGIS/B261){ .md-button .md-button--primary target="_blank"}
 {align=center}
