@@ -283,7 +283,8 @@ Ze 3 výškových bodů v zadané obci identifikujte **nejvhodnější lokalitu 
 
 Jako hlavní kritérium výběru lokality je viditelnost co největší plochy v okruhu 10 km od zadaného bodu zadaného ORP či viditelnost co největšího počtu významných prvků (budovy, krajinné prvky).
 
-Uvažuujte následující parametry rozhledny:
+Uvažujte následující parametry rozhledny:
+
 - maximální přípustná výška stavby je 35 m, 
 - pozorovací ochoz je ve výšce 32 m. 
 
