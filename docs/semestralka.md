@@ -4,7 +4,7 @@ V průběhu semestru jsou zpracovány tři modelové úlohy zaměřené na využ
 
 - nová [**skládka** :material-dump-truck:{ .lg .middle }](/semestralka/#skladka),
 - nová [**solární elektrárna** :material-solar-power-variant:{ .lg .middle }](/semestralka/#solarni-elektrarna),
-- nová [**skládka** :material-dump-truck:{ .lg .middle }](/semestralka/#rozhledna).
+- nová [**rozhledna** :material-tower-fire:{ .lg .middle }](/semestralka/#rozhledna).
 
 
 ??? task-fg-color "Individuální zadání"
