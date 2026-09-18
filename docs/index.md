@@ -114,19 +114,102 @@ V předmětu je kladen důraz zejména na praktickou práci s prostorovými daty
 
 [![](./assets/index/schedule_ZS2026.png){.off-glb .no-filter style="width: 500px;"}](https://kos.cvut.cz/schedule/course/155YGIS/semester/B261){target="_blank"}
 
-Aktuální harmonogram je dostupný na [__GeoWikiCZ__](https://geo.fsv.cvut.cz/gwiki/155YGIS_ArcGIS){.color_def .underlined_dotted .external_link_icon target="_blank"}
+<style>
+/* =========================
+   COURSE SCHEDULE TABLE
+   ========================= */
+
+.schedule-table {
+    width: 100%;
+    border-collapse: separate !important;
+    border-spacing: 0;
+    font-size: 0.92rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Cells */
+.schedule-table th,
+.schedule-table td {
+    vertical-align: middle !important;
+    padding: 0.65em 0.8em !important;
+}
+
+/* Header */
+.schedule-table thead th {
+    background: var(--md-primary-fg-color);
+    color: white;
+    font-weight: 600;
+    border-bottom: none !important;
+}
+
+/* Alternating rows */
+.schedule-table tbody tr:nth-child(even) {
+    background-color: var(--md-default-fg-color--lightest);
+}
+
+/* Hover */
+.schedule-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Date */
+.schedule-table th:nth-child(1),
+.schedule-table td:nth-child(1) {
+    text-align: center;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+/* Lecturer */
+.schedule-table th:nth-child(3),
+.schedule-table td:nth-child(3) {
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Topic */
+.schedule-table td:nth-child(2) {
+    line-height: 1.35;
+}
+
+/* No class */
+.schedule-cancel {
+    color: #b3261e;
+    font-weight: 600;
+}
+
+/* Responsive version */
+@media screen and (max-width: 900px) {
+    .schedule-table {
+        font-size: 0.82rem;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        padding: 0.5em !important;
+    }
+}
+</style>
 
 
-1. Úvod do práce v prostředí ArcGIS. Prostorová data – rastry, vektory, datové zdroje
-2. Vektorová data, atributové dotazy, prostorové dotazy
-3. Prostorové funkce (geoprocessing), spatial join
-4. Souřadnicové referenční systémy v ČR. Přehled typů dat a zdrojů, odkud data získat. Webové mapové služby. Připojení externích dat.
-5. Rastrová data, georeferencování
-6. Výškové rastry, TIN, vrstevnice, analýzy viditelnosti
-7. Analýzy viditelnosti
-8. Topografická analýza povrchu, reklasifikace rastrových dat)
-9. 3D data, reprezentace dat ve 3D prostoru
-10. Tvorba mapy, layout
+| datum | téma | cvičící |
+| :---: | ----- | :------: |
+| 21.09. | [Úvod do práce v prostředí ArcGIS. Prostorová data – rastry, vektory, datové zdroje](https://k155cvut.github.io/ygis/cviceni/cviceni1/) | VC |
+| 28.09. | <span class="schedule-cancel">— odpadá —</span> | — |
+| 05.10. | [Vektorová data, atributové dotazy, prostorové dotazy](https://k155cvut.github.io/ygis/cviceni/cviceni2/) + [Analýza lokality pro výstavbu skládky, část 1](https://k155cvut.github.io/ygis/semestralka/#skladka) | PJ |
+| 12.10. | [Rastrová data, Výškové rastry, TIN, vrstevnice](https://k155cvut.github.io/ygis/cviceni/cviceni6/) | PJ |
+| 19.10. | [Prostorové funkce (geoprocessing), spatial join](https://k155cvut.github.io/ygis/cviceni/cviceni3/) + [Analýza lokality pro výstavbu skládky, část 2](https://k155cvut.github.io/ygis/semestralka/#skladka) | PJ |
+| 26.10. | [Analýza lokality pro výstavbu skládky, část 3](https://k155cvut.github.io/ygis/semestralka/#skladka) + tvorba mapového výstupu (část 1) | PJ |
+| 02.11. | [Analýzy viditelnosti](https://k155cvut.github.io/ygis/semestralka/#rozhledna) | PJ |
+| 09.11. | [3D data, reprezentace dat ve 3D prostoru (část 1)](https://k155cvut.github.io/ygis/cviceni/cviceni8/) | VC |
+| 16.11. | <span class="schedule-cancel">— odpadá —</span> | — |
+| 23.11. | [3D data, reprezentace dat ve 3D prostoru (část 2)](https://k155cvut.github.io/ygis/cviceni/cviceni8/) | VC |
+| 30.11. | Publikace 3D dat do webového prostředí | VC |
+| 07.12. | [Topografická analýza povrchu, reklasifikace rastrových dat](https://k155cvut.github.io/ygis/cviceni/cviceni7/) + [Analýza lokality pro výstavbu solární elektrárny](https://k155cvut.github.io/ygis/semestralka/#solarni-elektrarna) | PJ |
+| 14.12. | [Analýza lokality pro výstavbu solární elektrárny, část 2](https://k155cvut.github.io/ygis/semestralka/#solarni-elektrarna) + tvorba mapového výstupu (část 2) | PJ |
+
 
 
 ### **Podmínky zápočtu**
