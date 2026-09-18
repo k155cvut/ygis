@@ -2,9 +2,9 @@
 
 V průběhu semestru jsou zpracovány tři modelové úlohy zaměřené na využití různých typů prostorových analýz při hodnocení území s ohledem na vhodnost stavby tří objektů:
 
-- nová [**skládka** :material-dump-truck:{ .lg .middle }](/semestralka/#skladka),
-- nová [**solární elektrárna** :material-solar-power-variant:{ .lg .middle }](/semestralka/#solarni-elektrarna),
-- nová [**rozhledna** :material-tower-fire:{ .lg .middle }](/semestralka/#rozhledna).
+- nová [**skládka** :material-dump-truck:{ .lg .middle }](/ygis/semestralka/#skladka),
+- nová [**solární elektrárna** :material-solar-power-variant:{ .lg .middle }](/ygis/semestralka/#solarni-elektrarna),
+- nová [**rozhledna** :material-tower-fire:{ .lg .middle }](/ygis/semestralka/#rozhledna).
 
 
 ??? task-fg-color "Individuální zadání"
