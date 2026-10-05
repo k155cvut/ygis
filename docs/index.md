@@ -231,7 +231,7 @@ Termín odevzdání: __neděle 31. ledna 2027__{.outlined}
 
 ### **Tutoriály**
 
-1. Přednášky předmětu [GIS] (https://k155cvut.github.io/gisz/#prednasky)
+1. Přednášky předmětu [GIS](https://k155cvut.github.io/gisz/#prednasky)
 2. Webové stránky předmětu [GIS1](https://k155cvut.github.io/gis-1/)
 3. Webové stránky předmětu [GIS2](https://k155cvut.github.io/gis-2/)
 3. [Learn ArcGIS Hub](https://learn.arcgis.com/en/gallery/#?p=arcgispro)
