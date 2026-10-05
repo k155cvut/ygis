@@ -31,6 +31,11 @@ title: Cvičení 1
 
 </div>
 
+**Vzorová data:**
+    
+[:material-download: DATA :material-layers:](https://k155cvut.github.io/ygis/assets/cviceni1/cv01_data.zip){ .md-button .md-button--primary .button_smaller } 
+{: .button_array style="justify-content:flex-start;"}
+
 <hr class="level-1">
 
 ## Prostorová data
@@ -129,12 +134,6 @@ style="border: .05rem solid #ededed; border-radius: .1rem;"-->
 ## GIS projekt: mapa, vrstvy a data
 
 V tomto kurzu budeme pracovat především v programu **ArcGIS Pro**. GIS projekt si lze představit jako pracovní prostor, ve kterém jsou uspořádány mapy, vrstvy, tabulky, rozvržení map a odkazy na data. Projekt tedy obvykle **neobsahuje všechna data**, ale ví, kde jsou data uložena nebo odkud jsou dostupná.
-
-
-**Vzorová data:**
-    
-[:material-download: DATA :material-layers:](https://k155cvut.github.io/ygis/assets/cviceni1/cv01_data.zip){ .md-button .md-button--primary .button_smaller } 
-{: .button_array style="justify-content:flex-start;"}
 
 V prostředí ArcGIS Pro budeme rozlišovat zejména tyto pojmy:
 
