@@ -133,7 +133,7 @@ V tomto kurzu budeme pracovat především v programu **ArcGIS Pro**. GIS projek
 
 **Vzorová data:**
     
-[:material-download: DATA :material-layers:](../assets/cviceni1/data_praha.zip){ .md-button .md-button--primary .button_smaller } 
+[:material-download: DATA :material-layers:](https://k155cvut.github.io/ygis/assets/cviceni1/data_praha.zip){ .md-button .md-button--primary .button_smaller } 
 {: .button_array style="justify-content:flex-start;"}
 
 V prostředí ArcGIS Pro budeme rozlišovat zejména tyto pojmy:

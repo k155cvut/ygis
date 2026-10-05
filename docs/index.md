@@ -196,19 +196,20 @@ V předmětu je kladen důraz zejména na praktickou práci s prostorovými daty
 
 | datum | téma | cvičící |
 | :---: | ----- | :------: |
-| 21.09. | [Úvod do práce v prostředí ArcGIS. Prostorová data – rastry, vektory, datové zdroje](https://k155cvut.github.io/ygis/cviceni/cviceni1/) | VC |
+| 21.09. | <span class="schedule-cancel">— odpadá —</span> | — |
 | 28.09. | <span class="schedule-cancel">— odpadá —</span> | — |
-| 05.10. | [Vektorová data, atributové dotazy, prostorové dotazy](https://k155cvut.github.io/ygis/cviceni/cviceni2/) + [Analýza lokality pro výstavbu skládky, část 1](https://k155cvut.github.io/ygis/semestralka/#skladka) | PJ |
-| 12.10. | [Rastrová data, Výškové rastry, TIN, vrstevnice](https://k155cvut.github.io/ygis/cviceni/cviceni6/) | PJ |
-| 19.10. | [Prostorové funkce (geoprocessing), spatial join](https://k155cvut.github.io/ygis/cviceni/cviceni3/) + [Analýza lokality pro výstavbu skládky, část 2](https://k155cvut.github.io/ygis/semestralka/#skladka) | PJ |
-| 26.10. | [Analýza lokality pro výstavbu skládky, část 3](https://k155cvut.github.io/ygis/semestralka/#skladka) + tvorba mapového výstupu (část 1) | PJ |
-| 02.11. | [Analýzy viditelnosti](https://k155cvut.github.io/ygis/semestralka/#rozhledna) | PJ |
-| 09.11. | [3D data, reprezentace dat ve 3D prostoru (část 1)](https://k155cvut.github.io/ygis/cviceni/cviceni8/) | VC |
+| 05.10. | [Úvod do práce v prostředí ArcGIS, Prostorová data, Zdroje dat](https://k155cvut.github.io/ygis/cviceni/cviceni1/) | VC |
+| 12.10. | [Souřadnicové referenční systémy, připojení externích dat](https://k155cvut.github.io/ygis/cviceni/cviceni4/) + [Georeferencování (vektor, rastr)](https://k155cvut.github.io/ygis/cviceni/cviceni5/)| PJ |
+| 19.10. | [Vektorová data, atributové dotazy, prostorové dotazy](https://k155cvut.github.io/ygis/cviceni/cviceni2/) + [Analýza lokality pro výstavbu skládky 1](https://k155cvut.github.io/ygis/semestralka/#skladka) | PJ |
+| 26.10. | [Prostorové funkce (geoprocessing)](https://k155cvut.github.io/ygis/cviceni/cviceni3/) + [Analýza lokality pro výstavbu skládky 2](https://k155cvut.github.io/ygis/semestralka/#skladka) | PJ |
+| 02.11. | [Rastrová data, Výškové rastry, TIN, vrstevnice](https://k155cvut.github.io/ygis/cviceni/cviceni6/) + [Analýzy videitelnosti 1](https://k155cvut.github.io/ygis/semestralka/#rozhledna) | PJ |
+| 09.11. | [Analýzy viditelnosti 2](https://k155cvut.github.io/ygis/semestralka/#rozhledna) | PJ |
 | 16.11. | <span class="schedule-cancel">— odpadá —</span> | — |
-| 23.11. | [3D data, reprezentace dat ve 3D prostoru (část 2)](https://k155cvut.github.io/ygis/cviceni/cviceni8/) | VC |
+| 19.11. | [3D data, reprezentace dat ve 3D prostoru 1](https://k155cvut.github.io/ygis/cviceni/cviceni8/) | VC |
+| 23.11. | [3D data, reprezentace dat ve 3D prostoru 2](https://k155cvut.github.io/ygis/cviceni/cviceni8/) | VC |
 | 30.11. | Publikace 3D dat do webového prostředí | VC |
-| 07.12. | [Topografická analýza povrchu, reklasifikace rastrových dat](https://k155cvut.github.io/ygis/cviceni/cviceni7/) + [Analýza lokality pro výstavbu solární elektrárny](https://k155cvut.github.io/ygis/semestralka/#solarni-elektrarna) | PJ |
-| 14.12. | [Analýza lokality pro výstavbu solární elektrárny, část 2](https://k155cvut.github.io/ygis/semestralka/#solarni-elektrarna) + tvorba mapového výstupu (část 2) | PJ |
+| 07.12. | [Topografická analýza povrchu, reklasifikace rastrových dat](https://k155cvut.github.io/ygis/cviceni/cviceni7/) + [Analýza lokality pro výstavbu solární elektrárny 1](https://k155cvut.github.io/ygis/semestralka/#solarni-elektrarna) | PJ |
+| 14.12. | [Analýza lokality pro výstavbu solární elektrárny 2](https://k155cvut.github.io/ygis/semestralka/#solarni-elektrarna) + tvorba mapového výstupu (část 2) | PJ |
 
 
 
@@ -230,8 +231,9 @@ Termín odevzdání: __neděle 31. ledna 2027__{.outlined}
 
 ### **Tutoriály**
 
-1. Webové stránky předmětu [GIS1](https://k155cvut.github.io/gis-1/)
-2. Webové stránky předmětu [GIS2](https://k155cvut.github.io/gis-2/)
+1. Přednášky předmětu [GIS] (https://k155cvut.github.io/gisz/#prednasky)
+2. Webové stránky předmětu [GIS1](https://k155cvut.github.io/gis-1/)
+3. Webové stránky předmětu [GIS2](https://k155cvut.github.io/gis-2/)
 3. [Learn ArcGIS Hub](https://learn.arcgis.com/en/gallery/#?p=arcgispro)
 4. [Esri Training Catalog](https://www.esri.com/en-us/training/catalog/all-training)
 5. [MOOCs and Live Training Seminars](https://www.esri.com/en-us/training/catalog/live-training-seminars-moocs)
