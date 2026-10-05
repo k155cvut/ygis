@@ -94,11 +94,11 @@ Pro 3 nejvhodnější lokality budou uvedeny následující informace:
         - přes *Add Data From Path* přidejte do mapy požadované vrstvy od [**RÚIAN**](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer"){ target="_blank"} a [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} z [mapových služeb ArcGIS REST](../cviceni/cviceni4/#mapove-sluzby) 
         - přes *Catalog-Servers* (či *Insert-Connections*) připojte [mapové služby WFS](../cviceni/cviceni4/#mapove-sluzby) od [**AOPK**](https://gis.nature.cz/arcgis/services/Aplikace/Opendata/MapServer/WFSServer "https://gis.nature.cz/arcgis/services/Aplikace/Opendata/MapServer/WFSServer"){ target="_blank"} a [**HEIS VÚV**](https://ags2.vuv.cz/arcgis/services/isvs_voda/isvs_voda/MapServer/WFSServer "https://ags2.vuv.cz/arcgis/services/isvs_voda/isvs_voda/MapServer/WFSServer"){ target="_blank"} a přidejte do mapy požadované vrstvy __(12)__{title="připojení WFS serveru"}
     2. příprava zadaného území
-        - z vrstvy ``ObecSRozsirenouPusobnosti`` vytvořte novou vrstvu, která bude obsahovat pouze hranice zadaného ORP *(Select)* __(13)__{title="výběr prvku v nástroji Select"}
-        - kolem území ORP vytvořte obalovou zónu o šířce 300 m *(Buffer)* __(14)__{title="nastavení parametrů nástroje Buffer"}
+        - z vrstvy ``Obec`` vytvořte novou vrstvu, která bude obsahovat pouze hranice zadané obce *(Select)* __(13)__{title="výběr prvku v nástroji Select"}
+        - kolem území obce vytvořte obalovou zónu o šířce 300 m *(Buffer)* __(14)__{title="nastavení parametrů nástroje Buffer"}
     3. příprava tematických vrstev
-        - z vrstev mapových služeb hromadně extrahujte pouze prvky v rozsahu území ORP včetně obalové zóny 300 m *(Select-batch)* __(15)__{title="práce s proměnnou %Name% v názvu vrstvy"} __(16)__{title="nastavení rozsahu zpracování v nástroji Select"}
-        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP s obalovou zónou 300m *(Clip-batch)*
+        - z vrstev mapových služeb hromadně extrahujte pouze prvky v rozsahu území obce včetně obalové zóny 300 m *(Select-batch)* __(15)__{title="práce s proměnnou %Name% v názvu vrstvy"} __(16)__{title="nastavení rozsahu zpracování v nástroji Select"}
+        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území obce s obalovou zónou 300m *(Clip-batch)*
         - z vrstvy ``StavebniObjekty`` vyberte pouze požadované typy ploch *(Select By Attributes)*
         - vrstvy ``Maloplošná zvláště chráněná území`` a ``Ochranná pásma MZCHÚ`` spojte do jedné vrstvy *(Merge)* 
     4. příprava omezujících ploch
@@ -122,7 +122,7 @@ Pro 3 nejvhodnější lokality budou uvedeny následující informace:
             
             b. vhodně nastavte transparentnost podkladové mapy
             
-            c. rozsah hlavní mapy omezte dle obalové zóny ORP *(Map-Properties-Clip layers)*
+            c. rozsah hlavní mapy omezte dle obalové zóny obce *(Map-Properties-Clip layers)*
             
             d. ve vedlejších mapách zobrazte detail vybraných 3 lokalit (duplikace původní mapy, tvorba záložek, kopie map framů)
             
@@ -256,15 +256,15 @@ Pro 3 nejvhodnější lokality budou uvedeny následující informace:
             **pozn. v případě potřeby exportujte rastr pro své území po více (vzájemně se překrývajících) částech, poté oba rastry spojte nástrojem Mosaic to New Raster*
     2. připrava vektorových vrstev
         -  přes *Add Data From Path* přidejte do mapy požadované vrstvy ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} z mapových služeb ArcGIS REST
-        - z vrstev mapové služby hromadně extrahujte pouze prvky v rozsahu území ORP *(Select-batch)*
+        - z vrstev mapové služby hromadně extrahujte pouze prvky v rozsahu území obce *(Select-batch)*
         - z vrstvy ``Orná půda a ostatní dále nespecifikované plochy`` vyberte pouze požadované typy ploch *(Select By Attributes)* 
-        - vybrané vrstvy hromadně ořízněte dle hranic ORP *(Clip-batch)*
+        - vybrané vrstvy hromadně ořízněte dle hranic obce *(Clip-batch)*
         - jednotlivé vrstvy spojte do jedné vrstvy *(Merge)* 
         - v atributové tabulce nově vzniklé vrstvy vytvořte nový atribut ``hodnoceni`` *(Add Field)*--> hodnoty pro jednotlivé typy ploch vyplňte dle zadaných kritérií *(Calculate Field)*
         - polygonovou vrstvu převeďte na rastr *(Feature to Raster)* __(3)__{title="nastavení parametrů funkce Feature to Raster"} __(4)__{title="nastavení Environments funkce Feature to Raster"}
     3. vytvořte rastry sklonitosti *(Slope)* a orientace svahů *(Aspect)* (nezapomeňte v *Environments* nastavit parametry *Output Coordinate System*, *Cell Size* a *Snap Raster*)
     4. proveďte reklasifikaci rastrů sklonitosti a orientace svahů dle zadaných kritérií *(Reclassify)* __(5)__{title="nastavení parametrů nástroje Reclassify pro rastr orientace svahů"}
-    5. zkombinujte rastry využití plochy, sklonitosti a orientace svahů do jednoho rastru, jež bude území ORP klasifikovat dle bodového hodnocení zadaných podmínek *(Raster Calculator)* __(6)__{title="nástroj Raster Calculator"}
+    5. zkombinujte rastry využití plochy, sklonitosti a orientace svahů do jednoho rastru, jež bude území obce klasifikovat dle bodového hodnocení zadaných podmínek *(Raster Calculator)* __(6)__{title="nástroj Raster Calculator"}
     6. výstupní rastr opět reklasifikujte, aby zobrazoval pouze území vhodné pro výstavbu solární elektrárny (minimálně 7 bodů)
     7. převeďte rastr na polygonovou vrstvu *(Raster to Polygon)* a vyberte pouze území splňující zadané kritérium, které je větší než 1 ha *(Select By Attributes)*
     8. polygonovou vrstvu vhodně upravte *(Eliminate Polygon Part)* a vizualizujte *(Symbology)*
@@ -281,7 +281,7 @@ Cílem úlohy je využití základních nástrojů GIS pro práci s výškovými
 
 Ze 3 výškových bodů v zadané obci identifikujte **nejvhodnější lokalitu pro výstavbu rozhledny**{style="text-transform:uppercase;"}. 
 
-Jako hlavní kritérium výběru lokality je viditelnost co největší plochy v okruhu 10 km od zadaného bodu zadaného ORP či viditelnost co největšího počtu významných prvků (budovy, krajinné prvky).
+Jako hlavní kritérium výběru lokality je viditelnost co největší plochy obce v okruhu 10 km od zadaného bodu či viditelnost co největšího počtu významných prvků (budovy, krajinné prvky).
 
 Uvažujte následující parametry rozhledny:
 
@@ -315,18 +315,18 @@ Webová 3D scéna zobrazující pohled z vybraného lokality pro výstavbu rozhl
 
 ???+ task-fg-color "Jak na to?"
     1. příprava území pro analýzu
-        - kolem území ORP vytvořte obalovou zónu o šířce 20 km *(Buffer)* __(21)__{title="nastavení parametrů nástroje Buffer"}
+        - kolem území obce vytvořte obalovou zónu o šířce 20 km *(Buffer)* __(21)__{title="nastavení parametrů nástroje Buffer"}
     2. příprava DMP1G
         - *Add Data From Path* --> *Data-Export Raster* __(22)__{title="nastavení parametrů funkce Export Raster"} --> *Extract by Mask* __(24)__{title="nastavení parametrů funkce Extract by Mask"}
         
             **pozn. v případě potřeby exportujte rastr pro své území po více (vzájemně se překrývajících) částech, poté oba rastry spojte nástrojem Mosaic to New Raster* __(23)__{title="nastavení parametrů funkce Mosaic To New Raster"}       
     3. přidání dat
         - přes *Add Data From Path* přidejte do mapy vrstvu ``KotovanyBod`` z mapových služeb ArcGIS REST ze [**ZABAGED_POLOHOPIS**](https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/ZABAGED_POLOHOPIS/MapServer"){ target="_blank"} nebo [**DATA50**](https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/DATA50/MapServer"){ target="_blank"}
-        - z vrstvy ``KotovanyBod`` extrahujte pouze prvky v rozsahu území ORP *(Select)* __(25)__{title="nastavení rozsahu zpracování v nástroji Select"}
-        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP *(Clip)*
-        - v atributové tabulce vrstvy vyberte pouze 5 nejvyšších kót ve Vašem ORP a vytvořte novou vrstvu bodových prvků *(Data-Export Features)*
+        - z vrstvy ``KotovanyBod`` extrahujte pouze prvky v rozsahu území obce *(Select)* __(25)__{title="nastavení rozsahu zpracování v nástroji Select"}
+        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území obce *(Clip)*
+        - v atributové tabulce vrstvy vyberte pouze 3 nejvyšší kóty ve Vaší obci a vytvořte novou vrstvu bodových prvků *(Data-Export Features)*
     3. analýza viditelnosti
-        - vytvořte rastr viditelnosti pro vrstvu s 5 výškovými kótami *(Visibility)* (nezapomeňte v *Observer parameters* nastavit parametr *Observer offset* dle výšky pozorovatele na plošině rozhledny. Pro větší přesnost výpočtu je vhodné nastavit i parametr *Observer elevation*, který lze převzít z atributové tabulky vrstvy s kótovanými body) __(8)__{title="nastavení parametrů funkce Visibility"}
+        - vytvořte rastr viditelnosti pro vrstvu s 3 výškovými kótami *(Visibility)* (nezapomeňte v *Observer parameters* nastavit parametr *Observer offset* dle výšky pozorovatele na plošině rozhledny. Pro větší přesnost výpočtu je vhodné nastavit i parametr *Observer elevation*, který lze převzít z atributové tabulky vrstvy s kótovanými body) __(8)__{title="nastavení parametrů funkce Visibility"}
     4. vyberte lokalitu, ze které je vidět největší plocha Vašeho území
         - pro jednotlivé výškové kóty (OBSXY) postupně sumarizujte počet viditelných pixelů *(název atributu-Summarize)* __(9)__{title="nastavení funkce Summary Statistics"} 
         - dle jednotlivých sumarizačních tabulek určete, která lokalita má pro hodnotu "1" největší počet pixelů __(10)__{title="počet pixelů viditelných z dané lokality"}
@@ -347,8 +347,8 @@ Webová 3D scéna zobrazující pohled z vybraného lokality pro výstavbu rozhl
 ??? task-fg-color "Bonusová otázka č. 2: Jaké stavební objekty jsou z dané lokality viditelné? Uveďte, jaká část stavebního objektu (v %) je viditelná."
     1. přidání dat
         - přes *Add Data From Path* přidejte do mapy vrstvu ``StavebniObjekt`` z mapové služby [**RÚIAN**](https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer "https://ags.cuzk.gov.cz/arcgis/rest/services/RUIAN/MapServer"){ target="_blank"}
-        - z vrstvy ``StavebniObjekt`` extrahujte pouze prvky v rozsahu území ORP s obalovou zónou 20km (Select)*
-        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území ORP s obalovou zónou 20km *(Clip)*
+        - z vrstvy ``StavebniObjekt`` extrahujte pouze prvky v rozsahu území obce s obalovou zónou 20km (Select)*
+        - extrahované vrstvy dodatečně hromadně ořízněte dle tvaru území obce s obalovou zónou 20km *(Clip)*
     2. převeďte rastr viditelnosti na vektorovou vrstvu *(Raster to Polygon)*
         - v nově vzniklé vrstvě vhodně nastavte výraz v *Definition Query*, aby vrstva zobrazovala pouze viditelnou plochu (atribut "gridcode" = 1)
     3. zjistěte, které SO se nachází v zóně viditelnosti, a vypočítejte, z kolika % jsou dané SO viditelné
