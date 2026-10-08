@@ -3,7 +3,7 @@ icon: material/numeric-7-box
 title: Cvičení 7
 ---
 
-# Topografická analýza povrchu, reklasifikace rastrových dat
+# Tvorba digitálního modelu terénu
 
 Ve cvičení se naučíte
 {: align=center style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;"}
@@ -18,91 +18,261 @@ Ve cvičení se naučíte
 -   :material-terrain:{ .xxxl .middle }
     {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
 
-    základy analýzy povrchu s využitím __topografických funkcí__
+    vytvořit __digitální model terénu__ v GIS včetně úpravy __symbologie__
     {.middle style="display:table-cell;line-height:normal;"}
 
--   :material-grid:{ .xxxl .middle }
+-   :material-elevation-rise:{ .xxxl .middle }
     {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
     
-    __reklasifikovat__ rastrová data
+    zpracovat __LiDARová data__{: .primary_colorx} a následně je vizualizovat nebo použít v analýzách
     {.middle style="display:table-cell;line-height:normal;"}
-
 </div>
 
 <hr class="level-1">
 
 ## Základní pojmy
+- **digitální model terénu (DMT)** – digitální reprezentace prostorových objektů (obecný pojem obsahující různé způsoby vyjádření terénního reiéfu nebo povrchu)
+- **digitální model reliéfu (DMR)** – digitální reprezentace zemského povrchu (NEbsahuje vegetaci a lidské stavby)
+- **digitální model povrchu (DMP)** – digitální reprezentace zemského povrchu (obsahuje vegetaci a lidské stavby, které jsou pevně spojené s reliéfem)
+- [**TIN**](https://pro.arcgis.com/en/pro-app/3.1/help/data/tin/tin-in-arcgis-pro.htm) – trojúhelníková nepravidelná síť, která nejlépe reprezentuje povrch jako celek
 
-- [**slope**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/slope.htm){target="_blank"}
-- [**aspect**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/aspect.htm){target="_blank"}
-- [**hillshade**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/hillshade.htm){target="_blank"}
-- [**viewshed**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/viewshed.htm){target="_blank"}
-- [**visibility**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/visibility.htm){target="_blank"}
-- [**raster surface toolset**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/an-overview-of-the-raster-surface-toolset.htm){target="_blank"}
-- [**aspect-slope**](https://pro.arcgis.com/en/pro-app/latest/help/analysis/raster-functions/aspect-slope-function.htm){target="_blank"}
-- [**raster calculator**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/raster-calculator.htm){target="_blank"}
+???+ note "&nbsp;<span style="color:#448aff">Digitální modely terénu České republiky</span>"
+     - **DMP 1G** – Digitální model povrchu České republiky 1. generace (DMP 1G) představuje zobrazení území včetně staveb a rostlinného pokryvu ve formě nepravidelné sítě výškových bodů (TIN) s úplnou střední chybou výšky **0,4 m** pro přesně vymezené objekty (budovy) a **0,7 m** pro objekty přesně neohraničené (lesy a další prvky rostlinného pokryvu). Model vznikl z dat pořízených metodou leteckého laserového skenování výškopisu území České republiky v letech 2009 až 2013. 
+     - **DMR 4G** – Digitální model reliéfu České republiky 4. generace (DMR 4G) představuje zobrazení přirozeného nebo lidskou činností upraveného zemského povrchu v digitálním tvaru ve formě výšek diskrétních bodů v pravidelné síti (5 x 5 m) bodů o souřadnicích X,Y,H, kde H reprezentuje nadmořskou výšku ve výškovém referenčním systému Balt po vyrovnání (Bpv) s úplnou střední chybou výšky **0,3 m** v odkrytém terénu a **1 m** v zalesněném terénu. Model vznikl z dat pořízených metodou leteckého laserového skenování výškopisu území České republiky v letech 2009 až 2013.
+     - **DMR 5G** – Digitální model reliéfu České republiky 5. generace (DMR 5G) představuje zobrazení přirozeného nebo lidskou činností upraveného zemského povrchu v digitálním tvaru ve formě výšek diskrétních bodů v nepravidelné trojúhelníkové síti (TIN) bodů o souřadnicích X,Y,H, kde H reprezentuje nadmořskou výšku ve výškovém referenčním systému Balt po vyrovnání (Bpv) s úplnou střední chybou výšky **0,18 m** v odkrytém terénu a **0,3 m** v zalesněném terénu. Model vznikl z dat pořízených metodou leteckého laserového skenování výškopisu území České republiky v letech 2009 až 2013. Dokončen byl k 30. 6. 2016 na celém území ČR. (Zdroj: ČÚZK)
 
-<br>
-**Další zdroje:**
+## Aplikace Analýzy výškopisu 
+Pro analýzu výškopisu ve webovém prostředí slouží mapová aplikace Analýzy výškopisu od Českého úřadu zeměměřického a katastrálního. Aplikace umožňuje provádějí základních výškových analýz nad daty DMP 1G, DMR 4G a DMR 5G. Pro každou datovou sadu nabízí několik rastrových funkcí (Stínovaný reliéf, Z-faktor apod.). Do rozhraní je možné přidat i vlastní data, a tedy zefektivnit používání aplikace v reálné praxi.
 
-[<span>pro.arcgis.com</span><br>How Geodesic Viewshed works](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-viewshed-2-works.htm/){ .md-button .md-button--primary .server_name .external_link_icon_small target="\_blank"}
-[<span>pro.arcgis.com</span><br>Viewshed and Observer Points for visibility analysis](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/using-viewshed-and-observer-points-for-visibility.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="\_blank"}
-[<span>pro.arcgis.com</span><br>Visibility toolset](https://pro.arcgis.com/en/pro-app/latest/tool-reference/defense/an-overview-of-the-visibility-toolset.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="\_blank"}
+
+<figure markdown>
+  ![Analýzy výškopisu](../assets/cviceni6/av_cuzk.png){ width="600"}
+  <figcaption>Analýza pole viditelnosti ze zadaného bodu vypočteného nad DMR 5G</figcaption>
+</figure>
+
+[Analýzy výškopisu ČÚZK](https://ags.cuzk.cz/av/){ .md-button .md-button--primary .button_larger .external_link_icon target="_blank"}
 {: .button_array}
 
+
+## Vybrané zdroje výškopisných dat
+- [ČÚZK Geoprohlížeč](https://ags.cuzk.cz/geoprohlizec/)
+    * ZABAGED – [vrstevnice](https://ags.cuzk.cz/arcgis/rest/services/ZABAGED_VRSTEVNICE/MapServer), [DMP 1G](https://ags.cuzk.cz/arcgis2/rest/services/dmp1g/ImageServer), [DMR 4G](https://ags.cuzk.cz/arcgis2/rest/services/dmr4g/ImageServer),  [DMR 5G](https://ags.cuzk.cz/arcgis2/rest/services/dmr5g/ImageServer)
+    * INSPIRE – [nadmořská výška (grid)](https://ags.cuzk.cz/arcgis2/rest/services/INSPIRE_Nadmorska_vyska/ImageServer), [nadmořská výška (TIN)](https://ags.cuzk.cz/arcgis2/rest/services/INSPIRE_Nadmorska_vyska_TIN/MapServer)
+    * Geoportál Praha – [vrstevnice](https://geoportalpraha.cz/vyhledavani?topic=data&type=[opendata])
+
+<hr class="level-1">
+
+
 ## Náplň cvičení
-Vaším úkolem bude na základě rastrových dat vybraného území analyzovat lavinové svahy mají. K vyhodnocení lavinového svahu potřebujete znát sklonitost a expozici svahu, nadmořskou výšku či krajinný pokryv. Podmínky pro vznik lavin lze (zjednodušeně) shrnout v následujících bodech:
+Úkolem bude vytvořit TIN z vrstevnic a hydrologicky exaktní model terénu.
 
-1. Nadmořská výška
-Laviny se zpravidla vyskytují ve vyšších nadmořských výškách. Jako území vhodné pro vznik lavin volte lokality, které se nachází v nejvyšší třetině všech nadmořských výšek v rámci zájmového území.
+???+ note "&nbsp;<span style="color:#448aff">Druhy reprezentace digitálního modelu terénu v GIS</span>"
+     - **vektor**
+        * možnost pokročilejšího modelování vstupních dat
+        * dobře vystihují tvar terénu, ale nereprezentují povrch jako celek
+        * vhodné pro využití v kartografii
 
-2. Sklon svahu
-Základní předpoklad pro uvolnění laviny je sklon svahu, s jehož růstem se zvyšuje pravděpodobnost a riziko vzniku lavin. Laviny suchého sněhu vzácně vznikají na svazích již od 25° sklonu a se vzrůstajícím sklonem jejich četnost narůstá, zejména ve svazích nad 30° sklonu. Pro účely práce tedy zvolte mezní hodnotu v tomto intervalu.
+     - **TIN**
+        * nejlépe reprezentuje povrch jako celek
+        * složitý výpočet
 
-3. Expozice svahu
-Uprostřed zimy bývají kritické zejména stinné svahy v severní expozici. Uvažujme tedy svahy severovýchodní, severní a severozápadní orientace.
-
-4. Krajinný pokryv
-Riziko vzniku lavin nastává na otevřených plochách bez většího vegetačního porostu. Hodnoty krajinného pokryvu jsou obsaženy ve sloupci *Code 18* (CLC 2018). Vyhovujícími hodnotami jsou 2.X.X a 3.X.X. (vyjma 3.1.1., 3.1.2 a 3.1.3.).
+     - **rastr**
+        * poskytuje vlivem vzorkování horší celkovou reprezentaci povrchu
+        * pro analýzy lze využít jednoduché algoritmy
 
 ## Použité datové podklady
-- DMR 5G
-- CORINE Land Cover 2018
+- Vrstevnice zdůrazněná, Vodní toky, Vodní plochy ([ZABAGED](../../data/#zabaged))
+- Okres ([RÚIAN](../../data/#ruian))
 
 ## Postup
-Řešení popisuje postupné použití jednotlivých nástrojů geoprocessingu, vaším úkolem je těmto funkcím porozumět a úlohu zpracovat v *Model Builderu*.
 
-**1.** Po založení nového projektu v ArcGIS a nastavení Křovákova zobrazení, importujte potřebná data: DMR Krkonošského parku a vrstva *Velkoplošná chráněná území* z ArcGIS Online (poskytuje AOPK ČR).
-
-**2.** Na základě DMR je nejprve možné vyhodnotit nejvyšší třetinu zájmového území. Rozpětí výšek je možné zjistit ve vlastnostech rastru a stanovit mezní hodnotu nejvyšší třetiny. Pomocí nástroje *Reclassify* následně proběhne reklasifikace dat: hodnotám menším než mezní nastavíme novou hodnotu 0; hodnotám od mezní výše přiřadíme novou hodnotu 1.
-
-**3.** Nyní pokročíme k rastrové analýze, která vždy zahrnuje použití jedné z topografických funkcí a následnou reklasifikaci. Těmito funkcemi budou postupně: *Slope* (podmínka č. 2) a *Aspect* (podmínka č. 3). Nastavení reklasifikace rastrových výstupů proběhne dle podmínek v zadání; vždy přiřaďte novou hodnotu 0 pro nevyhovující hodnoty (tzn. oblasti nesplňující kritéria lavinových svahů) a hodnotu 1 pro vyhovující.
-
-Pro názornost následuje ukázka zpracování sklonitosti svahu (postup s výpočtem a reklasifikací expozice je analogický).
+### Tvorba TIN
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+     TIN vzniká na základě Delaunayho triangulace. Ta rozdělí vstupní body do tzv. Thiessenových polygonů (také Voroniovy diagramy), pro které platí, že z každého místa polygonu je vzdálenost k danému bodu uvnitř polygonu menší než k jakémukoliv jinému bodu ze zadané množiny. Další krok spočívá v propojení bodů v sousedících polygonech.
 
 <figure markdown>
-  ![Slope](../assets/cviceni7/slope.png){ width="600"}
-  <figcaption>Výstupní rastr po použití topografické funkce Slope (na vstupu DMR)</figcaption>
+  ![Tvorba triangulace](../assets/cviceni6/triang.png){ width="600"}
+  <figcaption>Postup tvorby Delaunayho triangulace (vpravo) na základě Thiessenových polygonů (vlevo)</figcaption>
 </figure>
 
-<figure markdown>
-  ![Reclassify](../assets/cviceni7/reclassify.png){ width="300"}
-  <figcaption>Parametry reklasifikace rastru sklonitosti terénu</figcaption>
-</figure>
+**1.** Nejprve vybereme vhodný zdroj výškopisných dat, která pro výpočet použijeme. V tomto případě se bude jednat o vrstevnice ze ZABAGED, konkrétně využijeme vrstvu *Vrstevnice zdůrazněná*.
 
-<figure markdown>
-  ![Reclassify](../assets/cviceni7/reclass_output.png){ width="600"}
-  <figcaption>Reklasifikovaný rastr sklonitosti terénu indikující hodnoty nad a pod mezní hodnotou</figcaption>
-</figure>
+**2.** Většinou není potřeba vytvářet DMT pro celou republiku, což je výpočetně a časově náročné. Pro začátek je tedy vhodné vrstvu vrstevnic oříznout vybraným polygonem pomocí funkce [*Clip*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/clip.htm).
 
-**4.** Jakmile proběhne analýza DMR, přistoupíme ke zpracování CLC 2018. Jedná se o další reklasifikaci, která byla provedena již v předchozích fázích, avšak na vstupu je CLC 2018 a pravidla pro nastavení reklasifikace jsou obsáhlejší (viz zadání).
+**3.** Dále je nutné vytvořit TIN pomocí funkce [*Create TIN*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/create-tin.htm). Ve funkci určíme zázev a místo uložení výsledného TINu včetně jeho součadnicového systému (dle mapy). Následně vyplníme zdrojovou vrstvu výškových dat *Input Features*, tedy vrstevnice oříznuté dle určeného polygonu (v tomto případě zvýrazněné vrstevnice v Klatovském okresu). 
+
+**4.** Podle zvolených dat je potřeba nastavit další parametry funkce. Atribut výšky *Height Field* se nastaví automaticky, je potřeba jej ale zkontrolovat. *Type* určuje typ vstupní vrstvy. Jestliže jsou vstupní vrstvou výškové kóty, zvolíme *Mass_Points*. V případě vrstevnic se vybere buď *Hard_Line* či *Soft_Line*.
 
 ???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-      V současné podobě nabízí produkt CORINE Land Cover (CLC) celoevropská data půdního pokryvu a využití půdy se 44 tematickými třídami, od rozsáhlých lesních ploch až po jednotlivé vinice. Produkt je každých šest let aktualizován o nové vrstvy stavu a změn - poslední aktualizace byla provedena v roce 2018. CLC slouží mnoha uživatelům a má téměř neomezené potenciální i reálné využití, včetně monitorování životního prostředí, územního plánování, hodnocení klimatických změn a krizového řízení (land.copernicus.eu).
+     Při vytváření TIN lze kombinovat několik vrstev, tudíž je možné na příklad použít vrstevnice, které budou zpřesněny bodovou vrstvnou výškových kót.
 
-**5.** Na závěr přichází stěžejní část celé úlohy: vyhodnotit lavinové svahy. Nyní tedy využijeme dílčí výsledky (reklasifikované vrstvy obsahující pouze hodnoty 0 a 1). Cílem je zkombinovat podmínky a brát v potaz pouze taková místa, kde nastávají právě všechny čtyři. K tomuto účelu lze elegantně využít rastrovou kalkulačku *Raster Calculator* a sestavit správný algebraický výraz. Matice všech reklasifikovaných rastrů mezi sebou vynásobíme, čímž získáme nový rastr obsahující hodnoty 1 v místech, kde je splněna každá podmínka zadání, a hodnoty 0, kde není splněna žádná podmínka či pouze jedna, dvě nebo tři libovolné (aby byl výsledek roven 0, postačí jediná 0 mezi činiteli). Výstupní rastr tedy indikuje oblasti lavinového nebezpečí dle zadaných podmínek. Nakonec je vhodné nastavit vhodnou barvu pro jednotlivé hodnoty buněk.
+<figure markdown>
+  ![Tvorba TIN](../assets/cviceni6/create_tin.png){ width="300"}
+  <figcaption>Tvorba TIN z vrstevnic</figcaption>
+</figure>
 
-**6.** Alternativní přístup by mohl být reprezentován symbolizací různých úrovní lavinového rizika, kterých lze dosáhnout změnou výrazu v rastrové kalkulačce. Místo násobení hodnot čtyř rastrových vrstev je můžete jednoduše sečíst. Výstup bude tvořit 5 různých hodnot: 0, 1, 2, 3 nebo 4. Následně změňte symbologii rastru tak, abyste podle těchto hodnot označili rostoucí lavinové riziko.
+**5.** Podle rozsahu a detailu vstupních dat může výpočet trvat i několik minut. Výsledkem je terén ve formě TINu a případně vrstva vstupních vrstevnic, kterou lze skrýt.
+
+<figure markdown>
+  ![TIN KT okres](../assets/cviceni6/tin_kt.png){width="400"}
+  <figcaption>Vypočtený TIN pro Klatovský okres</figcaption>
+</figure>
+
+**6.** Pokud je potřeba, můžeme TIN následně upravovat/zpřesňovat dalšími výpočty ve funkci [*Edit TIN*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/edit-tin.htm).
+
+### Převod TIN to Raster
+**1.** Jestliže máme vytvořený TIN, můžeme pokračovat jeho převedením na rastr pomocí funkce [*TIN to Raster*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/tin-to-raster.htm) (lze převést také rastr do TINu inverzní funkcí).
+
+**2.** Ve funkci je potřeba opět určit parametry výpočtu. *Output Data Type* určuje datový typ rastru, tedy zda mohou mít jeho pixely hodnoty desetinných čísel *Floating Point* nebo se hodnoty zaokrouhlí na celá čísla *Integer*. Dále je potřeba určit metodu interpolace dat *Linear* nebo *Natural Neighbors*. Poslední parametr definuje velikost pixelu výstupního rastru.
+
+<figure markdown>
+  ![TIN to Raster](../assets/cviceni6/tin_tor.png){ width="300"}
+  <figcaption>Hodnoty funkce TIN to Raster</figcaption>
+</figure>
+
+**3.** Parametr *Cell size* definující velikost pixelu rastru, je potřeba navolit na základě přesnosti vstupních dat a požadované přesnosti právě výstupního rastru. Vyšší přesnost bude znamenat větší velikost rastru na disku.
+
+**4.** Takto vypočtený TIN a rastr obsahují také hodnoty mimo zájmové území (ořezový polygon). Tyto hodnoty byly dopočteny na základě triangulace a v ideálním případě je vhodné je smazat. To se provede funkcí [*Extract by Mask*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/extract-by-mask.htm). Jako ořezovou masku nastavíme v tomto případě opět vrstvu Klatovského okresu. 
+
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+     Ořez je možné provést již pro TIN použitím funkce *Edit TIN*.
+
+<figure markdown>
+  ![DMT KT](../assets/cviceni6/dmt_kt.png){width="400"}
+  <figcaption>Výsledný digitální model terénu Klatovského okresu s velikostí pixelu 100 m</figcaption>
+</figure>
+
+### Tvorba hydrologicky korektního rastrového modelu terénu
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+     Pro některé úlohy potřebujeme hydrologicky korektní model terénu, ve kterém budou respektovány spádnice a voda tedy teoreticky "nepoteče do kopce". Pro takové analýzy není vhodný klasický DMT, protože kvůli výpočetnímu procesu nesplňuje podmínky hydrologické korektnosti.
+
+     Téma využití GIS pro hydrologické analýzy je jednou z náplní volitelného předmětu [GIS v krajinném inženýrství](https://storm.fsv.cvut.cz/pro-studenty/predmety/magisterske-studijni-programy/geodezie-a-kartografie-mgr/gis-v-krajinnem-inzenyrstvi/?lang=cz).
+
+**1.** Hydrologicky korektní model se vypočte funkcí [*Topo To Raster*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/topo-to-raster.htm), kterou najdeme v rozšíření *3D Analyst*.
+
+**2.** Do této funkce je možné přidat více vstupních dat než v případě *Create TIN*. Veškerá vstupní data je potřeba oříznout dle okresu, jinak by byla počítána nadbytečná data, což by mohlo výrazně zvýšit čas výpočtu. Základní vrstvou bude opět *Vrstevnice zdůrazněná* s typem *Contour*. 
+
+**3.** Dále přidáme tři pomocné vrstvy (ty nemusejí být nutnou součástí funkce, slouží ke zpřesnění výsledku). První z nich budou tvořit vodní toky ze ZABAGED. Pro výpočet je zásadní, aby byla vrstva vodních toků správně orientovaná, tedy po proudu. Vizuální kontrolu lze provést změnou symbologie vrstvy, přičemž nahradíme obyčejnou linii za linii se šipkou na konci. Důležité je pro výpočet vyfiltrovat pouze nadzemní toky. Nastavíme typ *Stream*.
+
+<figure markdown>
+  ![Vodni toky](../assets/cviceni6/vt.png){width="600"}
+  <figcaption>Ukázka správného směru vodních toků</figcaption>
+</figure>
+
+**4.** Druhou pomocnou vrstvu budou tvořit vodní plochy opět ze ZABAGED. Té přiřadíme typ *Lake*. Jako třetí přidáme polygon okresu, čímž docílíme oříznutí výstupního rastru. Pro okres nastavíme typ *Boundary*.
+
+**5.** Opět je potřeba nastavit velikost buňky, tedy *Output cell size*, která se zvolí obdobně jako v předchozích případech.
+
+**6.** Další parametry funkce ponecháme ve výchozím nastavení. Jedná se o pokročilé parametry, jejichž úprava souvisí s následným dalším využitím rastru. Pokud bychom je v budoucnu potřebovali, získáme více informací v dokumentaci.
+
+<figure markdown>
+  ![Topo To Raster](../assets/cviceni6/topotor.png){ width="300"}
+  <figcaption>Hodnoty funkce Topo To Raster</figcaption>
+</figure>
+
+???+ note "&nbsp;<span style="color:#448aff">Úprava symbologie rastru</span>"
+     Po vybrání rastrové vrstvy můžeme v horní liště *Raster Layer* měnit její symbologii, viditelnost či způsob převzorkování (*Resampling Type*). Díky úpravě těchto parametrů lze z rastrových digitálních modelů terénu vyčíst informace, které nejsou na první pohled zřejmé. Například změna *Resapling Type* z *Nearest Neighbor* na *Bilinear* naprosto vizuálně odstraní pixelování rastru. 
+
+     V horní liště *Data* je možné pro některé rastry vybrat předpřipravené *Processing Templates*, díky čemuž lze změnit hodnoty rastru. Ku příkladu při importu služby DMR 5G ze ZABAGED se zobrazují hodnoty rastru od 0 do 255. Pro zjištění přesných výšek je potřeba nastavit *Processing Template* na *None*.
+
+     Díky těmto úpravám můžeme DMT používat jako podkladovou vrstvu pro řadu vizualizací.
+
+<figure markdown>
+  ![DMT symbologie](../assets/cviceni6/dmt_sym.png)
+  <figcaption>Ukázky různých možností symbologie totožného rastru</figcaption>
+</figure>
+
+
+## Zpracování LAS
+
+
+## Základní pojmy
+- **[LiDAR](https://www.geosken.cz/co-je-lidar-a-jak-funguje/)** – metoda dálkového měření vzdálenosti na základě výpočtu doby šíření pulsu laserového paprsku odraženého od snímaného objektu
+
+- **[LAS](https://pro.arcgis.com/en/pro-app/3.1/help/data/las-dataset/las-dataset-in-arcgis-pro.htm)** – datový formát mračna bodů (point cloud) získaných laserovým skenováním
+
+## Použité datové podklady
+- [DMR 5G](../../data/#dmr-5g)
+
+- [ortofoto ČÚZK](https://ags.cuzk.cz/arcgis1/rest/services/ORTOFOTO/MapServer)
+
+
+### Stažení dat z ČÚZK
+Z [Geoprohlížeče ČÚZK](https://ags.cuzk.cz/geoprohlizec/) lze stáhnout data laserového skenování (mračno bodů) pro Česko. Získání dat DMR 5G, DMR 4G či DMP 1G lze provést přes výběr daného podkladu v záložce *Produkty*. Dále po rozkliknutí ikony tří teček příslušné vrstvy v záložce *Seznam vrstev* je možné vybrat buď možnost   *Exportovat data* nebo *Stáhnout data (předpřipravené jednotky)*.
+
+???+ note "&nbsp;<span style="color:#448aff">Možnosti stažení laserových dat z ČÚZK</span>"
+     - **Exportovat data** – Touto možností lze data zaslat přímo na email. Zároveň je takto možné stáhnout více kladů dat najednou vlastním výběrem (nakreslením polygonu či nahráním vlastní vrstvy k výběru). Stažená data jsou ve formátu *LAS*.
+
+     - **Stáhnout data (předpřipravené jednotky)** – Takto lze data stáhnout postupně dle předpřipravených kladů. Stažená data jsou ve formátu *LAZ*.
+
+### Převod LAZ do LAS
+**1.** Jestliže získáme data ve formátu *ZLAS* nebo *LAZ*, je nutné mračno bodů v ArcGIS Pro konvertovat do formátu *LAS* pomocí funkce [*Convert LAS*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/convert-las.htm). Takto převedná data již dokáže ArcGIS načíst.
+
+**2.** Do parametru *Input LAS* vložíme z disku vstupní soubor, který chceme převést. Zvolíme adresář výstupních dat *Target Folder* a případně nastavíme parametry převodu.
+
+**3.** Ve druhé části funkce určíme souřadnicový systém mračna bodů. 
+
+<figure markdown>
+  ![Convert LAS](../assets/cviceni6/convert_las.png){ width="300"}
+  <figcaption>Hodnoty funkce Convert LAS</figcaption>
+</figure>
+
+### Vizualizace LAS
+**1.** LAS data je možné zobrazit 2D v mapě nebo 3D ve scéně (ideálně v lokální scéně). Novou scénu vytvoříme v záložce *Insert* – *New Map* – *New Local Scene*.
+
+<figure markdown>
+  ![Porovnání mapy a scény](../assets/cviceni6/map_sc.png){ width="900"}
+  <figcaption>Porovnání zobrazení LAS dat ve 2D mapě (vlevo) a ve 3D scéně (vpravo)</figcaption>
+</figure>
+
+**2.** Různé možnosti vizualizace LAS jsou dostupné po vybrání vrstvy mračna bodů v záložce *LAS Dataset Layer*. Pod ikonou *Symbology* 
+
+<figure markdown>
+  ![Symbologie LAS](../assets/cviceni6/las_s.png){ width="900"}
+  <figcaption>Symbologie LAS</figcaption>
+</figure>
+
+**3.** Výše zmíněné možnosti symbologie se dělí na tři typy: Vizualizace dle bodů, terénem či liniově. Bodové vizualizace nabízejí zobrazení barvy mračna bodů na základě jeho nadmořské výšky (*Elevation*) nebo klasifikace dat (*Class*). Mračno bodů je dále možné symbolizovat jako terén, přičemž barva může být určená nadmořskou výškou (*Elevation*), sklonem terénu (*Slope*) nebo sklonem ke světové straně (*Aspect*). Třetí možnost, vizualizace vrstvy pomocí linií, nabízí zobrazení vrstevnic (*Contour*) a hran (*Edges*).
+
+???+ note "&nbsp;<span style="color:#448aff">Zobrazení LAS Dataset Layer</span>"
+     V záložce *LAS Dataset Layer* (po vybrání příslušného mračna bodů v *Contents*) lze nejen nastavovat možnosti symbologie, ale také je možné určit hustotu zobrazovaných bodů (sekce *Point Thinning*) nebo filtrovat body (sekce *Filters*).
+
+### Texturovaný LAS
+**1.** V některých případech je výhodné mračno bodů obarvit (pokud již texturu neobsahuje v základním nastavení). Stažený LAS z ČÚZK lze otexturovat pomocí ortofota, které se stáhne podobně jako laserová data z [Geoprohlížeče ČÚZK](https://ags.cuzk.cz/geoprohlizec/). Důležité je stáhnout data se stejným kladem, což pro zmíněná data platí.
+
+**2.** Po stažení ortofota vyhledáme v *Geoprocessingu* funkci [*Colorize LAS*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/colorize-las.htm). Jako *Input Dataset* určímě mračno bodů. Do parametru *Input Image* vložíme vybrané ortofoto a zkontrolujeme přiřazení pásem snímku.
+
+**3.** Dále zvolíme výstupní adresář *Target Folder* a případně specifikujeme název výsledného mračna bodů či jeho kompresi.
+
+<figure markdown>
+  ![Colorize LAS](../assets/cviceni6/col_las.png){ width="300"}
+  <figcaption>Hodnoty funkce Colorize LAS</figcaption>
+</figure>
+
+**4.** Po provedení tohoto výpočtu se v nabídce *Symbology*, kterou jsme využívali při vizualizaci, zobrazí další možnost vizualizace mračna bodů – *RGB*. Po jejím zvolení se body obarví dle vstupního ortofota.
+
+<figure markdown>
+  ![Texturovaný LAS](../assets/cviceni6/text_las.png){ width="900"}
+  <figcaption>Texturovaný LAS</figcaption>
+</figure>
+
+### Vytvoření digitálního modelu terénu
+**1.** Data LiDARového skenování slouží jako podklad pro vytvoření digitálního modelu terénu. V ArcGISu Pro je možné převést LAS do rastru pomocí funkce [*LAS Dataset To Raster*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/las-dataset-to-raster.htm).
+
+**2.** Vstupními daty *Input LAS Dataset* jsou lasetová data ve formátu LAS. *Value Field* určuje hodnotu, na základě které se vypočte výstupní rastr. Jeho umístění určímě v parametru *Output Raster*. 
+
+**3.** Následně je nutné určit způsob interpolace (viz [cvičení 5](https://k155cvut.github.io/gis-2/cviceni/cviceni5/)). Důležitým parametrem je *Cell Size*, která určuje velikost pixelu (buňky) výstupního rastru. *Z factor* určuje hodnotu zploštění/zvýšení hodnot rastru. V základním nastavení jej ponecháme rovný 1.
+
+<figure markdown>
+  ![LAS Dataset To Raster](../assets/cviceni6/las_tr.png){ width="300"}
+  <figcaption>Hodnoty funkce LAS Dataset To Raster</figcaption>
+</figure>
+
+<figure markdown>
+  ![DMT z LAS](../assets/cviceni6/las_r.png){ width="900"}
+  <figcaption>Digitální model terénu vypočtený na základě laserových dat</figcaption>
+</figure>
+
 
 ## Úlohy k procvičení
 
@@ -113,33 +283,19 @@ Pro názornost následuje ukázka zpracování sklonitosti svahu (postup s výpo
     ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete souboru s
     popisem dat ve formátu PDF.
 
-    1. Vytvořte DMT omezené na Ústecký kraj. Jaká je výměra území v ha s nadmořskou výškou větší než 700m?
+    1. Vytvořte digitální model reliéfu/povrchu z bodových Lidarových dat.
 
-    2. Jaká je výměra území v ha se sklonem svahu větším než 15 stupňů?
+    2. Vytvořte digitální model terénu ve vektorové (TIN) a rastrové
+       (GRID, prostorové rozlišení 90m) reprezentaci na základě vrstevnic
+       pro okres Litoměřice. Jaká je průměrná nadmořská výška takto
+       vytvořeného DMT?
 
-    3. Jaká je výměra území v ha s orientací svahu na sever a zároveň se sklonem větším než 15 stupňů?
+    3. Vypočítejte DMT s využitím výškových kót, vrstevnic, vodních toků,
+       vodních ploch a státní hranice ČR. Dále vypočítejte DMT pouze s
+       využitím výškových kót, vrstevnic a státní hranice ČR. Oba rastry
+       vytvořte s prostorovým rozlišením 1km. Minimální Z hodnotu nastavte
+       na 0. Jaké jsou průměrné nadmořské výšky takto vytvořených DMT?
 
-    4. Jaká je výměra území v ha s orientací svahu na sever anebo se sklonem větším než 15 stupňů?
-
-    5. Jaká je výměra území v ha, které je viditelné z vrcholu Milešovky
-       [S-JTSK: 986668, 770118] a zároveň má orientaci svahu na sever?
-
-    6. Jaká je výměra území v ha, kde jsou splněny alespoň 2 z
-       následujících podmínek - nadmořská výška nad 700 m, sklon větší než
-       15 stupňů, orientace na sever?
-
-    7. Jaká je výměra území v ha, které je do 500 m od nejbližší silnice a
-       zároveň má sklon větší než 15 stupňů?
-
-    8. Jak dlouhý úsek silnice E55 v km je vidět z vrcholu Milešovky [S-JTSK: 986668, 770118]?
-
-    9. Jaká ve výměra území v ha, kde nadmořská výška je menší než výraz "10 krát sklon svahu ve stupních"?
-
-    10. Jaká je nadmořská výška vrcholu Milešovky [S-JTSK: 986668, 770118] odvozená z DMT (správně je 836,5 m)?
-
-    11. Jaký je rozdíl celkové délky v metrech silnic 1.třídy měřeného po povrhu a jeho průmětu do roviny?
-
-    12. Jaká je skutečná délka (v km, na jedno des. místo) silnice číslo
-        '112' po povrchu DMT? Uveďte minimální a maximální výšku u této
-        komunikace?
+    4. Pro území Ústeckého kraje vytvořte rastr s prostorovým rozlišením
+       100m, jehož buňky mají hodnoty s normálním rozdělením.
 

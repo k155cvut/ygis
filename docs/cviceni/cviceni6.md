@@ -3,299 +3,337 @@ icon: material/numeric-6-box
 title: Cvičení 6
 ---
 
-# Tvorba digitálního modelu terénu
+# Vektorizace, tvorba geodatabáze, kontrola topologie
 
-Ve cvičení se naučíte
-{: align=center style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;"}
+## Cíl cvičení
 
-<style>
-    .smaller_padding li {padding:.4rem .8rem !important;}
-    .primary_color {color:var(--md-primary-fg-color);}
-</style>
-
-<div class="grid cards smaller_padding" markdown>
-
--   :material-terrain:{ .xxxl .middle }
-    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
-
-    vytvořit __digitální model terénu__ v GIS včetně úpravy __symbologie__
-    {.middle style="display:table-cell;line-height:normal;"}
-
--   :material-elevation-rise:{ .xxxl .middle }
-    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
-    
-    zpracovat __LiDARová data__{: .primary_colorx} a následně je vizualizovat nebo použít v analýzách
-    {.middle style="display:table-cell;line-height:normal;"}
-</div>
-
-<hr class="level-1">
+Ukázka automatického ořezu footprintu. Tvorba vlastní geodatabáze, vektorizace a práce s atributy. Kontrola topologie vektorových dat.
 
 ## Základní pojmy
-- **digitální model terénu (DMT)** – digitální reprezentace prostorových objektů (obecný pojem obsahující různé způsoby vyjádření terénního reiéfu nebo povrchu)
-- **digitální model reliéfu (DMR)** – digitální reprezentace zemského povrchu (NEbsahuje vegetaci a lidské stavby)
-- **digitální model povrchu (DMP)** – digitální reprezentace zemského povrchu (obsahuje vegetaci a lidské stavby, které jsou pevně spojené s reliéfem)
-- [**TIN**](https://pro.arcgis.com/en/pro-app/3.1/help/data/tin/tin-in-arcgis-pro.htm) – trojúhelníková nepravidelná síť, která nejlépe reprezentuje povrch jako celek
 
-???+ note "&nbsp;<span style="color:#448aff">Digitální modely terénu České republiky</span>"
-     - **DMP 1G** – Digitální model povrchu České republiky 1. generace (DMP 1G) představuje zobrazení území včetně staveb a rostlinného pokryvu ve formě nepravidelné sítě výškových bodů (TIN) s úplnou střední chybou výšky **0,4 m** pro přesně vymezené objekty (budovy) a **0,7 m** pro objekty přesně neohraničené (lesy a další prvky rostlinného pokryvu). Model vznikl z dat pořízených metodou leteckého laserového skenování výškopisu území České republiky v letech 2009 až 2013. 
-     - **DMR 4G** – Digitální model reliéfu České republiky 4. generace (DMR 4G) představuje zobrazení přirozeného nebo lidskou činností upraveného zemského povrchu v digitálním tvaru ve formě výšek diskrétních bodů v pravidelné síti (5 x 5 m) bodů o souřadnicích X,Y,H, kde H reprezentuje nadmořskou výšku ve výškovém referenčním systému Balt po vyrovnání (Bpv) s úplnou střední chybou výšky **0,3 m** v odkrytém terénu a **1 m** v zalesněném terénu. Model vznikl z dat pořízených metodou leteckého laserového skenování výškopisu území České republiky v letech 2009 až 2013.
-     - **DMR 5G** – Digitální model reliéfu České republiky 5. generace (DMR 5G) představuje zobrazení přirozeného nebo lidskou činností upraveného zemského povrchu v digitálním tvaru ve formě výšek diskrétních bodů v nepravidelné trojúhelníkové síti (TIN) bodů o souřadnicích X,Y,H, kde H reprezentuje nadmořskou výšku ve výškovém referenčním systému Balt po vyrovnání (Bpv) s úplnou střední chybou výšky **0,18 m** v odkrytém terénu a **0,3 m** v zalesněném terénu. Model vznikl z dat pořízených metodou leteckého laserového skenování výškopisu území České republiky v letech 2009 až 2013. Dokončen byl k 30. 6. 2016 na celém území ČR. (Zdroj: ČÚZK)
+- [**geodatabáze**](https://pro.arcgis.com/en/pro-app/3.0/help/data/geodatabases/overview/what-is-a-geodatabase-.htm) – prostředí pro správu bází geografických dat
 
-## Aplikace Analýzy výškopisu 
-Pro analýzu výškopisu ve webovém prostředí slouží mapová aplikace Analýzy výškopisu od Českého úřadu zeměměřického a katastrálního. Aplikace umožňuje provádějí základních výškových analýz nad daty DMP 1G, DMR 4G a DMR 5G. Pro každou datovou sadu nabízí několik rastrových funkcí (Stínovaný reliéf, Z-faktor apod.). Do rozhraní je možné přidat i vlastní data, a tedy zefektivnit používání aplikace v reálné praxi.
+- [**dataset**](https://pro.arcgis.com/en/pro-app/latest/help/data/feature-datasets/feature-datasets-in-arcgis-pro.htm) – soubor shrnující pod sebe vybrané třídy prvků se stejným souřadnicovým systémem
 
+- **vektorizace** – přepracování mapy v analogové formě, popř. digitální mapy v rastrové formě do vektorové formy
 
-<figure markdown>
-  ![Analýzy výškopisu](../assets/cviceni6/av_cuzk.png){ width="600"}
-  <figcaption>Analýza pole viditelnosti ze zadaného bodu vypočteného nad DMR 5G</figcaption>
-</figure>
+- [**třída prvků**](https://pro.arcgis.com/en/pro-app/3.0/help/data/geodatabases/overview/feature-class-basics.htm) – homogenní kolekce společných prvků, z nichž má každý stejnou prostorovou reprezentaci (např. body, linie nebo polygony) a společnou sadu sloupců atributů
 
-[Analýzy výškopisu ČÚZK](https://ags.cuzk.cz/av/){ .md-button .md-button--primary .button_larger .external_link_icon target="_blank"}
-{: .button_array}
+- [**subtyp**](https://pro.arcgis.com/en/pro-app/latest/help/data/geodatabases/overview/an-overview-of-subtypes.htm) – množina prvků v tabulce, které mají stejné atributy; používají se pro kategorizaci dat
 
+- [**topologie**](https://pro.arcgis.com/en/pro-app/latest/help/data/topologies/topology-in-arcgis.htm) – definování struktury prvků geosystému na základě jejich vztahů konektivity (vzájemného spojení) a kontinuity (vzájemné polohy)
 
-## Vybrané zdroje výškopisných dat
-- [ČÚZK Geoprohlížeč](https://ags.cuzk.cz/geoprohlizec/)
-    * ZABAGED – [vrstevnice](https://ags.cuzk.cz/arcgis/rest/services/ZABAGED_VRSTEVNICE/MapServer), [DMP 1G](https://ags.cuzk.cz/arcgis2/rest/services/dmp1g/ImageServer), [DMR 4G](https://ags.cuzk.cz/arcgis2/rest/services/dmr4g/ImageServer),  [DMR 5G](https://ags.cuzk.cz/arcgis2/rest/services/dmr5g/ImageServer)
-    * INSPIRE – [nadmořská výška (grid)](https://ags.cuzk.cz/arcgis2/rest/services/INSPIRE_Nadmorska_vyska/ImageServer), [nadmořská výška (TIN)](https://ags.cuzk.cz/arcgis2/rest/services/INSPIRE_Nadmorska_vyska_TIN/MapServer)
-    * Geoportál Praha – [vrstevnice](https://geoportalpraha.cz/vyhledavani?topic=data&type=[opendata])
+## Použité datové podklady
 
-<hr class="level-1">
-
+- [Císařské otisky stabilního katastru](../../data/#cisarske-otisky-stabilniho-katastru)
+- [Státní mapa 1 : 5 000 – odvozená](../../data/#statni-mapa-1-:-5-500-0-–-odvozena)
+- klad SMO5
 
 ## Náplň cvičení
-Úkolem bude vytvořit TIN z vrstevnic a hydrologicky exaktní model terénu.
 
-???+ note "&nbsp;<span style="color:#448aff">Druhy reprezentace digitálního modelu terénu v GIS</span>"
-     - **vektor**
-        * možnost pokročilejšího modelování vstupních dat
-        * dobře vystihují tvar terénu, ale nereprezentují povrch jako celek
-        * vhodné pro využití v kartografii
+### Založení nové geodatabáze
 
-     - **TIN**
-        * nejlépe reprezentuje povrch jako celek
-        * složitý výpočet
+**1.** Geodatabázi vytvoříme kliknutím pravým tlačítkem myši na složku našeho projektu v záložce *Catalog* -> *New* -> *File Geodatabase*.
 
-     - **rastr**
-        * poskytuje vlivem vzorkování horší celkovou reprezentaci povrchu
-        * pro analýzy lze využít jednoduché algoritmy
-
-## Použité datové podklady
-- Vrstevnice zdůrazněná, Vodní toky, Vodní plochy ([ZABAGED](../../data/#zabaged))
-- Okres ([RÚIAN](../../data/#ruian))
-
-## Postup
-
-### Tvorba TIN
-???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-     TIN vzniká na základě Delaunayho triangulace. Ta rozdělí vstupní body do tzv. Thiessenových polygonů (také Voroniovy diagramy), pro které platí, že z každého místa polygonu je vzdálenost k danému bodu uvnitř polygonu menší než k jakémukoliv jinému bodu ze zadané množiny. Další krok spočívá v propojení bodů v sousedících polygonech.
+???+ note "&nbsp;<span style="color:#448aff">Poznámka ke geodatabázi:</span>"
+      Takto vytvořenou geodatabázi můžeme otevřít v jakémkoliv GIS softwaru (např. ArcGIS PRO, QGIS). Je proto vhodná pro sdílení dat.
 
 <figure markdown>
-  ![Tvorba triangulace](../assets/cviceni6/triang.png){ width="600"}
-  <figcaption>Postup tvorby Delaunayho triangulace (vpravo) na základě Thiessenových polygonů (vlevo)</figcaption>
+![new_gdb](../assets/cviceni6/new_gdb.png "Tvorba nové geodatabáze")
+    <figcaption>Tvorba nové geodatabáze</figcaption>
 </figure>
 
-**1.** Nejprve vybereme vhodný zdroj výškopisných dat, která pro výpočet použijeme. V tomto případě se bude jednat o vrstevnice ze ZABAGED, konkrétně využijeme vrstvu *Vrstevnice zdůrazněná*.
+### Importu předem georeferencovaného rastru
 
-**2.** Většinou není potřeba vytvářet DMT pro celou republiku, což je výpočetně a časově náročné. Pro začátek je tedy vhodné vrstvu vrstevnic oříznout vybraným polygonem pomocí funkce [*Clip*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/clip.htm).
+**1.** Do mapy si načteme částečně georeferencované listy Státní mapy 1 : 5 000 – odvozené (SMO5). Bude nutné negeoreferencované listy souřadnicově umístit.
 
-**3.** Dále je nutné vytvořit TIN pomocí funkce [*Create TIN*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/create-tin.htm). Ve funkci určíme zázev a místo uložení výsledného TINu včetně jeho součadnicového systému (dle mapy). Následně vyplníme zdrojovou vrstvu výškových dat *Input Features*, tedy vrstevnice oříznuté dle určeného polygonu (v tomto případě zvýrazněné vrstevnice v Klatovském okresu). 
+**2.** Oproti císařským otiskům stabilního katastru, které se georeferencují na identické body v mapě, lze SMO5 georeferencovat na rohové body mapových listů, které mají dané souřadnice v sysému S–JTSK (EPSG:5514). Pro georeferencování použijeme síť kladu mapových listů SMO5 (síť o rozměrech 2,5x2 km).
 
-**4.** Podle zvolených dat je potřeba nastavit další parametry funkce. Atribut výšky *Height Field* se nastaví automaticky, je potřeba jej ale zkontrolovat. *Type* určuje typ vstupní vrstvy. Jestliže jsou vstupní vrstvou výškové kóty, zvolíme *Mass_Points*. V případě vrstevnic se vybere buď *Hard_Line* či *Soft_Line*.
+**3.** Dle postupu z minulého cvičení si případně georeferencujeme zbývající souřadnicově nepřipojené mapové listy. Následně vytvoříme v nové geodatabázi mozaiku, do které georeferencované rastry importujeme.
 
-???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-     Při vytváření TIN lze kombinovat několik vrstev, tudíž je možné na příklad použít vrstevnice, které budou zpřesněny bodovou vrstvnou výškových kót.
+### Automatický ořez footprintu
+
+Ve stavu, kdy máme přidané georeferencované rastry do mozaiky, je potřeba oříznout jejich footprint tak, aby se vytvořila bezešvá mapová vrstva. Footprint lze upravit ručně (viz minulé cvičení) nebo automaticky načtením kladu mapových listů.
+
+**1.** V mapovém okně otevřeme mozaiku a klad mapových listů. Kladu změníme symbologii tak, abychom viděli pouze hrany listů. 
 
 <figure markdown>
-  ![Tvorba TIN](../assets/cviceni6/create_tin.png){ width="300"}
-  <figcaption>Tvorba TIN z vrstevnic</figcaption>
+![klad](../assets/cviceni6/klad.png "Mozaika a klad mapových listů v mapovém okně")
+    <figcaption>Mozaika a klad mapových listů v mapovém okně</figcaption>
 </figure>
 
-**5.** Podle rozsahu a detailu vstupních dat může výpočet trvat i několik minut. Výsledkem je terén ve formě TINu a případně vrstva vstupních vrstevnic, kterou lze skrýt.
+**2.** Před automatickým ořezem footprintů je nutné zkontrolovat pojmenování listů, které musí být jak v mozaice, tak v kladu listů stejné. Případně je potřebný jiný jednoznačný atribut, na základě kterého se obě vrstvy propojí.
 
 <figure markdown>
-  ![TIN KT okres](../assets/cviceni6/tin_kt.png){width="400"}
-  <figcaption>Vypočtený TIN pro Klatovský okres</figcaption>
+![klad_tabulka](../assets/cviceni6/klad_tabulka.png "Ukázka atributových tabulek předpřipravených vrstev"){ width="800" }
+    <figcaption>Ukázka atributových tabulek předpřipravených vrstev</figcaption>
 </figure>
 
-**6.** Pokud je potřeba, můžeme TIN následně upravovat/zpřesňovat dalšími výpočty ve funkci [*Edit TIN*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/edit-tin.htm).
+**3.** Automatický ořez footprintu se nastaví pravým kliknutím myši na danou mozaiku -> *Modify* -> *Import Footprints or Boundary*. 
 
-### Převod TIN to Raster
-**1.** Jestliže máme vytvořený TIN, můžeme pokračovat jeho převedením na rastr pomocí funkce [*TIN to Raster*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/tin-to-raster.htm) (lze převést také rastr do TINu inverzní funkcí).
+**4.** Ve funkci *Import Mosaic Dataset Geometry* nastavíme parametry dle obrázku níže.
 
-**2.** Ve funkci je potřeba opět určit parametry výpočtu. *Output Data Type* určuje datový typ rastru, tedy zda mohou mít jeho pixely hodnoty desetinných čísel *Floating Point* nebo se hodnoty zaokrouhlí na celá čísla *Integer*. Dále je potřeba určit metodu interpolace dat *Linear* nebo *Natural Neighbors*. Poslední parametr definuje velikost pixelu výstupního rastru.
+- *Target Feature Class* – vrstva, jejíž geometrii chceme upravit. 
+
+- *Target Join Field* – sloupec s jednoznačným indetifikátorem výstupní vrstvy.
+
+- *Input Feature Class* – ořezová vrstva.
+
+- *Input Join Field* – sloupec s jednoznačným indetifikátorem ořezové vrstvy.
 
 <figure markdown>
-  ![TIN to Raster](../assets/cviceni6/tin_tor.png){ width="300"}
-  <figcaption>Hodnoty funkce TIN to Raster</figcaption>
+![import_footprint](../assets/cviceni6/import_footprint.png "Nastavení funkce Import Mosaic Dataset Geometry")
+    <figcaption>Nastavení funkce Import Mosaic Dataset Geometry</figcaption>
 </figure>
 
-**3.** Parametr *Cell size* definující velikost pixelu rastru, je potřeba navolit na základě přesnosti vstupních dat a požadované přesnosti právě výstupního rastru. Vyšší přesnost bude znamenat větší velikost rastru na disku.
-
-**4.** Takto vypočtený TIN a rastr obsahují také hodnoty mimo zájmové území (ořezový polygon). Tyto hodnoty byly dopočteny na základě triangulace a v ideálním případě je vhodné je smazat. To se provede funkcí [*Extract by Mask*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/extract-by-mask.htm). Jako ořezovou masku nastavíme v tomto případě opět vrstvu Klatovského okresu. 
-
-???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-     Ořez je možné provést již pro TIN použitím funkce *Edit TIN*.
+**5.** Výsledek funkce *Import Mosaic Dataset Geometry* je vidět níže.
 
 <figure markdown>
-  ![DMT KT](../assets/cviceni6/dmt_kt.png){width="400"}
-  <figcaption>Výsledný digitální model terénu Klatovského okresu s velikostí pixelu 100 m</figcaption>
+![aut_orez](../assets/cviceni6/aut_orez.png "Výsledek automatického ořezu footprintu")
+    <figcaption>Výsledek automatického ořezu footprintu</figcaption>
 </figure>
 
-### Tvorba hydrologicky korektního rastrového modelu terénu
-???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-     Pro některé úlohy potřebujeme hydrologicky korektní model terénu, ve kterém budou respektovány spádnice a voda tedy teoreticky "nepoteče do kopce". Pro takové analýzy není vhodný klasický DMT, protože kvůli výpočetnímu procesu nesplňuje podmínky hydrologické korektnosti.
+### Vytvoření nového datasetu v geodatabázi
 
-     Téma využití GIS pro hydrologické analýzy je jednou z náplní volitelného předmětu [GIS v krajinném inženýrství](https://storm.fsv.cvut.cz/pro-studenty/predmety/magisterske-studijni-programy/geodezie-a-kartografie-mgr/gis-v-krajinnem-inzenyrstvi/?lang=cz).
+**1.** Pro vytvoření souhrného datasetu, ve kterém budeme následně uchovávat některé datové vrstvy, je nutné kliknout pravým tlačítkem na cílovou geodatabázi -> *New* -> *Feature Dataset*.
 
-**1.** Hydrologicky korektní model se vypočte funkcí [*Topo To Raster*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/topo-to-raster.htm), kterou najdeme v rozšíření *3D Analyst*.
-
-**2.** Do této funkce je možné přidat více vstupních dat než v případě *Create TIN*. Veškerá vstupní data je potřeba oříznout dle okresu, jinak by byla počítána nadbytečná data, což by mohlo výrazně zvýšit čas výpočtu. Základní vrstvou bude opět *Vrstevnice zdůrazněná* s typem *Contour*. 
-
-**3.** Dále přidáme tři pomocné vrstvy (ty nemusejí být nutnou součástí funkce, slouží ke zpřesnění výsledku). První z nich budou tvořit vodní toky ze ZABAGED. Pro výpočet je zásadní, aby byla vrstva vodních toků správně orientovaná, tedy po proudu. Vizuální kontrolu lze provést změnou symbologie vrstvy, přičemž nahradíme obyčejnou linii za linii se šipkou na konci. Důležité je pro výpočet vyfiltrovat pouze nadzemní toky. Nastavíme typ *Stream*.
+**2.** Otevře se funkce *Create Feature Dataset*, ve které určíme mimo cílové geodatabáze také název a souřadnicový systém datasetu.
 
 <figure markdown>
-  ![Vodni toky](../assets/cviceni6/vt.png){width="600"}
-  <figcaption>Ukázka správného směru vodních toků</figcaption>
+![dataset](../assets/cviceni6/dataset.png "Vytvoření datasetu")
+    <figcaption>Vytvoření datasetu</figcaption>
 </figure>
 
-**4.** Druhou pomocnou vrstvu budou tvořit vodní plochy opět ze ZABAGED. Té přiřadíme typ *Lake*. Jako třetí přidáme polygon okresu, čímž docílíme oříznutí výstupního rastru. Pro okres nastavíme typ *Boundary*.
+### Vektorizace
 
-**5.** Opět je potřeba nastavit velikost buňky, tedy *Output cell size*, která se zvolí obdobně jako v předchozích případech.
+Pro analýzu rastrových map, je téměř vždy nutná jejich vektorizace, tedy převedení mapy do vektorové podoby. Existují různé možnosti automatizace tohoto procesu, ale my si ukážeme nejjednodušší metodu, kterou je manuální vektorizace.
 
-**6.** Další parametry funkce ponecháme ve výchozím nastavení. Jedná se o pokročilé parametry, jejichž úprava souvisí s následným dalším využitím rastru. Pokud bychom je v budoucnu potřebovali, získáme více informací v dokumentaci.
+#### Založení třídy prvků
+
+**1.** Nejprve je nutné vytvořit si třídy, do kterých budeme vektorizaci zakreslovat. Tento krok se samozřejmě liší dle specifik dané práce, ale pro naši ukázku to znamená, že musíme vytvořit třídy pro typy využití pozemků SMO5, kterou budeme vektorizovat:
+
+- plochy – les, louka, pastvina, orná půda, nádvoří, zahrada, hřbitov apod.
+- domy – kostel, domy bez značení
+- vodstvo – vodní toky, vodní plochy
+- cestní síť
+
+???+ note "&nbsp;<span style="color:#448aff">Tip před tvorbou třídy prvků:</span>"
+      Před tvorbou tříd prvků pro vektorizaci rastrové mapy je vhodné nahlédnout do legendy, abychom měli představu o mapovém obsahu.
 
 <figure markdown>
-  ![Topo To Raster](../assets/cviceni6/topotor.png){ width="300"}
-  <figcaption>Hodnoty funkce Topo To Raster</figcaption>
+![SMO5_legenda](../assets/cviceni6/SMO5_legenda.png "Legenda SMO5"){ width="600" }
+    <figcaption>Značkový klíč SMO5</figcaption>
 </figure>
 
-???+ note "&nbsp;<span style="color:#448aff">Úprava symbologie rastru</span>"
-     Po vybrání rastrové vrstvy můžeme v horní liště *Raster Layer* měnit její symbologii, viditelnost či způsob převzorkování (*Resampling Type*). Díky úpravě těchto parametrů lze z rastrových digitálních modelů terénu vyčíst informace, které nejsou na první pohled zřejmé. Například změna *Resapling Type* z *Nearest Neighbor* na *Bilinear* naprosto vizuálně odstraní pixelování rastru. 
+**2.** Pro vytvoření třídy prvků musíme kliknout pravým tlačítkem na příslušný *Feature Dataset* v *Catalogu* -> *New* -> *Feature Class*.
 
-     V horní liště *Data* je možné pro některé rastry vybrat předpřipravené *Processing Templates*, díky čemuž lze změnit hodnoty rastru. Ku příkladu při importu služby DMR 5G ze ZABAGED se zobrazují hodnoty rastru od 0 do 255. Pro zjištění přesných výšek je potřeba nastavit *Processing Template* na *None*.
+**3.** V této ukázce vytvoříme 4 třídy prvků (plochy, domy, vodstvo a cesty). Ve funkci *Create Feature Class* zvolíme jméno třídy a její typ (pro nás *Polygon*). Následně klikneme na *Next*.
 
-     Díky těmto úpravám můžeme DMT používat jako podkladovou vrstvu pro řadu vizualizací.
+**4.** Na druhé stránce funkce *Create Feature Class* nastavujeme atributová pole třídy. Zde vytvoříme nové pole s názvem *druh_pozemku* po kliknutí na tlačítko *Click here to add a new field*. Datový typ přiřadíme číselný, například *Long Integer*. Tato čísla budou reprezentovat kódy různých druhů pozemku v mapě. Pokračujeme tlačítkem *Next*.
+
+**5.** Na třetí stránce zkontrolujeme souřadnicový systém třídy prvků. Nastavení na dalších stránkách můžeme pomechat ve výchozím stavu.
 
 <figure markdown>
-  ![DMT symbologie](../assets/cviceni6/dmt_sym.png)
-  <figcaption>Ukázky různých možností symbologie totožného rastru</figcaption>
+![trida_prvku](../assets/cviceni6/trida_prvku.png "Založení třídy prvků"){ width="800" }
+    <figcaption>Založení třídy prvků</figcaption>
 </figure>
 
+#### Práce se subtypy
 
-## Zpracování LAS
+Pro kategorizaci dat v atributové tabulce je vhodné používat subtypy. V jednoduchosti se jedná o kódy jednotlivých typů atributů v tabulce, kterým je přiřazen popis pro přehlednější práci. V této ukázce vytvoříme subtypy pro třídu prvků *Plochy*, který nám bude určovat druh využití pozemku.
 
+**1.** Zobrazíme si atributovou tabulku vrstvy *Plochy*. 
 
-## Základní pojmy
-- **[LiDAR](https://www.geosken.cz/co-je-lidar-a-jak-funguje/)** – metoda dálkového měření vzdálenosti na základě výpočtu doby šíření pulsu laserového paprsku odraženého od snímaného objektu
-
-- **[LAS](https://pro.arcgis.com/en/pro-app/3.1/help/data/las-dataset/las-dataset-in-arcgis-pro.htm)** – datový formát mračna bodů (point cloud) získaných laserovým skenováním
-
-## Použité datové podklady
-- [DMR 5G](../../data/#dmr-5g)
-
-- [ortofoto ČÚZK](https://ags.cuzk.cz/arcgis1/rest/services/ORTOFOTO/MapServer)
-
-
-### Stažení dat z ČÚZK
-Z [Geoprohlížeče ČÚZK](https://ags.cuzk.cz/geoprohlizec/) lze stáhnout data laserového skenování (mračno bodů) pro Česko. Získání dat DMR 5G, DMR 4G či DMP 1G lze provést přes výběr daného podkladu v záložce *Produkty*. Dále po rozkliknutí ikony tří teček příslušné vrstvy v záložce *Seznam vrstev* je možné vybrat buď možnost   *Exportovat data* nebo *Stáhnout data (předpřipravené jednotky)*.
-
-???+ note "&nbsp;<span style="color:#448aff">Možnosti stažení laserových dat z ČÚZK</span>"
-     - **Exportovat data** – Touto možností lze data zaslat přímo na email. Zároveň je takto možné stáhnout více kladů dat najednou vlastním výběrem (nakreslením polygonu či nahráním vlastní vrstvy k výběru). Stažená data jsou ve formátu *LAS*.
-
-     - **Stáhnout data (předpřipravené jednotky)** – Takto lze data stáhnout postupně dle předpřipravených kladů. Stažená data jsou ve formátu *LAZ*.
-
-### Převod LAZ do LAS
-**1.** Jestliže získáme data ve formátu *ZLAS* nebo *LAZ*, je nutné mračno bodů v ArcGIS Pro konvertovat do formátu *LAS* pomocí funkce [*Convert LAS*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/convert-las.htm). Takto převedná data již dokáže ArcGIS načíst.
-
-**2.** Do parametru *Input LAS* vložíme z disku vstupní soubor, který chceme převést. Zvolíme adresář výstupních dat *Target Folder* a případně nastavíme parametry převodu.
-
-**3.** Ve druhé části funkce určíme souřadnicový systém mračna bodů. 
+**2.** V horní části programu si rozklikneme záložku *Table*
 
 <figure markdown>
-  ![Convert LAS](../assets/cviceni6/convert_las.png){ width="300"}
-  <figcaption>Hodnoty funkce Convert LAS</figcaption>
+![table](../assets/cviceni6/table.png "Zobrazení polí atributové tabulky"){ width="800" }
+    <figcaption>Zobrazení polí atributové tabulky</figcaption>
 </figure>
 
-### Vizualizace LAS
-**1.** LAS data je možné zobrazit 2D v mapě nebo 3D ve scéně (ideálně v lokální scéně). Novou scénu vytvoříme v záložce *Insert* – *New Map* – *New Local Scene*.
+**3.** Otevře se nám nová nabídka, ve které zvolíme tlačítko *Subtypes* a následně *Create/Manage*.
 
 <figure markdown>
-  ![Porovnání mapy a scény](../assets/cviceni6/map_sc.png){ width="900"}
-  <figcaption>Porovnání zobrazení LAS dat ve 2D mapě (vlevo) a ve 3D scéně (vpravo)</figcaption>
+![subtypes1](../assets/cviceni6/subtypes1.png "Zapnutí editace subtypů"){ width="800" }
+    <figcaption>Zapnutí editace subtypů</figcaption>
 </figure>
 
-**2.** Různé možnosti vizualizace LAS jsou dostupné po vybrání vrstvy mračna bodů v záložce *LAS Dataset Layer*. Pod ikonou *Symbology* 
+**4.** V okně *Manage Subtypes* vybereme pole (*Subtype Field*), které chceme editovat a přiřadíme kódy dle druhů využití pozemků, které budeme na zájmovém území vektorizovat. Není problém se kdykoliv do této nabídky vrátit v průběhu práce a případně nový subtyp přidat či smazat.
+
+**5.** Editaci potvrdíme tlačítkem *OK* a následně ji uložíme ikonou *Save* v horní části obrazovky.
 
 <figure markdown>
-  ![Symbologie LAS](../assets/cviceni6/las_s.png){ width="900"}
-  <figcaption>Symbologie LAS</figcaption>
+![subtypes2](../assets/cviceni6/subtypes2.png "Přiřazení kódu subtypům")
+    <figcaption>Přiřazení kódu subtypům</figcaption>
 </figure>
 
-**3.** Výše zmíněné možnosti symbologie se dělí na tři typy: Vizualizace dle bodů, terénem či liniově. Bodové vizualizace nabízejí zobrazení barvy mračna bodů na základě jeho nadmořské výšky (*Elevation*) nebo klasifikace dat (*Class*). Mračno bodů je dále možné symbolizovat jako terén, přičemž barva může být určená nadmořskou výškou (*Elevation*), sklonem terénu (*Slope*) nebo sklonem ke světové straně (*Aspect*). Třetí možnost, vizualizace vrstvy pomocí linií, nabízí zobrazení vrstevnic (*Contour*) a hran (*Edges*).
+???+ note "&nbsp;<span style="color:#448aff">Rozlišení subtypů v symbologii:</span>"
+      Pro přehlednější práci s daty, je vhodné rozlišit typy ploch barevně. To lze provést přes kliknutí pravým tlačítkem na vrstvu v *Contents* -> *Symbology* -> změnit *Single Symbol* na *Unique Values* -> změnit atribut v nabídce *Field 1* na požadovaný (např. *druh_pozemku*).
 
-???+ note "&nbsp;<span style="color:#448aff">Zobrazení LAS Dataset Layer</span>"
-     V záložce *LAS Dataset Layer* (po vybrání příslušného mračna bodů v *Contents*) lze nejen nastavovat možnosti symbologie, ale také je možné určit hustotu zobrazovaných bodů (sekce *Point Thinning*) nebo filtrovat body (sekce *Filters*).
+#### Kresba
 
-### Texturovaný LAS
-**1.** V některých případech je výhodné mračno bodů obarvit (pokud již texturu neobsahuje v základním nastavení). Stažený LAS z ČÚZK lze otexturovat pomocí ortofota, které se stáhne podobně jako laserová data z [Geoprohlížeče ČÚZK](https://ags.cuzk.cz/geoprohlizec/). Důležité je stáhnout data se stejným kladem, což pro zmíněná data platí.
+Následuje samotný proces vektorizace, tedy "obkeslení" rastrových dat a vytvoření nových dat ve vektorové formě.
 
-**2.** Po stažení ortofota vyhledáme v *Geoprocessingu* funkci [*Colorize LAS*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/colorize-las.htm). Jako *Input Dataset* určímě mračno bodů. Do parametru *Input Image* vložíme vybrané ortofoto a zkontrolujeme přiřazení pásem snímku.
+**1.** Nástroje editace vektorových dat se nacházejí v záložce *Edit* v horní části programu. 
 
-**3.** Dále zvolíme výstupní adresář *Target Folder* a případně specifikujeme název výsledného mračna bodů či jeho kompresi.
+**2.** Nové prvky vytvoříme tlačítkem *Create* -> zvolení kresby daného subtypu v okně *Create Features*.
+
+**3.** Vektorizované body přidáváme levým tlačítkem myši. Pro dokončení vektorizace určitého prvku buď dvakrát klikneme levým tlačítkem myši nebo zvolíme ikonu *Finish* v nástrojích v dolní části obrazovky. Při vektorizaci je potřeba myslet na nastavení přichycování bodů ([Snapping](https://pro.arcgis.com/en/pro-app/latest/help/editing/enable-snapping.htm)).
 
 <figure markdown>
-  ![Colorize LAS](../assets/cviceni6/col_las.png){ width="300"}
-  <figcaption>Hodnoty funkce Colorize LAS</figcaption>
+![vekt](../assets/cviceni6/vekt.png "Vektorizace rastrové mapy")
+    <figcaption>Vektorizace rastrové mapy</figcaption>
 </figure>
 
-**4.** Po provedení tohoto výpočtu se v nabídce *Symbology*, kterou jsme využívali při vizualizaci, zobrazí další možnost vizualizace mračna bodů – *RGB*. Po jejím zvolení se body obarví dle vstupního ortofota.
+**Popis nejčastěji používaných funkcí a klávesových zkratek pro editaci vektorových dat:**
+
+<table style="width: 100%;">
+  <tbody>
+    <tr>
+      <td markdown><strong>Right Angle Line</strong></td>
+      <td>pravoúhlá linie</td>
+    </tr>
+    <tr>
+      <td><strong>Direction Direction</strong></td>
+      <td>průsečík dvou linií</td>
+    </tr>
+    <tr>
+      <td><strong>Arc Segment</strong></td>
+      <td>oblouk</td>
+    </tr>
+        <tr>
+      <td><strong>Trace</strong></td>
+      <td>přichycení na jiný vektorový prvek v mapě</td>
+    </tr>
+        <tr>
+      <td><strong>stisknutí D</strong></td>
+      <td>určení délky linie</td>
+    </tr>
+        <tr>
+      <td><strong>stisknutí A</strong></td>
+      <td>určení úhlu linie</td>
+    </tr>
+        <tr>
+      <td><strong>stisknutí P</strong></td>
+      <td>rovnoběžná kresba s linií určenou kurzorem myši</td>
+    </tr>
+        <tr>
+      <td><strong>držení T</strong></td>
+      <td>zobrazení lomových bodů v okolí kurzoru</td>
+    </tr>
+        <tr>
+      <td><strong>stisknutí F2</strong></td>
+      <td>dokončení kresby</td>
+    </tr>
+        <tr>
+      <td><strong>stisknutí F3</strong></td>
+      <td>dokončení kresby v pravém úhlu</td>
+    </tr>
+        <tr>
+      <td><strong>stisknutí pravého tlačítka myši</strong></td>
+      <td>zobrazení dalších možností kresby</td>
+    </tr>
+  </tbody>
+</table>
+
+???+ note "&nbsp;<span style="color:#448aff">Uložení editace:</span>"
+      Po provedení změn v editaci vektorových dat, je nutné je uložit tlačítkem *Save* v záložce *Edit*.
+
+### Kontrola topologie vektorových dat
+
+Jestliže chceme zkontrolovat topologickou čistotu vektorových dat, musejí být veškerá kontrolovaná data uložena uvnitř jednoho datasetu.
+
+**1.** Pro vytvoření nové topologie klikneme pravým tlačítkem myši na dataset -> *New* -> *Topology*.
+
+**2.** Na první stránce otevřeného okna *Create Topology Wizard* se definují parametry topologie, tedy její název, přesnost a vstupní vrstvy.
+
+**3.** Druhá stránka obsahuje definice jednotlivých kontrolovaných topologických pravidel. Ta se nastaví dle potřeby. V této ukázce proběhne kontrola pravidel *Must Not Have Gaps (Area)* (data nesmí obsahovat mezery), *Must Not Overlap With (Area-Area)* (vrstvy se vzájemně nesmějí překrývat) a *Must Not Overlap (Area)* (jednotlivé vrstvy sami sebe nesmějí překrývat).
+
+**4.** Třetí stránka obsahuje souhrn celé topologie. Tlačítkem *Finish* spustíme kontrolu.
+
+**5.** Pokud se ve výstupním datasetu topologie nezobrazí, aktualizujeme jeho obsah kliknutím pravého tlačítka myši -> *Refresh*.
 
 <figure markdown>
-  ![Texturovaný LAS](../assets/cviceni6/text_las.png){ width="900"}
-  <figcaption>Texturovaný LAS</figcaption>
+![topo](../assets/cviceni6/topo.png "Nastavení topologie")
+    <figcaption>Nastavení topologie</figcaption>
 </figure>
 
-### Vytvoření digitálního modelu terénu
-**1.** Data LiDARového skenování slouží jako podklad pro vytvoření digitálního modelu terénu. V ArcGISu Pro je možné převést LAS do rastru pomocí funkce [*LAS Dataset To Raster*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/las-dataset-to-raster.htm).
+**6.** V následujícím kroku je potřeba kontrolu topologie validovat kliknutím pravým tlačítkem na topologii v *Catalogu* -> *Validate*.
 
-**2.** Vstupními daty *Input LAS Dataset* jsou lasetová data ve formátu LAS. *Value Field* určuje hodnotu, na základě které se vypočte výstupní rastr. Jeho umístění určímě v parametru *Output Raster*. 
+**7.** Po validování přesuneme vrstvu topologie do mapového okna a měly bychom vidět objevené chyby.
 
-**3.** Následně je nutné určit způsob interpolace (viz [cvičení 5](https://k155cvut.github.io/gis-2/cviceni/cviceni5/)). Důležitým parametrem je *Cell Size*, která určuje velikost pixelu (buňky) výstupního rastru. *Z factor* určuje hodnotu zploštění/zvýšení hodnot rastru. V základním nastavení jej ponecháme rovný 1.
+**8.** Pomocí nástrojů *Edit* opravíme vyznačené chyby v původních datech. Po editaci topologii znovu validujeme a jestliže kontrola topologie neobjeví žádné chyby, znamená to, že kontrolované vrstvy jsou topologicky korektní.
+
+Na obrázku níže je zobrazena ukázka dvou nalezených topologických chyb (levý horní snímek). Pravý horní snímek zobrazuje pohled na data bez opravy topologie. Při porovnání s pravým dolním snímkem je zřejmé, že vektorizace cesty chybně překryla vektorizaci pastviny. Snímek vlevo dole zobrazuje druhou chybu, tedy vzájemný překryv dvou prvků patřících do vrstvy *Cesty*.
 
 <figure markdown>
-  ![LAS Dataset To Raster](../assets/cviceni6/las_tr.png){ width="300"}
-  <figcaption>Hodnoty funkce LAS Dataset To Raster</figcaption>
+![topo2](../assets/cviceni6/topo2.png "Ukázka topologických chyb")
+    <figcaption>Ukázka topologických chyb</figcaption>
 </figure>
 
-<figure markdown>
-  ![DMT z LAS](../assets/cviceni6/las_r.png){ width="900"}
-  <figcaption>Digitální model terénu vypočtený na základě laserových dat</figcaption>
-</figure>
+???+ note "&nbsp;<span style="color:#448aff">Tipy po urychlení kontroly topologie:</span>"
+      - Pokud je to možné, lze u dat se stejným atributem (např. les, louka) provést [*Dissolve*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/dissolve.htm), kterým ze sloučených dat odstraníme případné chyby z překryvu stejnou vrstvou (třeba dvě louky vzájemně se překrývající).
+      - Pro zjednodušení kontroly topologie je možné všechna kontrolovaná data sloučit do jedné vrstvy, kterou následně zkontrolujeme samotnou. Nemusíme tedy řešit překryvy jednotlivých vrstev mezi sebou (*Must Not Overlap With*), ale zkontrolujeme pouze novou vrstvu samostatně vůči sobě (*Must Not Overlap*). Důležité je však po kontrole nezapomenou opravit případné chyby v původních datech.
+      - Odkaz na schématicky popsaná pravidla kontroly topologie je [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/help/editing/pdf/topology_rules_poster.pdf).
 
-
-## Úlohy k procvičení
+<!-- ## Úlohy k procvičení
 
 !!! task-fg-color "Úlohy"
 
     K řešení následujích úloh použijte datovou sadu [ArcČR
     500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
     ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete souboru s
-    popisem dat ve formátu PDF.
+    popisem dat ve formátu PDF. 
 
-    1. Vytvořte digitální model reliéfu/povrchu z bodových Lidarových dat.
+    1. Zjistěte, jaká je délka silnic I. třídy, II. třídy a III. třídy na
+       mapovém listu ZM10 02-34-14
 
-    2. Vytvořte digitální model terénu ve vektorové (TIN) a rastrové
-       (GRID, prostorové rozlišení 90m) reprezentaci na základě vrstevnic
-       pro okres Litoměřice. Jaká je průměrná nadmořská výška takto
-       vytvořeného DMT?
+           Postup:
 
-    3. Vypočítejte DMT s využitím výškových kót, vrstevnic, vodních toků,
-       vodních ploch a státní hranice ČR. Dále vypočítejte DMT pouze s
-       využitím výškových kót, vrstevnic a státní hranice ČR. Oba rastry
-       vytvořte s prostorovým rozlišením 1km. Minimální Z hodnotu nastavte
-       na 0. Jaké jsou průměrné nadmořské výšky takto vytvořených DMT?
+           - vytvořte datový model pro silniční síť ČR (včetně domén, příp. subtypů)
+           - nastavte topologická pravidla pro příslušný dataset (silnice se nesmí křížit, nesmí mít volné konce,...)
+           - připojte si pomocí služby ArcGIS Online (Add Data ► From ArcGIS Online) data ZM10 (datová vrstva *Základní mapy ČR (S-JTSK)*) 
+           - zvektorizujte území zájmového mapového listu 
+           - exportujte vektorizovaná data do souřadnicového systému S-JTSK (Krovak East North)
+           - určete délku jednotlivých typů silnic na mapovém listu
 
-    4. Pro území Ústeckého kraje vytvořte rastr s prostorovým rozlišením
-       100m, jehož buňky mají hodnoty s normálním rozdělením.
+    2. Zjistěte délku a průběh nejkratší silniční spojnice z křižovatky na
+       východ od osady Kocourov do ústřední křižovatky (350 m n. m.) ve
+       vsi Sutom. Zjistěte úhrnnou plochu lesů.
 
+           K vypracování úlohy využijte dvojice rastrů Státní mapy odvozené
+           (SMO-5) – původního vydání z počátku 50. let 20. století. Rastry
+           Litoměřice 7–5 a 7–6 jsou k dispozici
+           [zde](http://rytiny.fsv.cvut.cz/155GIS1/). Na stejném místě najdete
+           také klad Státní mapy 1 : 5000 v podobě Shapefile. Vyzkoušejte si
+           možnosti vizuální úpravy světlosti a barevnosti rastrů pomocí Image
+           analysis.
+
+           Postup:
+
+           - využijte dříve vytvořený datový model pro silniční síť ČR – v GDB založte novou třídu prvků
+           - stáhněte si klad listů Státní mapy 1 : 5000 a oba mapové listy (pracujte v systému S-JTSK)
+           - georeferencujte oba listy projektivní transformací na dodaný klad
+           - vytvořte bezešvý kus kresby SMO-5 formou mozaiky s mapovými listy oříznutými kladem na pouhé mapové pole
+           - zvektorizujte předmětné silnice mezi Kocourovem a Sutomí  
+           - odečtěte vzdálenost různými cestami, změřte a vyberte nejkratší
+           - založte třídu prvků pro lesy a zvektorizujte plochy lesů (neuvažujte lesopark ve Vlastislavi)
+           - zachovejte si data z dnešní hodiny – během cvičení na téma WFS si porovnáte vámi zvektorizované části silniční sítě a lesních ploch s daty ze ZABAGED
+
+           Pozn.: mapové listy SMO-5 jsou graficky upraveny, aby byl patrnější
+           obsah. Původně byly mapové listy zažloutlé a s nevýraznou
+           kresbou. Jedná se o vůbec první vydání tohoto mapového díla. V
+           současnosti se používá označení SM-5 (Státní mapa 1 : 5000) a vypadá
+           vizuálně poněkud jinak, přestože základní obsah je shodný a znakový
+           klíč doznal jen drobnějších změn.
+
+    3. Zjistěte délku katastrální hranice mezi k. ú. Pnětluky a
+       k. ú. Vlastislav.
+
+           K vypracování úlohy využijte rastr PCO tehdejšího katastráního území
+           *Netluk* (dnes Pnětluky u Podsedic; část obce Podsedice) z
+           roku 1843. Rastr je k dispozici ve stejné
+           [složce](http://rytiny.fsv.cvut.cz/155GIS1/) jako předchozí
+           data. Vyzkoušejte si obecně nerovnoběžníkový tvar ořezu rastru v
+           mozaice.
+-->

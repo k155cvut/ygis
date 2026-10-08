@@ -1,386 +1,147 @@
 ---
-icon: material/numeric-3-box
-title: Vektory, atributové a prostorové dotazy
+icon: material/numeric-2-box
+title: Souřadnicové systémy, souřadnicové připojení dat
 ---
 
-# Vektorová data, atributové dotazy, prostorové dotazy
+# Souřadnicové systémy, souřadnicové připojení dat
+## Cíle cvičení
 
-## Cíl cvičení
+<div class="grid cards grid_icon_info smaller_padding" markdown>
 
-- Vysvětlení rozdílu mezi vektorovými a rastrovými GIS daty
-- Selekce prvků podle atributů
-- Selekce prvků na základě vzájemných prostorových vztahů
+-   :material-axis-arrow:{ .xl }
+
+    vysvětlit, proč má každá vrstva **souřadnicový referenční systém (CRS)**
+
+-   :material-map-marker-radius:{ .xl }
+
+    rozpoznat běžné **souřadnicové systémy používané v Česku** a ověřit je v ArcGIS Pro
+
+-   :material-ruler-square:{ .xl }
+
+    **importovat a prostorově umístit CAD data** v prostředí ArcGIS Pro
+
+-   :material-image-marker:{ .xl }
+
+    **prostorově umístit rastrová data**
+
+
+</div>
 
 <hr class="level-1">
 
-## Vektorová a rastrová prostorová data
+## Proč nestačí, že vrstva „je na správném místě“
 
-<div class="grid cards" markdown>
+**VZOROVÁ DATA:**
 
--   :material-vector-polyline:{ .lg .middle } __Vektorová data__
+- [:material-download: DATA :material-layers:](../assets/cviceni2/cv02_data.zip){ .md-button .md-button--primary .button_smaller } 
 
-    ---
+Každý prostorový prvek má geometrii uloženou jako souřadnice. Aby GIS věděl, **co čísla znamenají a kde je má zobrazit**, potřebuje znát souřadnicový referenční systém (**CRS**, dříve také SRS). CRS určuje zejména vztažný systém, způsob zobrazení zemského povrchu do roviny, jednotky a pořadí os.
 
-    Reprezentují prvky reálného světa pomocí základních geometrických elementů: __bodů, linií a ploch__ (tzv. polygonů)
+- **Geografický CRS** pracuje se zeměpisnou šířkou a délkou, tedy zpravidla ve stupních.
+- **Projektovaný CRS** převádí polohu do roviny; souřadnice pak obvykle vyjadřujeme v metrech. Je vhodný pro práci s délkou, plochou a vzdáleností v území.
 
-    Podrobnost dat je určena __podrobností souřadnic vrcholů__ geometrického prvku
+!!! note-grey "Důležitá zásada"
 
-    Vhodné pro modelování a analýzu __diskrétních objektů__ (např. poloha bodů, kategorie pokrytí půdy)
+    Stejná lokalita může mít v různých CRS různé číselné souřadnice. Neznamená to, že leží na jiném místě. Chyba vznikne tehdy, když je CRS vrstvy **neznámý nebo nesprávně přiřazený**.
 
-    Vhodné pro __tvorbu map, měření délek, geometrické výpočty__
+### Běžné CRS pro práci v Česku
 
-    Možné problémy s __topologií__ (mezery a překryvy)
+| Souřadnicový systém | EPSG | Jednotky | Typické hodnoty souřadnic na území ČR | Kde se s ním setkáme |
+| - | -: | - | - | - |
+| **S-JTSK / Krovak East North** | **5514** | metry | přibližně `Y = −900 000 až −400 000`; `X = −1 250 000 až −900 000` | státní mapová díla, katastr nem., velká část domácích dat |
+| **ETRS89 / UTM 33N** | **3045** | metry | přibližně `E = 440 000 až 520 000`; `N = 5 400 000 až 5 650 000` | evropská data v západní a střední části ČR |
+| **ETRS89 / UTM 34N** | **3046** | metry | přibližně `E = 360 000 až 440 000`; `N = 5 400 000 až 5 650 000` | evropská data ve východní části ČR |
+| **WGS 84** | **4326** | stupně | přibližně `14–19° E`; `48,5–51,1° N` | GPS, souřadnice z terénu, webové formuláře, jiné mapové portály |
+| **WGS 84 / Pseudo-Mercator (Web Mercator)** | **3857** | metry | přibližně `X = 1 550 000 až 2 110 000`; `Y = 6 200 000 až 6 650 000` | podkladové mapy a webové mapové služby |
 
-    Základními formáty vektorových dat jsou __Esri Shapefile, GeoJSON, GeoPackage__ či __KML/GML__
+!!! warning "UTM není v celé ČR jedna zóna"
+
+    Česká republika zasahuje do zón **33N a 34N**. Před použitím UTM je nutné ověřit, kterou zónu daná data používají. Zkratka „UTM“ sama o sobě není úplný název CRS.
+
+### Kontrola CRS v ArcGIS Pro
+
+1. V panelu _Contents_ klikněte pravým tlačítkem na vrstvu → _:material-cog: Properties_{: .outlined_code}.
+2. Na kartě _Source_ ověřte položku **Spatial Reference**.
+3. CRS aktivní mapy ověřte v _:material-map: Map Properties_{: .outlined_code} → _Coordinate Systems_{: .outlined_code}.
+4. Uložte si zejména **název CRS a EPSG kód**; oba údaje musí být součástí popisu dat, která přebíráte nebo předáváte dál.
+
+!!! tip "Mapový CRS a CRS vrstvy"
+
+    ArcGIS Pro dokáže vrstvy s korektně definovanými, ale různými CRS zobrazit společně. Mapové okno je při vykreslení převádí do CRS mapy. To je **zobrazení za běhu** (*on-the-fly projection*); nemění zdrojová data ani z nich nevytváří novou datovou sadu.
+
+### Definovat, nebo znovu zobrazit?
+
+| Typ operace | Kdy ji použít | Co se stane |
+| - | - | - |
+| **Define Projection** | CRS dat známe, ale u vrstvy chybí nebo je špatně zapsán | pouze opraví popis CRS; souřadnice se nepřepočítávají |
+| **Project** | CRS dat známe a chceme vytvořit kopii v jiném CRS | vytvoří novou datovou sadu s přepočítanými souřadnicemi |
+| **Geographic Transformation** | při převodu mezi různými geografickými vztažnými systémy | určuje způsob přesného převodu mezi referenčními rámci |
 
 
--   :material-grid:{ .lg .middle } __Rastrová data__<span style="font-size:60%;font-style:italic;vertical-align:10%;margin-left:15px;color:#888">součástí budoucích cvičení</span>
+!!! warning "Neznámý CRS nezkoušejte metodou pokus–omyl"
 
-    ---
+    Pokud neznáte původ CRS, dohledávejte jej v metadatech, dokumentaci poskytovatele nebo u autora dat. Nesprávné použití _Define Projection_ může vrstvu jen opticky „přesunout“ na zdánlivě správné místo a znehodnotit následné vzdálenosti, plochy i prostorové výběry.
 
-    Reprezentují prvky reálného světa v podobě pravidelné mřížky tvořené tzv. __pixely__ (z angl. *picture element*)
+<hr class="level-1">
 
-    Podrobnost dat je určena __prostorovým rozlišením__ rastru, tj. __velikostí__ hrany __pixelu__ (v metrech)
+## Georeferencování rastrových dat
 
-    Vhodné pro modelování a analýzu __spojitých jevů__ (nadmořská výška, teplota, srážky)
-    
-    Využívané pro __obrazová data__ (např. satelitní snímky)
+Rastrová data mohou pocházet z různých zdrojů, například z družicových snímků, leteckých snímků nebo skenovaných map. Zatímco moderní družicové a letecké snímky obvykle obsahují poměrně přesné informace o své poloze a pro správné zobrazení společně s ostatními daty GIS mohou vyžadovat pouze drobné úpravy, skenované mapy a historické podklady zpravidla žádnou informaci o prostorovém umístění neobsahují. V takových případech je nutné provést tzv. [**georeferencování**](https://k155cvut.github.io/ygis/cviceni/cviceni5/#georeferencovani-rastru).
 
-    Nevýhodou velikost souborových dat
+**Georeferencování** je proces **přiřazení geografických souřadnic rastrovému obrazu** nebo skenované mapě, který umožňuje jejich správné umístění v souřadnicovém referenčním systému. Spočívá ve vyhledání totožných, jednoznačně identifikovatelných bodů na georeferencovaném obrazu a na referenčních datech (např. družicovém snímku či referenční mapě). Jako vlícovací body je vhodné vybírat stabilní a snadno rozpoznatelné objekty v obou podkladech, například kostely, mosty, křižovatky, soutoky řek nebo dlouhodobě existující veřejné budovy. Body by měly být rozmístěny po celé ploše mapového listu, nikoli soustředěny pouze do jednoho rohu.
 
-    Základními formáty rastrových dat jsou __GeoTIFF, JPEG, PNG__ či __GIF__
+Georeferencování má v kartografii a GIS zásadní význam, protože umožňuje propojit historické mapy, letecké snímky a další prostorová data s ostatními vrstvami GIS a využívat je k analýzám, vizualizacím a rozhodování.
 
-</div>
 
 <figure markdown>
-  ![Rozdíl v grafické reprezentaci vektorových a rastrových dat](../assets/cviceni2/VectorVsRaster.png "Rozdíl v grafické reprezentaci vektorových a rastrových dat"){ width=400px }
-  <figcaption>Rozdíl v grafické reprezentaci vektorových a rastrových dat (Geletič et al. 2019)</figcaption>
+  ![Georeferencování staré mapy](../assets/cviceni2/GeoreferencingMap.png "Georeferencování staré mapy"){ width=600px }
+  <figcaption>Georeferencování staré mapy</figcaption>
 </figure>
 
-<hr class="level-1">
+**VZOROVÁ DATA:**
+    [:material-map: Plán Prahy (1920–1930)](../assets/cviceni2/Prague_Plan_1920-1930_detail.jpg){ .md-button .md-button--primary .button_smaller target="_blank"}
+{: .button_array style="justify-content:flex-start;"}
 
-## Atributové dotazy
+???+ note-fg-color "Kde hledat staré mapy?"
 
-Atributový dotaz *(Attribute Query)* je metoda výběru/filtrace prvků na základě **hodnot jejich atributů**. Doplňuje tak metodu [interaktivního výběru prvků](/cviceni/cviceni1/#select-tool) z 1. cvičení. Základem je pravidlo pro výběr – tzv. **výraz** *(Expression)*. ArcGIS Pro umožňuje sestavovat výrazy interaktivně pomocí dialogu, nicméně pro využití plného potenciálu výrazů je vhodné využít kód v jazyce _SQL_.
-<br><br>
+    Významným zdrojem georeferencovaných dobových kartografických dokumentů mohou být krajské nebo městské GIS portály, které v rozsahu svého správního území nejčastěji prezentují archivní plány měst či staré mapy regionu, císařské otisky stabilního katastru či historická ortofota z vybraných let, jež distribuují ve standardizovaných formátech služeb WMS/WMTS, případně umožňují připojení ESRI služby přes rozhraní ArcGIS REST. Přehled územního rozsahu dosud georeferencovaných císařských otisků stabilního katastru nabízí aplikace [Archiv ČÚZK](https://ags.cuzk.cz/archiv/). Prostorově neumístěné digitalizáty císařských otisků stabilního katastru pro většinu území Česka lze získat pouze za poplatek z ÚAZK.
 
-**Atributový dotaz** (nad daty v mapě): _:material-tab: Map_{: .outlined_code} → _:material-button-cursor: Select By Attributes_{: .outlined_code} → vyplnit údaje do dialogu nástroje...
-[Select features using attributes](https://pro.arcgis.com/en/pro-app/latest/help/mapping/navigation/select-features-using-attributes.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
+    - krajské či městské geoportály: [Geoportál Praha](https://gs-pub.praha.eu/imgs/rest/services/arch){.color_def .underlined_dotted .external_link_icon target="_blank"}, [Geoportál Jihočeského kraje](https://geoportal.kraj-jihocesky.gov.cz/portal/mapy/ostatni/Cisarske-otisky-WMTS){.color_def .underlined_dotted .external_link_icon target="_blank"}, [Geoportál Karlovarského kraje](https://geoportal.kr-karlovarsky.cz/arcgis/rest/services/Cisarske_otisky/Cisarske_otisky_cached/MapServer){.color_def .underlined_dotted .external_link_icon target="_blank"}, nebo [Geoportál Moravskoslezského kraje](https://gis2.msk.cz/arcgis/rest/services/podklad/podklad_cis_otisky/MapServer){.color_def .underlined_dotted .external_link_icon target="_blank"}
+    - [Archiv ČÚZK](https://ags.cuzk.cz/archiv/){.color_def .underlined_dotted .external_link_icon target="_blank"}
+    - [Chartae antiquae](https://www.chartae-antiquae.cz/){.color_def .underlined_dotted .external_link_icon target="_blank"}
+    - [OldMapsOnline](https://www.oldmapsonline.org/){.color_def .underlined_dotted .external_link_icon target="_blank"}
+    - [David Rumsey Map Collection](https://www.davidrumsey.com/){.color_def .underlined_dotted .external_link_icon target="_blank"}
 
-![](../assets/cviceni1/img_33.png)
-![](../assets/cviceni1/arrow.svg){: .off-glb .process_icon}
-![](../assets/cviceni1/img_34.png)
-![](../assets/cviceni1/arrow.svg){: .off-glb .process_icon}
-![](../assets/cviceni1/img_35.png)
-{: .process_container}
 
-<figcaption markdown>Do pole `Input Rows` je automaticky předvyplněna vrstva vybraná v obsahu mapy </figcaption>
+__Zdroje:__
+{: align=center }
 
-Pomocí přepínátka ![](../assets/cviceni1/img_36.png){: .off-glb style="vertical-align: -20%;margin:0px 5px;"} lze měnit zápis mezi interaktivním dialogovým zadáním a výrazem v jazyce SQL.
-
-[Introduction to query expressions](https://pro.arcgis.com/en/pro-app/latest/help/mapping/navigation/write-a-query-in-the-query-builder.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="\_blank"}
-[Construct and modify queries](https://pro.arcgis.com/en/pro-app/latest/help/mapping/navigation/construct-and-modify-queries.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="\_blank"}
+[<span>pro.arcgis.com</span><br>Přehled georeferencování](https://pro.arcgis.com/en/pro-app/latest/help/data/imagery/overview-of-georeferencing.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>pro.arcgis.com</span><br>Principy georeferencování rastrů](https://www.esri.com/about/newsroom/arcuser/understanding-raster-georeferencing/){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>pro.arcgis.com</span><br>Nástroje pro georeferencování](https://pro.arcgis.com/en/pro-app/latest/help/data/imagery/georeferencing-tools.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>Brad Skopyk</span><br>Georeferencování historických map](https://storymaps.arcgis.com/stories/dd75d0398f7d4ded924d303161895b8b){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>learn.arcgis.com/</span><br>Georeferencování historických snímků v ArcGIS Pro](https://learn.arcgis.com/en/projects/georeference-imagery-in-arcgis-pro/){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
 {: .button_array}
 
-???+ task-fg-color "Úlohy k atributovým dotazům"
 
-    K řešení následujících úloh použijte datovou sadu [ArcČR
-    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složce
-    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete soubor s
-    popisem dat ve formátu PDF.
+### Vektorizace rastrových dat
 
-    1. Kolik je v ČR rybníků?
+Pro analýzu rastrových map je téměř vždy nutné provést jejich [**vektorizaci**](https://k155cvut.github.io/ygis/cviceni/cviceni6/#kresba), tedy převést obsah mapy na vektorová data. Existují různé možnosti automatizace tohoto procesu, níže je popsána metoda ruční vektorizace. Před samotnou vektorizací je nutné si [**založit novou vrstvu**](https://k155cvut.github.io/ygis/cviceni/cviceni6/#zalozeni-tridy-prvku), do které budeme ukládat vektorizované polygony. V nové vrstvě si můžeme předdefinovat typy vektorizovaných polygonů, např. typy využití území. Po ukončení vektorizace je nezbytné provést [**kontrolu topologie**](https://k155cvut.github.io/ygis/cviceni/cviceni6/#kontrola-topologie-vektorovych-dat).
 
-    2. Jaká je celková délka (v km) přirozených vodních toků v ČR?
+<figure markdown>
+![vektorizace](../assets/cviceni2/vekt.png)
+    <figcaption>Vektorizace rastrové mapy</figcaption>
+</figure>
 
-    3. Jaká je průměrná nadmořská výška (v m) vodních nádrží v ČR?
+__Zdroje:__
+{: align=center }
 
-    4. Kolik silnic v ČR má více než dva jizdní pruhy?
-
-    5. Jaká je délka (v km) dálnic v ČR, které mají šest jízdních pruhů?
-
-    6. Kolik železničních stanic v ČR obsahuje ve svém názvu předložku 'nad'?
-
-    7. Jaká je celková plocha (v km^2^) sídel v ČR u kterých jejich název začíná na písmeno 'K'?
-
-    8. Ve které obci Ústeckého kraje je největší nezaměstnanost a kolik to je?
-
-    9. Najděte obec v ČR, kde je nejvyšší poměr mezi muži a ženami a kolik to je?
-
-    10. V kolika obcích v ČR převyšuje počet sňatků počet rozvodů. V jaké
-        obci je počet sňatků nejvyšší vzhledem k aktuálnímu počtu
-        obyvatel?
-    
-    11. Jaká je průměrná hodnota nezaměstnanosti v ORP Beroun?
-
-    12. Kolik katastrálních území spadá do oblasti s kódem LAU1 'CZ0327' a
-        jakou mají celkovou výměru (v km^2^)?
-
-    13. V kolika případech se shoduje název obce s názvem katastrálního území?
-
-    14. Kolik katastrálních území začíná na písmeno 'R' a má přesně tři znaky ve svém názvu?
-
-    15. Ve kterých krajích je míra nezaměstranosti mužů větší než u žen?
-
-    16. Jaká je celková délka silnic 1., 2. a 3. třídy?
-
-    17. Jaký název pro obec je nejfrekventovanější, kolik obcí s tímto názvem v ČR je?
-
-    18. Pro každý typ vodní plochy najděte nejvyšší nadmořskou výšku.
-
-    19. Jaký je poměr mezinárodních ku vnitrostátním letištím v ČR?
-
-    20. Který okres v ČR se skládá z největšího počtu obcí a kolik to je?
-
-<!-- <div class="table_small_padding" markdown> <!-- trik: vlastnosti tabulky pro vsechny podrizene -->
-<!--???+ task-fg-color "Příklad k vyzkoušení __|__{style="margin: 0rem 1rem"} __testování atributových dotazů na skutečných datech__{.no-dec}"
-
-    <iframe width="100%" height="500" frameborder="0" allowfullscreen src="https://geo.fsv.cvut.cz/data/hoffmann/appquery/"></iframe>
-
-    |atribut|datový typ|popis|
-    |-|-|-|
-    |stop_name|`string`|Název zastávky|
-    |routes_nam|`string`|Označení linek, které obsluhují zastávku, ve formátu `-cislolinky-,-cislolinky-` řazeno vzestupně|
-    |route_type|`integer`|ID druhu dopravy, které obsluhují zastávku, <br>`0=tramvaj`, `1=metro`, `2=vlak`, `3=autobus`, `4=přívoz`, `7=lanovka`, `8=tramvaj i autobus`|
-    |on_request|`integer`|Zastávka na znamení `0=není na znamení`, `1=je na znamení`|
-    |platf_len|`float`|Délka nástupiště (metry)|
-</div>-->
+[<span>pro.arcgis.com</span><br>Editace v ArcGIS Pro](https://pro.arcgis.com/en/pro-app/latest/help/editing/overview-of-desktop-editing.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>John Nelson</span><br>Rychlá a jednoduchá tvorba podrobných polygonů v ArcGIS Pro](https://youtu.be/Ab9aqsHj8X8?si=C4CCfrIkuYrrwDoK){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>learn.arcgis.com</span><br>Kopírování prvků mezi vrstvami](https://learn.arcgis.com/en/projects/copy-features-between-layers/){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>pro.arcgis.com</span><br>Úvod do podtypů (subtypes)](https://pro.arcgis.com/en/pro-app/latest/help/data/geodatabases/overview/an-overview-of-subtypes.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>University of Redlands</span><br>Návod pro ArcGIS Pro: georeferencování a digitalizace historické mapy indiánského teritoria Oklahoma](https://www.youtube.com/watch?v=QWv5nwCeZjA){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>ArcGIS Blog</span><br>Digitalizace skenovaných map pomocí AI v ArcGIS Pro](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/digitizing-scanned-maps-using-ai-in-arcgis-pro){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+{: .button_array}
 
 <hr class="level-1">
-
-## Prostorové dotazy
-
-__Prostorový dotaz__ *(Spatial Query)* je metoda výběru/filtrace prvků jedné vrstvy __na základě vzájemné polohy s prvky druhé vrstvy__. Funkce využívá jako vstup `vrstvu vybíraných prvků` *(Input features)*, `vrstvu pro překryvnou analýzu` *(Selecting features)* a `vztah pro překryvnou analýzu` *(Relationship)*.
-
-![](../assets/cviceni2/img_01.svg){ .no-filter }
-![](../assets/cviceni2/img_02.svg){ .no-filter }
-{: .process_container}
-
-<div class="table_headerless table_small_padding table_centered centered_tab_labels" markdown> <!-- trik: vlastnosti tabulky pro vsechny podrizene -->
-
-=== "Výběr BODŮ..."
-
-    === "...v překrytu s BODY"
-
-        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-1ECFFABC-3608-4BB4-86A8-FD6FA0F16C13-web.gif){ style="filter:none !important;" }
-        {: align=center}
-
-        <table style="width:unset;">
-            <tr><td>Intersect</td><td>A</td></tr>
-            <tr><td>Intersect (DBMS)</td><td>A</td></tr>
-            <tr><td>Contains</td><td>A</td></tr>
-            <tr><td>Contains Clementini</td><td>A</td></tr>
-            <tr><td>Within</td><td>A</td></tr>
-            <tr><td>Within Clementini</td><td>A</td></tr>
-            <tr><td>Are identical to</td><td>A</td></tr>
-            <tr><td>Have their center in</td><td>A</td></tr>
-        </table>
-
-    === "...v překrytu s LINIEMI"
-
-        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-171AD80E-550B-4017-AEB7-1A681D722F60-web.gif){ style="filter:none !important;" }
-        {: align=center}
-
-        <table id="small_table_padding" style="width:unset;">
-            <tr><td>Intersect</td><td>A, C</td></tr>
-            <tr><td>Intersect (DBMS)</td><td>A, C</td></tr>
-            <tr><td>Within</td><td>A, C</td></tr>
-            <tr><td>Completely within</td><td>A</td></tr>
-            <tr><td>Within Clementini</td><td>A</td></tr>
-            <tr><td>Have their center in</td><td>A, C</td></tr>
-            <tr><td>Boundary touches</td><td>C</td></tr>
-        </table>
-
-    === "...v překrytu s POLYGONY"
-
-        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-12153063-E9B3-42E5-A786-E3FAF6BB004E-web.gif){ style="filter:none !important;" }
-        {: align=center}
-
-        <table id="small_table_padding" style="width:unset;">
-          <tr><td>Intersect</td><td>A, C</td></tr>
-          <tr><td>Intersect (DBMS)</td><td>A, C</td></tr>
-          <tr><td>Within</td><td>A, C</td></tr>
-          <tr><td>Completely within</td><td>A</td></tr>
-          <tr><td>Within Clementini</td><td>A</td></tr>
-          <tr><td>Have their center in</td><td>A, C</td></tr>
-          <tr><td>Boundary touches</td><td>C</td></tr>
-        </table>
-
-=== "Výběr LINIÍ..."
-
-
-    === "...v překrytu s BODY"
-
-        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-FD60FA73-31CD-4BD7-B03C-06806851BC9E-web.gif){ style="filter:none !important;" }
-        {: align=center}
-
-        <table id="small_table_padding" style="width:unset;">
-          <tr><td>Intersect</td><td>A, C, D</td></tr>
-          <tr><td>Intersect (DBMS)</td><td>A, C, D</td></tr>
-          <tr><td>Contains</td><td>A, C, D</td></tr>
-          <tr><td>Completely contains</td><td>A, D</td></tr>
-          <tr><td>Contains Clementini</td><td>A, D</td></tr>
-          <tr><td>Have their center in</td><td>D</td></tr>
-          <tr><td>Boundary touches</td><td>C</td></tr>
-        </table>
-
-    === "...v překrytu s LINIEMI"
-
-        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-09D6FB47-31A3-47C3-A8B8-19BB659EBA8A-web.gif){ style="filter:none !important;" }
-        {: align=center}
-
-        <table id="small_table_padding" style="width:unset;">
-          <tr><td>Intersect</td><td>A, C, D, E, F, G, H, I, J</td></tr>
-          <tr><td>Intersect (DBMS)</td><td>A, C, D, E, F, G, H, I, J</td></tr>
-          <tr><td>Contains</td><td>G, H</td></tr>
-          <tr><td>Completely contains</td><td>G</td></tr>
-          <tr><td>Contains Clementini</td><td>G, H</td></tr>
-          <tr><td>Within</td><td>F, H</td></tr>
-          <tr><td>Completely within</td><td>F</td></tr>
-          <tr><td>Within Clementini</td><td>F, H</td></tr>
-          <tr><td>Are identical to</td><td>H</td></tr>
-          <tr><td>Boundary touches</td><td>C, E</td></tr>
-          <tr><td>Share a line segment with</td><td>F, G, H, I, J</td></tr>
-        </table>
-
-    === "...v překrytu s POLYGONY"
-
-        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-54663F11-5B47-46A5-82C1-37FD1FDDC835-web.gif){ style="filter:none !important;" }
-        {: align=center}
-
-        <table id="small_table_padding" style="width:unset;">
-          <tr><td>Intersect</td><td>A, C, D, E, F, G, H, I, J, K, L, M, N, O</td></tr>
-          <tr><td>Intersect (DBMS)</td><td>A, C, D, E, F, G, H, I, J, K, L, M, N, O</td></tr>
-          <tr><td>Within</td><td>A, D, G, H, I, O</td></tr>
-          <tr><td>Completely within</td><td>A</td></tr>
-          <tr><td>Within Clementini</td><td>A, D, G, H, I</td></tr>
-          <tr><td>Boundary touches</td><td>F, G, H, I, K, L, M, N, O</td></tr>
-          <tr><td>Share a line segment with</td><td>G, I, J, K, M, O</td></tr>
-          <tr><td>Crossed by the outline of</td><td>C, E, H, L, N</td></tr>
-          <tr><td>Have their center in</td><td>A, C, D, E, G, H, I, J, O</td></tr>
-        </table>
-
-=== "Výběr POLYGONŮ..."
-
-
-    === "...v překrytu s BODY"
-
-        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-0973BB65-5DAE-461A-8B84-E58332CDA443-web.gif){ style="filter:none !important;" }
-        {: align=center}
-
-        <table id="small_table_padding" style="width:unset;">
-          <tr><td>Intersect</td><td>A, B</td></tr>
-          <tr><td>Intersect (DBMS)</td><td>A, B</td></tr>
-          <tr><td>Contains</td><td>A, B</td></tr>
-          <tr><td>Completely contains</td><td>A</td></tr>
-          <tr><td>Contains Clementini</td><td>A</td></tr>
-          <tr><td>Have their center in</td><td>A, D</td></tr>
-          <tr><td>Boundary touches</td><td>B</td></tr>
-        </table>
-
-    === "...v překrytu s LINIEMI"
-
-        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-EFDE4E93-532E-4D6E-BB29-9BBFC783CEC7-web.gif){ style="filter:none !important;" }
-        {: align=center}
-
-        <table id="small_table_padding" style="width:unset;">
-          <tr><td>Intersect</td><td>A, C, D, E, F, G, H, I, J, K, L, M, N, O</td></tr>
-          <tr><td>Intersect (DBMS)</td><td>A, C, D, E, F, G, H, I, J, K, L, M, N, O</td></tr>
-          <tr><td>Contains</td><td>A, D, G, H, I, O</td></tr>
-          <tr><td>Completely contains</td><td>A</td></tr>
-          <tr><td>Contains Clementini</td><td>A, D, G, H, I</td></tr>
-          <tr><td>Boundary touches</td><td>F, G, H, I, K, L, M, N, O</td></tr>
-          <tr><td>Share a line segment with</td><td>G, I, J, K, M, O</td></tr>
-          <tr><td>Crossed by the outline of</td><td>C, E, H, L, N</td></tr>
-          <tr><td>Have their center in</td><td>E, I, L</td></tr>
-        </table>
-
-    === "...v překrytu s POLYGONY"
-
-        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-7802EBC1-8E73-4071-AE12-4445AB1C24B5-web.gif){ style="filter:none !important;" }
-        {: align=center}
-
-        <table id="small_table_padding" style="width:unset;">
-          <tr><td>Intersect</td><td>A, C, D, E, F, G, H, I, J, K, M</td></tr>
-          <tr><td>Intersect (DBMS)</td><td>A, C, D, E, F, G, H, I, J, K, M</td></tr>
-          <tr><td>Contains</td><td>C, E, H, M</td></tr>
-          <tr><td>Completely contains</td><td>C</td></tr>
-          <tr><td>Contains Clementini</td><td>C, E, H, M</td></tr>
-          <tr><td>Within</td><td>F, G, H, M</td></tr>
-          <tr><td>Completely within</td><td>F</td></tr>
-          <tr><td>Within Clementini</td><td>F, G, H, M</td></tr>
-          <tr><td>Are identical to</td><td>H, M</td></tr>
-          <tr><td>Boundary touches</td><td>D, E, G, H, I, J, M</td></tr>
-          <tr><td>Share a line segment with</td><td>D, H, I, M</td></tr>
-          <tr><td>Crossed by the outline of</td><td>A, E, G, J, K</td></tr>
-          <tr><td>Have their center in</td><td>C, E, F, G, H, K, L</td></tr>
-        </table>
-        
-</div>
-
-<figcaption markdown>zdroj: [Select By Location graphic examples](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/select-by-location-graphical-examples.htm)</figcaption>
-
-
-[:material-open-in-new: Select features by location](https://pro.arcgis.com/en/pro-app/latest/help/mapping/navigation/select-features-by-location.htm){ .md-button .md-button--primary .button_smaller target="\_blank"}
-[:material-open-in-new: Select Layer By Location (Data Management)](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/select-layer-by-location.htm){ .md-button .md-button--primary .button_smaller target="\_blank"}
-[:material-open-in-new: Select By Location graphic examples](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/select-by-location-graphical-examples.htm){ .md-button .md-button--primary .button_smaller target="\_blank"}
-{: align=center style="display:flex; justify-content:center; align-items:center; column-gap:20px; row-gap:10px; flex-wrap:wrap;"}
-
-???+ task-fg-color "Úlohy k prostorovým dotazům"
-
-    K řešení následujících úloh použijte datovou sadu [ArcČR
-    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složce
-    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete soubor s
-    popisem dat ve formátu PDF.
-
-    1. Existuje v ČR letiště, jehož reprezentační bod leží v lese? Jak se jmenuje?
-
-    2. Kolika obcemi v ČR neprochází žádná silnice?
-
-    3. Kolik obcí leží na hranici ČR?
-
-    4. Vyberte silnice, které kříží vodní toky. Kolik procent z těchto
-       silnic tvoří silnice první třídy?
-
-    5. Kolik procent rybníků z celkového počtu leží celou svojí plochou na
-       území Jihočeského kraje?
-
-    6. Na kolika mapových listech Základní mapy 1:25 000 leží alespoň
-       částečně okres Litoměřice. Kolik mapových listů potom leží v tomto
-       okresu celou svojí plochou?
-
-    7. Kolik železničních stanic leží v lese a zároveň jejich název
-       nezačíná na písmeno 'L'?
-
-    8. Které silnice (uveďte jejich číslo) druhé třídy procházejí oblastí
-       bažin a rašelinišť?
-
-    9. Jaká je průměrná nadmořská výška výškových kót na území
-       Středočeského kraje?
-
-    10. Kolik vodních ploch leží alespoň částí své plochy ve vzdálenosti
-        do 10 km od poledníku se zeměpisnou délkou 15°?
-
-    11. Kolik obcí se dotýká alespoň jedním liniovým segmentem hranice kraje?
-
-    12. Vyberte katastrální území, ve kterých leží alespoň částečně jedna
-        vodní plocha, seskupte tyto území podle kódu NUTS (LAU1). Uveďte
-        jaký kód NUTS má největší výměru a z kolika katastrálních území se
-        skládá?
-
-    13. Uveďte souřadnice reprezentačního bodu (centroidu) největší vodní
-        nádrže v Libereckém kraji. O jakou vodní nádrž se jedná?
-
-    14. Kolik obcí leží celou svojí plochou na mapovém listu "Pardubice"
-        ZM 1<nowiki>:</nowiki>25 000. Do kolika ORP tyto obce patří a
-        které to jsou?
-
-    15. Kolik obcí v ČR leží svoji plochou alespoň na dvou mapových
-        listech Základní mapy 1:50 000?
-
-<hr class="level-1">
-
-<br><br><br><br><br>
-
-<!-- __:material-account-edit:{.lg .middle}VC__{style="font-size:70%;color:var(--md-code-fg-color);background-color:var(--md-code-bg-color);padding:.3em .5em;border-radius:.5rem;"}
-{align=center} -->

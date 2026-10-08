@@ -1,73 +1,234 @@
 ---
-icon: material/numeric-2-box
-title: Souřadnicové ref. systémy, připojení negisovských dat
+icon: material/numeric-4-box
+title: Prostorové funkce (geoprocessing), spatial join
 ---
 
-# Souřadnicové referenční systémy v ČR | přehled typů dat a zdrojů, webové mapové služby | připojení externích dat
+# Prostorové funkce (geoprocessing)
 
-## Mapové služby
+## Cíl cvičení
 
-Mapové služby jsou __webové nástroje poskytující geoprostorová data__ ze serveru na klienta __prostřednictvím internetu__. Klientem je (zjednodušeně) zařízení uživatele (např. webový prohlížeč) vysílající požadavek pro získání dat ze serveru. V praxi se většinou __klient služby dotazuje pomocí GIS aplikace__ (webové či desktopové), která na pozadí posílá serveru požadavky a následně zobrazuje přijatá data (viz obrázek). Díky vazbě dat na souřadnicový systém lze takto __kombinovat data s různými rozsahy a z různých zdrojů v jednom mapovém okně__ a data se zobrazí polohově správně.
+Využití základních geoprocessingových nástrojů GIS v rámci řešení komplexní úlohy.
 
-![](../assets/cviceni2/WMS.svg){ .no-filter width=700px}
-{align=center}
+## Základní pojmy
 
-Pro mapové služby existují různé __standardy komunikace__:
-
-- [OGC]("Open Geospatial Consortium") standardizované otevřené formáty: 
-    - __WMS (Web Map Service)__: umožňuje sdílení geografické informace ve formě rastrových dat v prostředí Internetu
-    - __WFS (Web Feature Service)__: umožňuje sdílení geografické informace ve formě vektorových dat v prostředí Internetu
-
-- proprietární standard společnosti [Esri]("ESRI (Environmental Systems Research Institute) je společnost zabývající se vývojem softwaru určeného pro práci s geografickými informačními systémy"):
-    - __ArcGIS REST__
-
-???+ note-fg-color "Kde hledat mapové služby?"
-    - geoportály (např. metadatový katalog [Národního geoportálu INSPIRE](https://geoportal.gov.cz/web/guest/home/){.color_def .underlined_dotted .external_link_icon target="_blank"})
-    - webové stránky poskytovale (např. [Evropská agentura pro životní prostředí (EEA)](https://land.copernicus.eu/en/products/corine-land-cover?tab=main){ .color_def .underlined_dotted .external_link_icon target="_blank"})
-    
-
-## Geoportály
-
-Geoportály jsou webové platformy, které poskytují přístup k geografickým datům a službám. Slouží jako centrální bod pro vyhledávání, prohlížení a stahování prostorových informací, jako jsou mapy, letecké snímky, katastrální data nebo údaje o životním prostředí. Mohou představovat cenný zdroj dat pro analýzu a plánování projektů. Lze zde například využít data o reliéfu terénu, dopravní infrastruktuře nebo vlastnických vztazích k pozemkům. Geoportály často nabízejí i nástroje pro prostorovou analýzu a vizualizaci dat, což může pomoci lépe porozumět kontextu projektů.<br>Geoportály v širším slova smyslu představují také důležitý nástroj v územním plánování a správě měst. Umožňují veřejnosti i odborníkům přístup k aktuálním a relevantním informacím o daném území. Uživatelé mohou využít geoportály k získání podkladů pro své projekty, ale také k prezentaci svých návrhů veřejnosti. Díky geoportálům se stává územní plánování transparentnější a efektivnější, což přispívá k lepšímu rozvoji měst a regionů.
-
-__Tipy na některé zajímavé geoportály:__
-
-[Geoportál ČÚZK](https://geoportal.cuzk.cz/ "Český úřad zeměměřický a katastrální"){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
-[Geoportál AOPK](https://gis-aopkcr.opendata.arcgis.com/ "Agentura přírody a krajiny"){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
-[Geoportál ČSÚ](https://geodata.statistika.cz/portal/apps/sites/#/homepage "Český statistický úřad"){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
-[Geoportál Praha](https://geoportalpraha.cz/ "IPR Praha"){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
-[Geoportál města Brna](https://data.brno.cz/ "Magistrát města Brna"){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
-{.button_array}
-
-## ArcGIS Online
-
-[__ArcGIS Online__](https://www.arcgis.com/){.color_def .underlined_dotted .external_link_icon target="_blank"} je cloudová platforma pro geografické informační systémy od společnosti Esri. Umožňuje uživatelům vytvářet, sdílet a analyzovat mapy a geografická data prostřednictvím webového prohlížeče. **ArcGIS Online** představuje cenný nástroj pro vizualizaci a analýzu prostorových dat, jako mohou být urbanistické plány, dopravní sítě, demografické údaje nebo informace o životním prostředí. Platforma nabízí širokou škálu nástrojů pro tvorbu interaktivních map, 3D modelů a webových aplikací, které mohou být využity při plánování a prezentaci projektů. 
+- [**buffer**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/buffer.htm){:target="_blank"}: Vytváří zóny okolo vstupních geografických prvků ve specifikované vzdálenosti. Tyto zóny mohou být využity například k analýze vlivu určitého objektu na své okolí.
+- [**clip**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/clip.htm){:target="_blank"}: Vyřezává část jednoho datasetu na základě hranic jiného. Výsledkem je nový dataset obsahující pouze oblasti uvnitř klipu.
+- [**select**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/select.htm){:target="_blank"}: Umožňuje vybrat prvky z datasetu, které splňují zadané podmínky, například atributové dotazy nebo prostorové kritérium.
+- [**merge**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/merge.htm){:target="_blank"}: Kombinuje více vstupních datových sad do jedné nové výstupní datové sady. Tento nástroj může kombinovat třídy nebo tabulky bodových, liniových nebo polygonových prvků.
+- [**intersect**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/intersect.htm){:target="_blank"}: Kombinuje dvě nebo více vstupních vrstev a vytváří nové prvky v místech, kde se jejich geometrie překrývají.
+- [**dissolve**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/dissolve.htm){:target="_blank"}: Agreguje prvky podle specifického atributu, čímž redukuje počet prvků a vytváří větší jednotky (např. sloučení polygonů stejného typu).
+- [**spatial join**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/spatial-join.htm){:target="_blank"}: Kombinuje atributy dvou geografických vrstev na základě jejich prostorového vztahu (např. připojení údajů bodů k blízkým polygonům).
+- [**erase**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/erase.htm){:target="_blank"}: Odstraňuje části jedné vrstvy, které se překrývají s druhou vstupní vrstvou, a ponechává zbytek geometrie.
+- [**union**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/union.htm){:target="_blank"}: Kombinuje geometrie a atributy dvou nebo více vrstev do nové vrstvy. Výsledkem jsou oblasti, které reprezentují kombinaci všech vstupů.
+- [**remove overlap**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/remove-overlap-multiple.htm){:target="_blank"}: Identifikuje a odstraňuje překrývající se oblasti mezi prvky v jedné vrstvě nebo mezi více vrstvami.
+- [**symmetrical difference**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/symmetrical-difference.htm){:target="_blank"}: Vytváří novou vrstvu obsahující prvky, které jsou v jedné nebo druhé vstupní vrstvě, ale ne v jejich překryvu.
+- [**count overlapping features**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/count-overlapping-features.htm){:target="_blank"}: Počítá počet prvků, které se překrývají, a výsledek ukládá do nové vrstvy nebo atributové tabulky.
 
 <figure markdown>
-  ![](../assets/cviceni2/AGOL.png ""){ .no-filter width=700px}
-  <figcaption>Zdroj: GIS Geography</figcaption>
+  ![Prostorové funkce](../assets/cviceni3/prost_funkce_srovnani.png "Prostorové funkce")
+  <figcaption>Srovnání vstupních vrstev a výsledků operace pro různé nástroje prostorových funkcí</figcaption>
 </figure>
+<br>
+<hr class="level-1">
 
-Díky **ArcGIS Online** mohou uživatelé snadno integrovat různé zdroje dat, provádět prostorové analýzy a vytvářet vizuálně atraktivní prezentace svých návrhů. Platforma také podporuje spolupráci a sdílení dat mezi uživateli, což umožňuje studentům a pedagogům efektivněji pracovat na společných projektech. ArcGIS Online je tak vhodným nástrojem pro moderní geografické vzdělávání, který studentům umožňuje rozvíjet dovednosti v oblasti prostorové analýzy a vizualizace.
+## Náplň cvičení
+!!! abstract "Oblast vysoké hlučnosti"
+    **ZADÁNÍ:**
 
+    V rámci Česka vymezte oblasi vysoké a zvýšené hlučnosti, které jsou definovány následujícími kritérii:
+
+    1. oblast vysoké hlučnosti
+    
+        - do vzdálenosti 10 km od letiště
+        - do vzdálenosti 3 km od dálnic a rychlostních silnic
+
+    2. oblast zvýšené hlučnosti
+    
+        - ve vzdálenosti 10–20 km od letiště
+        - ve vzdálenosti 3–6 km od dálnic a rychlostních silnic
+
+    <br>
+    Vytvořte 2 jednoduché vizualizace, která bude rozlišovat hlučné oblasti dle:
+    
+      1. dle stupně hlučnosti (zvýšená vs. vysoká)
+      
+      2. dle zdroje hluku (silnice vs. letiště vs. silnice+letiště)
+
+
+    <figure markdown>
+      ![Ukázka vizualizace oblasti vysoké hlučnosti na území Česka](../assets/cviceni4/Hlucnost_vizualizace.png "Ukázka vizualizace oblasti vysoké hlučnosti na území Česka"){ width=600px }
+      <figcaption>Ukázka vizualizace oblasti vysoké hlučnosti na území Česka</figcaption>
+    </figure>
+ 
+
+    <br>
+    Na základě analýzy zodpovězte následující otázky:
+    
+    - Jak velké území Česka leží v oblasti vysoké hlučnosti?
+    - Jak velké území Česka leží v hlučné oblasti způsobené silniční dopravou (bez ohledu na stupeň hlučnosti)?
+    - Kolik obcí je ohroženo hlučností jak ze silnic, tak i z letišť? Ve kterém kraji je takto dotčených obcí nejvíce?
+    - Jak velké území Česka leží v oblasti normální hlučnosti?
+    - Jaké procento chráněných krajinných oblasti je zasaženou zvýšenou nebo vysokou mírou hluku?
+
+
+    <br>
+    **DATOVÉ ZDROJE:**
+    
+      Datová sada [ArcČR 500](../../data/#arccr-500) v3.3 (dostupné na disku *S* ve složce
+    ``K155\Public\data\GIS\ArcCR500 3.3``).
+    
+    
+    <br>
+    **POSTUP:**
+
+    - Vytvoření obalových kolem letišť a vybraných typů silnic dle zadaných kritérií --> nástroj *Buffer*
+    - Vytvoření odvozené vrstvy, ve které budou geometricky odlišeny hlučné oblasti dle stupně hluku (zvýšená vs. vysoká) a dle zdroje hluku (silnice vs. letiště vs. silnice+letiště) --> nástroj *Union* + nástroj "Dissolve"
+    - Oříznutí vrstev dle hranic Česka --> nástroj *Clip*
+    - Tvorba vizualizace (základní mapa, symbol letiště, barva, prolnutí)
 
 
 
 <!--
+## Pracovní postup
 
-<hr class="level-1">
+**1.** Výběr obcí v Plzeňském kraji s více než 2500 obyvateli (atributový dotaz) a tvorba samostatné vrstvy selektovaných prvků.
 
-# Práce s externími daty (Excel, CSV), join
+<figure markdown>
+  ![Select](../assets/cviceni3/SELECT_obce.png "Select obce")
+  <figcaption>Atributový dotaz na vrstvu obcí</figcaption>
+</figure>
 
-Na rozdíl od předchozích úloh, kdy byla práce zaměřena na práci s poskytnutými prostorovými daty uloženými v geodatabázi či formátu SHP, se následující úloha soustředí na možnosti importu externích tabelárních dat a jejich připojení na prostorová data.
+**2.** Výběr typu pobočky zavedením *Definition Query* (výraz: ZKRNAZ_DRU = 'pošta').
 
-Prostřednictvím společného pole (klíče) lze přiřadit záznamy v jedné tabulce se záznamy v jiné tabulce (vrstvě). K vrstvě parcel můžete například přidružit tabulku informací o vlastnictví parcel, protože sdílejí pole identifikace parcely. Tato přidružení můžete vytvořit několika způsoby, včetně dočasného spojení či vytvoření trvalejších tříd vztahů uvnitř geodatabáze. Spojení může být také založeno na prostorovém umístění, jak bude demonstrováno v dalším cvičení č. 4.
+<figure markdown>
+  ![DQ](../assets/cviceni3/DQ_posta.png "Definition Query pošty")
+  <figcaption>Definition Query pro vrstvu poboček pošty</figcaption>
+</figure>
 
-## Základní pojmy
+<figure markdown>
+  ![Map 1](../assets/cviceni3/MAP_pred-spatial-join.png "Mapa 1")
+  <figcaption>Vizualizace stavu nad podkladovou mapou</figcaption>
+</figure>
 
-[<span>:material-open-in-new: pro.arcgis.com</span><br>Join the attributes from a table](https://pro.arcgis.com/en/pro-app/latest/help/data/tables/joins-and-relates.htm#GUID-39C9610A-6A73-4985-ADB8-7354EA9DB8BF){ .md-button .md-button--primary .url-name target="_blank"}
-[<span>:material-open-in-new: pro.arcgis.com</span><br>Join data by location (spatially)](https://pro.arcgis.com/en/pro-app/latest/help/data/tables/joins-and-relates.htm#GUID-7B11EAA4-35E0-4B8D-AFB6-4A435761574B){ .md-button .md-button--primary .url-name target="_blank"}
-[<span>:material-open-in-new: pro.arcgis.com</span><br>Remove join](https://pro.arcgis.com/en/pro-app/latest/help/data/tables/joins-and-relates.htm#ESRI_SECTION1_6507320BCB1E45219A88F1AA0A24F7B9){ .md-button .md-button--primary .url-name target="_blank"}
-{: align=center style="display:flex; justify-content:center; align-items:center; column-gap:20px; row-gap:10px; flex-wrap:wrap;"}
--->
+**3.** Spatial join: k výběru obcí připojíme pobočky na základě jejich polohy. Zároveň přidáme nový atribut POCET_POBOCEK, který bude určen na základě sumy libovolného ze stávajících atributů vrstvy poboček (např. count(GmIID)).
 
+<figure markdown>
+  ![Spatial join](../assets/cviceni3/SPATIALJOIN_obce-pobocky.png "Spatial join")
+  <figcaption>Spatial join</figcaption>
+</figure>
+
+**4**. Následně zadáme atributový dotaz na vrstvu obcí, který vybere prvky s více než 1 pobočkou (POCET_POBOCEK *is greater than* 1).
+
+<figure markdown>
+  ![Select by attribute](../assets/cviceni3/SELECT_pocet-pobocek.png "Atributový dotaz")
+  <figcaption>Atributový dotaz na vrstvu obcí</figcaption>
+</figure>
+
+**5**. V dalším kroku použijeme nástroj *CLIP* a vytvoříme novou vrstvu obsahující takové pobočky pošty, které se nacházejí v obcích s více než 1 pobočkou. Tím, že v předchozím kroku byla provedena selekce pouze některých prvků z vrstvy obcí, do funkce *CLIP* vstoupí pouze tento aktivní výběr.
+
+<figure markdown>
+  ![Clip features](../assets/cviceni3/CLIP_pobocky.png "Clip")
+  <figcaption>Oříznutí vrstvy poboček aktivními prvky ve vrstvě obcí.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Map 2](../assets/cviceni3/MAP_spatial-join-plus-dq.png "Mapa 2")
+  <figcaption>Vizualizace stavu po ořezu.</figcaption>
+</figure>
+
+**6**. S využitím nástroje *BUFFER* vytvoříme obalovou zónu kolem každé pobočky o poloměru 3 km.
+
+<figure markdown>
+  ![Buffer](../assets/cviceni3/BUFFER_pobocky.png "Buffer")
+  <figcaption>Parametry nástroje BUFFER pro tvorbu obalové zóny (rádius 3 km)</figcaption>
+</figure>
+
+**7**. Nyní přistoupíme k vizuálnímu vyhodnocení poboček vhodných ke zrušení. Např. v Klatovech lze při dodržení zadaných kritérií zrušit právě 2 pobočky České pošty (zvýrazněné včetně svých obalových zón), resp. zachovat maximálně 2 pobočky (viz níže).
+
+<figure markdown>
+  ![Map 3](../assets/cviceni3/MAP_buffer-Klatovy.png "Mapa 3"){ width="500" }
+  <figcaption>Příklad poboček aspirujících na zrušení</figcaption>
+</figure>
+
+**8**. V atributové tabulce poboček vytvoříme pomocí *Add Field* pomocný atribut RUSENO (datový typ *short*, defaultní hodnota 0).
+
+<figure markdown>
+  ![Add field](../assets/cviceni3/AT_add-field.png "Přidání atributu")
+  <figcaption>Přidání nového pole do atributové tabulky</figcaption>
+</figure>
+
+**9**. Manuálně vybereme (pomocí *Select*) pobočky vyhovující kritériím zrušení změnou hodnoty atributu RUSENO na 1.
+
+**10**. Nyní je možné zobrazit rušené pobočky zavedením *Definition Query* (výraz RUSENO = 1) nebo naopak pobočky splňující podmínky, aby byly zachovány (výraz RUSENO = 0).
+
+<figure markdown>
+  ![Map 4](../assets/cviceni3/MAP_zachovane-pobocky.png "Mapa poboček")
+  <figcaption>Pobočky pošty, kterou mohou být zachovány.</figcaption>
+</figure>
+
+**11**. Závěrem lze porovnat, jak rušení poboček České pošty v r. 2023 skutečně proběhlo; přehled naleznete např. [zde](https://www.seznamzpravy.cz/clanek/fakta-ceska-posta-zrusene-pobocky-seznam-mapa-231064). Celý problém je samozřejmě složitější, jelikož finální výběr ovlivnily další faktory jako priorita pobočky (hlavní vs. vedljší), bezbariérovost, apod. -->
+
+<!-- 
+## Domácí úloha: Kulturní míle
+
+*Pracovní postup:*
+
+1.  Stáhněte si prostorová data (z OSM přes BBBike): Vyberte ohraničení kolem vaší alma mater (cca 2 km^2), vyplňte formát, jméno a mail a stiskněte *Extract*. Odkaz na stažení vám bude zaslán na vaši e-mailovou adresu, jakmile bude proces online extrakce hotový.
+
+2.  Načtěte a vyberte data v aplikaci ArcGIS Pro: Ve vlastnostech mapy použijte projekci Equal Earth. Do mapy importujte shapefile *points.shp*. Prozkoumejte atributovou tabulku, zejména pole *type*. Najděte a vyberte bod představující vaši univerzitu.
+
+3.  Prostorová analýza (část 1): Po výběru bodu (vaší univerzity) vytvořte pomocí geoprocessingového nástroje *Buffer* kolem tohoto bodu obalovou zónu o velikosti 1 míle. Funkce zpracuje pouze 1 obalovou zónu kolem vybraného bodu, pokud je výběr aktivní.
+
+4.  Atributový dotaz: Proveďte *Select by Attributes* a vyhledejte body související s kulturou pomocí atributu *typ* (vyhledávání divadel, muzeí atd.). Vyberte všechny prvky v nejméně 5 různých kategoriích kultury a extrahujte tato data do geodatabáze projektu.
+
+5.  Prostorová analýza (část 2): Pomocí nástroje *Clip* extrahujte body (vrstva prvků obsahující pouze kulturní místa) v rámci mílové obalové zóny.
+
+6.  V této fázi byste měli mít kolem univerzity  zónu o velikosti 1 míle obsahující body zájmu související s kultury. Všechny ostatní prvky můžete z mapy odstranit.
+
+7.  Najděte vhodné symboly pro jednotlivé typy kulturních zařízení.
+
+8.  Vložte nový layout (*Insert Layout*) ve vybraném formátu a zvolte orientaci na šířku nebo na výšku.
+
+9.  Ve vlastnostech mapy nastavte vhodné referenční měřítko a případně omezte obsahu mapového okna pouze na obalovou zónu.
+
+10. Dokončete rozvržení: vložte mapové okno, přidejte nadpis, podnadpis, legendu a tiráž. Níže inspirace.
+
+![](../assets/cviceni3/culturemile.png){ .no-filter .off-glb }
+{: align=center} -->
+
+## Úlohy k procvičení
+
+!!! task-fg-color "Úlohy"
+
+    K řešení následujích úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složce
+    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete souboru s
+    popisem dat ve formátu PDF.
+
+    1. Jaká je výměra (v ha) bažin a rašelinišť ležících v lese. Kolik to
+       je procent z celkové výměry bažin a rašelinišť?
+       
+    2. Jaká je výměra (v km^2^) území omezeného pouze na ČR do 100 m od dálnic?
+
+    3. Kolik obcí v ČR leží celou svojí plochou do vzdálenosti 10 km od
+       řeky Labe. Jaký je celkový počet obyvatel těchto obcí?
+
+    4. Na kolika místech kříží dálnice, rychlostní silnice či silnice
+       1.třídy s železnicí. Kolik z těchto křížení leží do vzdálenosti 1km
+       od nejbližší železniční stanice?
+
+    5. Jaká je výměra území (v ha), na kterých leží les či vodní
+       plocha. Existuje území, které by odpovídalo současně oběma
+       podmínkám?
+
+    6. Vytvořte společnou datovou vrstvu pro letiště a železniční
+       stanice. Kolik objektů tato vrstva obsahuje?
+
+    7. Kolik procent z celkové výměry ČR činí uzemí, která jsou vzdálená
+       od nejbližšího rybníku více než 25 km?
+
+    8. Jaká je výměra uzemí ČR (v km^2^), která leží dále než 5 km od
+       nejbližší silnice a zároveň dále než 10 km od nejbližší železniční
+       stanice? Na území kterých obcí leží největší z hledaných lokalit?
+
+    9. Kolik procent území Jihočeského kraje tvoří vodní plochy?
