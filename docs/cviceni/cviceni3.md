@@ -1,234 +1,386 @@
 ---
-icon: material/numeric-4-box
-title: Prostorové funkce (geoprocessing), spatial join
+icon: material/numeric-3-box
+title: Vektory, atributové a prostorové dotazy
 ---
 
-# Prostorové funkce (geoprocessing)
+# Vektorová data, atributové dotazy, prostorové dotazy
 
 ## Cíl cvičení
 
-Využití základních geoprocessingových nástrojů GIS v rámci řešení komplexní úlohy.
+- Vysvětlení rozdílu mezi vektorovými a rastrovými GIS daty
+- Selekce prvků podle atributů
+- Selekce prvků na základě vzájemných prostorových vztahů
 
-## Základní pojmy
-
-- [**buffer**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/buffer.htm){:target="_blank"}: Vytváří zóny okolo vstupních geografických prvků ve specifikované vzdálenosti. Tyto zóny mohou být využity například k analýze vlivu určitého objektu na své okolí.
-- [**clip**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/clip.htm){:target="_blank"}: Vyřezává část jednoho datasetu na základě hranic jiného. Výsledkem je nový dataset obsahující pouze oblasti uvnitř klipu.
-- [**select**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/select.htm){:target="_blank"}: Umožňuje vybrat prvky z datasetu, které splňují zadané podmínky, například atributové dotazy nebo prostorové kritérium.
-- [**merge**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/merge.htm){:target="_blank"}: Kombinuje více vstupních datových sad do jedné nové výstupní datové sady. Tento nástroj může kombinovat třídy nebo tabulky bodových, liniových nebo polygonových prvků.
-- [**intersect**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/intersect.htm){:target="_blank"}: Kombinuje dvě nebo více vstupních vrstev a vytváří nové prvky v místech, kde se jejich geometrie překrývají.
-- [**dissolve**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/dissolve.htm){:target="_blank"}: Agreguje prvky podle specifického atributu, čímž redukuje počet prvků a vytváří větší jednotky (např. sloučení polygonů stejného typu).
-- [**spatial join**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/spatial-join.htm){:target="_blank"}: Kombinuje atributy dvou geografických vrstev na základě jejich prostorového vztahu (např. připojení údajů bodů k blízkým polygonům).
-- [**erase**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/erase.htm){:target="_blank"}: Odstraňuje části jedné vrstvy, které se překrývají s druhou vstupní vrstvou, a ponechává zbytek geometrie.
-- [**union**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/union.htm){:target="_blank"}: Kombinuje geometrie a atributy dvou nebo více vrstev do nové vrstvy. Výsledkem jsou oblasti, které reprezentují kombinaci všech vstupů.
-- [**remove overlap**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/remove-overlap-multiple.htm){:target="_blank"}: Identifikuje a odstraňuje překrývající se oblasti mezi prvky v jedné vrstvě nebo mezi více vrstvami.
-- [**symmetrical difference**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/symmetrical-difference.htm){:target="_blank"}: Vytváří novou vrstvu obsahující prvky, které jsou v jedné nebo druhé vstupní vrstvě, ale ne v jejich překryvu.
-- [**count overlapping features**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/count-overlapping-features.htm){:target="_blank"}: Počítá počet prvků, které se překrývají, a výsledek ukládá do nové vrstvy nebo atributové tabulky.
-
-<figure markdown>
-  ![Prostorové funkce](../assets/cviceni3/prost_funkce_srovnani.png "Prostorové funkce")
-  <figcaption>Srovnání vstupních vrstev a výsledků operace pro různé nástroje prostorových funkcí</figcaption>
-</figure>
-<br>
 <hr class="level-1">
 
-## Náplň cvičení
-!!! abstract "Oblast vysoké hlučnosti"
-    **ZADÁNÍ:**
+## Vektorová a rastrová prostorová data
 
-    V rámci Česka vymezte oblasi vysoké a zvýšené hlučnosti, které jsou definovány následujícími kritérii:
+<div class="grid cards" markdown>
 
-    1. oblast vysoké hlučnosti
+-   :material-vector-polyline:{ .lg .middle } __Vektorová data__
+
+    ---
+
+    Reprezentují prvky reálného světa pomocí základních geometrických elementů: __bodů, linií a ploch__ (tzv. polygonů)
+
+    Podrobnost dat je určena __podrobností souřadnic vrcholů__ geometrického prvku
+
+    Vhodné pro modelování a analýzu __diskrétních objektů__ (např. poloha bodů, kategorie pokrytí půdy)
+
+    Vhodné pro __tvorbu map, měření délek, geometrické výpočty__
+
+    Možné problémy s __topologií__ (mezery a překryvy)
+
+    Základními formáty vektorových dat jsou __Esri Shapefile, GeoJSON, GeoPackage__ či __KML/GML__
+
+
+-   :material-grid:{ .lg .middle } __Rastrová data__<span style="font-size:60%;font-style:italic;vertical-align:10%;margin-left:15px;color:#888">součástí budoucích cvičení</span>
+
+    ---
+
+    Reprezentují prvky reálného světa v podobě pravidelné mřížky tvořené tzv. __pixely__ (z angl. *picture element*)
+
+    Podrobnost dat je určena __prostorovým rozlišením__ rastru, tj. __velikostí__ hrany __pixelu__ (v metrech)
+
+    Vhodné pro modelování a analýzu __spojitých jevů__ (nadmořská výška, teplota, srážky)
     
-        - do vzdálenosti 10 km od letiště
-        - do vzdálenosti 3 km od dálnic a rychlostních silnic
+    Využívané pro __obrazová data__ (např. satelitní snímky)
 
-    2. oblast zvýšené hlučnosti
-    
-        - ve vzdálenosti 10–20 km od letiště
-        - ve vzdálenosti 3–6 km od dálnic a rychlostních silnic
+    Nevýhodou velikost souborových dat
 
-    <br>
-    Vytvořte 2 jednoduché vizualizace, která bude rozlišovat hlučné oblasti dle:
-    
-      1. dle stupně hlučnosti (zvýšená vs. vysoká)
-      
-      2. dle zdroje hluku (silnice vs. letiště vs. silnice+letiště)
+    Základními formáty rastrových dat jsou __GeoTIFF, JPEG, PNG__ či __GIF__
 
-
-    <figure markdown>
-      ![Ukázka vizualizace oblasti vysoké hlučnosti na území Česka](../assets/cviceni4/Hlucnost_vizualizace.png "Ukázka vizualizace oblasti vysoké hlučnosti na území Česka"){ width=600px }
-      <figcaption>Ukázka vizualizace oblasti vysoké hlučnosti na území Česka</figcaption>
-    </figure>
- 
-
-    <br>
-    Na základě analýzy zodpovězte následující otázky:
-    
-    - Jak velké území Česka leží v oblasti vysoké hlučnosti?
-    - Jak velké území Česka leží v hlučné oblasti způsobené silniční dopravou (bez ohledu na stupeň hlučnosti)?
-    - Kolik obcí je ohroženo hlučností jak ze silnic, tak i z letišť? Ve kterém kraji je takto dotčených obcí nejvíce?
-    - Jak velké území Česka leží v oblasti normální hlučnosti?
-    - Jaké procento chráněných krajinných oblasti je zasaženou zvýšenou nebo vysokou mírou hluku?
-
-
-    <br>
-    **DATOVÉ ZDROJE:**
-    
-      Datová sada [ArcČR 500](../../data/#arccr-500) v3.3 (dostupné na disku *S* ve složce
-    ``K155\Public\data\GIS\ArcCR500 3.3``).
-    
-    
-    <br>
-    **POSTUP:**
-
-    - Vytvoření obalových kolem letišť a vybraných typů silnic dle zadaných kritérií --> nástroj *Buffer*
-    - Vytvoření odvozené vrstvy, ve které budou geometricky odlišeny hlučné oblasti dle stupně hluku (zvýšená vs. vysoká) a dle zdroje hluku (silnice vs. letiště vs. silnice+letiště) --> nástroj *Union* + nástroj "Dissolve"
-    - Oříznutí vrstev dle hranic Česka --> nástroj *Clip*
-    - Tvorba vizualizace (základní mapa, symbol letiště, barva, prolnutí)
-
-
-
-<!--
-## Pracovní postup
-
-**1.** Výběr obcí v Plzeňském kraji s více než 2500 obyvateli (atributový dotaz) a tvorba samostatné vrstvy selektovaných prvků.
+</div>
 
 <figure markdown>
-  ![Select](../assets/cviceni3/SELECT_obce.png "Select obce")
-  <figcaption>Atributový dotaz na vrstvu obcí</figcaption>
+  ![Rozdíl v grafické reprezentaci vektorových a rastrových dat](../assets/cviceni2/VectorVsRaster.png "Rozdíl v grafické reprezentaci vektorových a rastrových dat"){ width=400px }
+  <figcaption>Rozdíl v grafické reprezentaci vektorových a rastrových dat (Geletič et al. 2019)</figcaption>
 </figure>
 
-**2.** Výběr typu pobočky zavedením *Definition Query* (výraz: ZKRNAZ_DRU = 'pošta').
+<hr class="level-1">
 
-<figure markdown>
-  ![DQ](../assets/cviceni3/DQ_posta.png "Definition Query pošty")
-  <figcaption>Definition Query pro vrstvu poboček pošty</figcaption>
-</figure>
+## Atributové dotazy
 
-<figure markdown>
-  ![Map 1](../assets/cviceni3/MAP_pred-spatial-join.png "Mapa 1")
-  <figcaption>Vizualizace stavu nad podkladovou mapou</figcaption>
-</figure>
+Atributový dotaz *(Attribute Query)* je metoda výběru/filtrace prvků na základě **hodnot jejich atributů**. Doplňuje tak metodu [interaktivního výběru prvků](/cviceni/cviceni1/#select-tool) z 1. cvičení. Základem je pravidlo pro výběr – tzv. **výraz** *(Expression)*. ArcGIS Pro umožňuje sestavovat výrazy interaktivně pomocí dialogu, nicméně pro využití plného potenciálu výrazů je vhodné využít kód v jazyce _SQL_.
+<br><br>
 
-**3.** Spatial join: k výběru obcí připojíme pobočky na základě jejich polohy. Zároveň přidáme nový atribut POCET_POBOCEK, který bude určen na základě sumy libovolného ze stávajících atributů vrstvy poboček (např. count(GmIID)).
+**Atributový dotaz** (nad daty v mapě): _:material-tab: Map_{: .outlined_code} → _:material-button-cursor: Select By Attributes_{: .outlined_code} → vyplnit údaje do dialogu nástroje...
+[Select features using attributes](https://pro.arcgis.com/en/pro-app/latest/help/mapping/navigation/select-features-using-attributes.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
 
-<figure markdown>
-  ![Spatial join](../assets/cviceni3/SPATIALJOIN_obce-pobocky.png "Spatial join")
-  <figcaption>Spatial join</figcaption>
-</figure>
+![](../assets/cviceni1/img_33.png)
+![](../assets/cviceni1/arrow.svg){: .off-glb .process_icon}
+![](../assets/cviceni1/img_34.png)
+![](../assets/cviceni1/arrow.svg){: .off-glb .process_icon}
+![](../assets/cviceni1/img_35.png)
+{: .process_container}
 
-**4**. Následně zadáme atributový dotaz na vrstvu obcí, který vybere prvky s více než 1 pobočkou (POCET_POBOCEK *is greater than* 1).
+<figcaption markdown>Do pole `Input Rows` je automaticky předvyplněna vrstva vybraná v obsahu mapy </figcaption>
 
-<figure markdown>
-  ![Select by attribute](../assets/cviceni3/SELECT_pocet-pobocek.png "Atributový dotaz")
-  <figcaption>Atributový dotaz na vrstvu obcí</figcaption>
-</figure>
+Pomocí přepínátka ![](../assets/cviceni1/img_36.png){: .off-glb style="vertical-align: -20%;margin:0px 5px;"} lze měnit zápis mezi interaktivním dialogovým zadáním a výrazem v jazyce SQL.
 
-**5**. V dalším kroku použijeme nástroj *CLIP* a vytvoříme novou vrstvu obsahující takové pobočky pošty, které se nacházejí v obcích s více než 1 pobočkou. Tím, že v předchozím kroku byla provedena selekce pouze některých prvků z vrstvy obcí, do funkce *CLIP* vstoupí pouze tento aktivní výběr.
+[Introduction to query expressions](https://pro.arcgis.com/en/pro-app/latest/help/mapping/navigation/write-a-query-in-the-query-builder.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="\_blank"}
+[Construct and modify queries](https://pro.arcgis.com/en/pro-app/latest/help/mapping/navigation/construct-and-modify-queries.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="\_blank"}
+{: .button_array}
 
-<figure markdown>
-  ![Clip features](../assets/cviceni3/CLIP_pobocky.png "Clip")
-  <figcaption>Oříznutí vrstvy poboček aktivními prvky ve vrstvě obcí.</figcaption>
-</figure>
+???+ task-fg-color "Úlohy k atributovým dotazům"
 
-<figure markdown>
-  ![Map 2](../assets/cviceni3/MAP_spatial-join-plus-dq.png "Mapa 2")
-  <figcaption>Vizualizace stavu po ořezu.</figcaption>
-</figure>
-
-**6**. S využitím nástroje *BUFFER* vytvoříme obalovou zónu kolem každé pobočky o poloměru 3 km.
-
-<figure markdown>
-  ![Buffer](../assets/cviceni3/BUFFER_pobocky.png "Buffer")
-  <figcaption>Parametry nástroje BUFFER pro tvorbu obalové zóny (rádius 3 km)</figcaption>
-</figure>
-
-**7**. Nyní přistoupíme k vizuálnímu vyhodnocení poboček vhodných ke zrušení. Např. v Klatovech lze při dodržení zadaných kritérií zrušit právě 2 pobočky České pošty (zvýrazněné včetně svých obalových zón), resp. zachovat maximálně 2 pobočky (viz níže).
-
-<figure markdown>
-  ![Map 3](../assets/cviceni3/MAP_buffer-Klatovy.png "Mapa 3"){ width="500" }
-  <figcaption>Příklad poboček aspirujících na zrušení</figcaption>
-</figure>
-
-**8**. V atributové tabulce poboček vytvoříme pomocí *Add Field* pomocný atribut RUSENO (datový typ *short*, defaultní hodnota 0).
-
-<figure markdown>
-  ![Add field](../assets/cviceni3/AT_add-field.png "Přidání atributu")
-  <figcaption>Přidání nového pole do atributové tabulky</figcaption>
-</figure>
-
-**9**. Manuálně vybereme (pomocí *Select*) pobočky vyhovující kritériím zrušení změnou hodnoty atributu RUSENO na 1.
-
-**10**. Nyní je možné zobrazit rušené pobočky zavedením *Definition Query* (výraz RUSENO = 1) nebo naopak pobočky splňující podmínky, aby byly zachovány (výraz RUSENO = 0).
-
-<figure markdown>
-  ![Map 4](../assets/cviceni3/MAP_zachovane-pobocky.png "Mapa poboček")
-  <figcaption>Pobočky pošty, kterou mohou být zachovány.</figcaption>
-</figure>
-
-**11**. Závěrem lze porovnat, jak rušení poboček České pošty v r. 2023 skutečně proběhlo; přehled naleznete např. [zde](https://www.seznamzpravy.cz/clanek/fakta-ceska-posta-zrusene-pobocky-seznam-mapa-231064). Celý problém je samozřejmě složitější, jelikož finální výběr ovlivnily další faktory jako priorita pobočky (hlavní vs. vedljší), bezbariérovost, apod. -->
-
-<!-- 
-## Domácí úloha: Kulturní míle
-
-*Pracovní postup:*
-
-1.  Stáhněte si prostorová data (z OSM přes BBBike): Vyberte ohraničení kolem vaší alma mater (cca 2 km^2), vyplňte formát, jméno a mail a stiskněte *Extract*. Odkaz na stažení vám bude zaslán na vaši e-mailovou adresu, jakmile bude proces online extrakce hotový.
-
-2.  Načtěte a vyberte data v aplikaci ArcGIS Pro: Ve vlastnostech mapy použijte projekci Equal Earth. Do mapy importujte shapefile *points.shp*. Prozkoumejte atributovou tabulku, zejména pole *type*. Najděte a vyberte bod představující vaši univerzitu.
-
-3.  Prostorová analýza (část 1): Po výběru bodu (vaší univerzity) vytvořte pomocí geoprocessingového nástroje *Buffer* kolem tohoto bodu obalovou zónu o velikosti 1 míle. Funkce zpracuje pouze 1 obalovou zónu kolem vybraného bodu, pokud je výběr aktivní.
-
-4.  Atributový dotaz: Proveďte *Select by Attributes* a vyhledejte body související s kulturou pomocí atributu *typ* (vyhledávání divadel, muzeí atd.). Vyberte všechny prvky v nejméně 5 různých kategoriích kultury a extrahujte tato data do geodatabáze projektu.
-
-5.  Prostorová analýza (část 2): Pomocí nástroje *Clip* extrahujte body (vrstva prvků obsahující pouze kulturní místa) v rámci mílové obalové zóny.
-
-6.  V této fázi byste měli mít kolem univerzity  zónu o velikosti 1 míle obsahující body zájmu související s kultury. Všechny ostatní prvky můžete z mapy odstranit.
-
-7.  Najděte vhodné symboly pro jednotlivé typy kulturních zařízení.
-
-8.  Vložte nový layout (*Insert Layout*) ve vybraném formátu a zvolte orientaci na šířku nebo na výšku.
-
-9.  Ve vlastnostech mapy nastavte vhodné referenční měřítko a případně omezte obsahu mapového okna pouze na obalovou zónu.
-
-10. Dokončete rozvržení: vložte mapové okno, přidejte nadpis, podnadpis, legendu a tiráž. Níže inspirace.
-
-![](../assets/cviceni3/culturemile.png){ .no-filter .off-glb }
-{: align=center} -->
-
-## Úlohy k procvičení
-
-!!! task-fg-color "Úlohy"
-
-    K řešení následujích úloh použijte datovou sadu [ArcČR
+    K řešení následujících úloh použijte datovou sadu [ArcČR
     500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složce
-    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete souboru s
+    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete soubor s
     popisem dat ve formátu PDF.
 
-    1. Jaká je výměra (v ha) bažin a rašelinišť ležících v lese. Kolik to
-       je procent z celkové výměry bažin a rašelinišť?
-       
-    2. Jaká je výměra (v km^2^) území omezeného pouze na ČR do 100 m od dálnic?
+    1. Kolik je v ČR rybníků?
 
-    3. Kolik obcí v ČR leží celou svojí plochou do vzdálenosti 10 km od
-       řeky Labe. Jaký je celkový počet obyvatel těchto obcí?
+    2. Jaká je celková délka (v km) přirozených vodních toků v ČR?
 
-    4. Na kolika místech kříží dálnice, rychlostní silnice či silnice
-       1.třídy s železnicí. Kolik z těchto křížení leží do vzdálenosti 1km
-       od nejbližší železniční stanice?
+    3. Jaká je průměrná nadmořská výška (v m) vodních nádrží v ČR?
 
-    5. Jaká je výměra území (v ha), na kterých leží les či vodní
-       plocha. Existuje území, které by odpovídalo současně oběma
-       podmínkám?
+    4. Kolik silnic v ČR má více než dva jizdní pruhy?
 
-    6. Vytvořte společnou datovou vrstvu pro letiště a železniční
-       stanice. Kolik objektů tato vrstva obsahuje?
+    5. Jaká je délka (v km) dálnic v ČR, které mají šest jízdních pruhů?
 
-    7. Kolik procent z celkové výměry ČR činí uzemí, která jsou vzdálená
-       od nejbližšího rybníku více než 25 km?
+    6. Kolik železničních stanic v ČR obsahuje ve svém názvu předložku 'nad'?
 
-    8. Jaká je výměra uzemí ČR (v km^2^), která leží dále než 5 km od
-       nejbližší silnice a zároveň dále než 10 km od nejbližší železniční
-       stanice? Na území kterých obcí leží největší z hledaných lokalit?
+    7. Jaká je celková plocha (v km^2^) sídel v ČR u kterých jejich název začíná na písmeno 'K'?
 
-    9. Kolik procent území Jihočeského kraje tvoří vodní plochy?
+    8. Ve které obci Ústeckého kraje je největší nezaměstnanost a kolik to je?
+
+    9. Najděte obec v ČR, kde je nejvyšší poměr mezi muži a ženami a kolik to je?
+
+    10. V kolika obcích v ČR převyšuje počet sňatků počet rozvodů. V jaké
+        obci je počet sňatků nejvyšší vzhledem k aktuálnímu počtu
+        obyvatel?
+    
+    11. Jaká je průměrná hodnota nezaměstnanosti v ORP Beroun?
+
+    12. Kolik katastrálních území spadá do oblasti s kódem LAU1 'CZ0327' a
+        jakou mají celkovou výměru (v km^2^)?
+
+    13. V kolika případech se shoduje název obce s názvem katastrálního území?
+
+    14. Kolik katastrálních území začíná na písmeno 'R' a má přesně tři znaky ve svém názvu?
+
+    15. Ve kterých krajích je míra nezaměstranosti mužů větší než u žen?
+
+    16. Jaká je celková délka silnic 1., 2. a 3. třídy?
+
+    17. Jaký název pro obec je nejfrekventovanější, kolik obcí s tímto názvem v ČR je?
+
+    18. Pro každý typ vodní plochy najděte nejvyšší nadmořskou výšku.
+
+    19. Jaký je poměr mezinárodních ku vnitrostátním letištím v ČR?
+
+    20. Který okres v ČR se skládá z největšího počtu obcí a kolik to je?
+
+<!-- <div class="table_small_padding" markdown> <!-- trik: vlastnosti tabulky pro vsechny podrizene -->
+<!--???+ task-fg-color "Příklad k vyzkoušení __|__{style="margin: 0rem 1rem"} __testování atributových dotazů na skutečných datech__{.no-dec}"
+
+    <iframe width="100%" height="500" frameborder="0" allowfullscreen src="https://geo.fsv.cvut.cz/data/hoffmann/appquery/"></iframe>
+
+    |atribut|datový typ|popis|
+    |-|-|-|
+    |stop_name|`string`|Název zastávky|
+    |routes_nam|`string`|Označení linek, které obsluhují zastávku, ve formátu `-cislolinky-,-cislolinky-` řazeno vzestupně|
+    |route_type|`integer`|ID druhu dopravy, které obsluhují zastávku, <br>`0=tramvaj`, `1=metro`, `2=vlak`, `3=autobus`, `4=přívoz`, `7=lanovka`, `8=tramvaj i autobus`|
+    |on_request|`integer`|Zastávka na znamení `0=není na znamení`, `1=je na znamení`|
+    |platf_len|`float`|Délka nástupiště (metry)|
+</div>-->
+
+<hr class="level-1">
+
+## Prostorové dotazy
+
+__Prostorový dotaz__ *(Spatial Query)* je metoda výběru/filtrace prvků jedné vrstvy __na základě vzájemné polohy s prvky druhé vrstvy__. Funkce využívá jako vstup `vrstvu vybíraných prvků` *(Input features)*, `vrstvu pro překryvnou analýzu` *(Selecting features)* a `vztah pro překryvnou analýzu` *(Relationship)*.
+
+![](../assets/cviceni2/img_01.svg){ .no-filter }
+![](../assets/cviceni2/img_02.svg){ .no-filter }
+{: .process_container}
+
+<div class="table_headerless table_small_padding table_centered centered_tab_labels" markdown> <!-- trik: vlastnosti tabulky pro vsechny podrizene -->
+
+=== "Výběr BODŮ..."
+
+    === "...v překrytu s BODY"
+
+        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-1ECFFABC-3608-4BB4-86A8-FD6FA0F16C13-web.gif){ style="filter:none !important;" }
+        {: align=center}
+
+        <table style="width:unset;">
+            <tr><td>Intersect</td><td>A</td></tr>
+            <tr><td>Intersect (DBMS)</td><td>A</td></tr>
+            <tr><td>Contains</td><td>A</td></tr>
+            <tr><td>Contains Clementini</td><td>A</td></tr>
+            <tr><td>Within</td><td>A</td></tr>
+            <tr><td>Within Clementini</td><td>A</td></tr>
+            <tr><td>Are identical to</td><td>A</td></tr>
+            <tr><td>Have their center in</td><td>A</td></tr>
+        </table>
+
+    === "...v překrytu s LINIEMI"
+
+        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-171AD80E-550B-4017-AEB7-1A681D722F60-web.gif){ style="filter:none !important;" }
+        {: align=center}
+
+        <table id="small_table_padding" style="width:unset;">
+            <tr><td>Intersect</td><td>A, C</td></tr>
+            <tr><td>Intersect (DBMS)</td><td>A, C</td></tr>
+            <tr><td>Within</td><td>A, C</td></tr>
+            <tr><td>Completely within</td><td>A</td></tr>
+            <tr><td>Within Clementini</td><td>A</td></tr>
+            <tr><td>Have their center in</td><td>A, C</td></tr>
+            <tr><td>Boundary touches</td><td>C</td></tr>
+        </table>
+
+    === "...v překrytu s POLYGONY"
+
+        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-12153063-E9B3-42E5-A786-E3FAF6BB004E-web.gif){ style="filter:none !important;" }
+        {: align=center}
+
+        <table id="small_table_padding" style="width:unset;">
+          <tr><td>Intersect</td><td>A, C</td></tr>
+          <tr><td>Intersect (DBMS)</td><td>A, C</td></tr>
+          <tr><td>Within</td><td>A, C</td></tr>
+          <tr><td>Completely within</td><td>A</td></tr>
+          <tr><td>Within Clementini</td><td>A</td></tr>
+          <tr><td>Have their center in</td><td>A, C</td></tr>
+          <tr><td>Boundary touches</td><td>C</td></tr>
+        </table>
+
+=== "Výběr LINIÍ..."
+
+
+    === "...v překrytu s BODY"
+
+        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-FD60FA73-31CD-4BD7-B03C-06806851BC9E-web.gif){ style="filter:none !important;" }
+        {: align=center}
+
+        <table id="small_table_padding" style="width:unset;">
+          <tr><td>Intersect</td><td>A, C, D</td></tr>
+          <tr><td>Intersect (DBMS)</td><td>A, C, D</td></tr>
+          <tr><td>Contains</td><td>A, C, D</td></tr>
+          <tr><td>Completely contains</td><td>A, D</td></tr>
+          <tr><td>Contains Clementini</td><td>A, D</td></tr>
+          <tr><td>Have their center in</td><td>D</td></tr>
+          <tr><td>Boundary touches</td><td>C</td></tr>
+        </table>
+
+    === "...v překrytu s LINIEMI"
+
+        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-09D6FB47-31A3-47C3-A8B8-19BB659EBA8A-web.gif){ style="filter:none !important;" }
+        {: align=center}
+
+        <table id="small_table_padding" style="width:unset;">
+          <tr><td>Intersect</td><td>A, C, D, E, F, G, H, I, J</td></tr>
+          <tr><td>Intersect (DBMS)</td><td>A, C, D, E, F, G, H, I, J</td></tr>
+          <tr><td>Contains</td><td>G, H</td></tr>
+          <tr><td>Completely contains</td><td>G</td></tr>
+          <tr><td>Contains Clementini</td><td>G, H</td></tr>
+          <tr><td>Within</td><td>F, H</td></tr>
+          <tr><td>Completely within</td><td>F</td></tr>
+          <tr><td>Within Clementini</td><td>F, H</td></tr>
+          <tr><td>Are identical to</td><td>H</td></tr>
+          <tr><td>Boundary touches</td><td>C, E</td></tr>
+          <tr><td>Share a line segment with</td><td>F, G, H, I, J</td></tr>
+        </table>
+
+    === "...v překrytu s POLYGONY"
+
+        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-54663F11-5B47-46A5-82C1-37FD1FDDC835-web.gif){ style="filter:none !important;" }
+        {: align=center}
+
+        <table id="small_table_padding" style="width:unset;">
+          <tr><td>Intersect</td><td>A, C, D, E, F, G, H, I, J, K, L, M, N, O</td></tr>
+          <tr><td>Intersect (DBMS)</td><td>A, C, D, E, F, G, H, I, J, K, L, M, N, O</td></tr>
+          <tr><td>Within</td><td>A, D, G, H, I, O</td></tr>
+          <tr><td>Completely within</td><td>A</td></tr>
+          <tr><td>Within Clementini</td><td>A, D, G, H, I</td></tr>
+          <tr><td>Boundary touches</td><td>F, G, H, I, K, L, M, N, O</td></tr>
+          <tr><td>Share a line segment with</td><td>G, I, J, K, M, O</td></tr>
+          <tr><td>Crossed by the outline of</td><td>C, E, H, L, N</td></tr>
+          <tr><td>Have their center in</td><td>A, C, D, E, G, H, I, J, O</td></tr>
+        </table>
+
+=== "Výběr POLYGONŮ..."
+
+
+    === "...v překrytu s BODY"
+
+        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-0973BB65-5DAE-461A-8B84-E58332CDA443-web.gif){ style="filter:none !important;" }
+        {: align=center}
+
+        <table id="small_table_padding" style="width:unset;">
+          <tr><td>Intersect</td><td>A, B</td></tr>
+          <tr><td>Intersect (DBMS)</td><td>A, B</td></tr>
+          <tr><td>Contains</td><td>A, B</td></tr>
+          <tr><td>Completely contains</td><td>A</td></tr>
+          <tr><td>Contains Clementini</td><td>A</td></tr>
+          <tr><td>Have their center in</td><td>A, D</td></tr>
+          <tr><td>Boundary touches</td><td>B</td></tr>
+        </table>
+
+    === "...v překrytu s LINIEMI"
+
+        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-EFDE4E93-532E-4D6E-BB29-9BBFC783CEC7-web.gif){ style="filter:none !important;" }
+        {: align=center}
+
+        <table id="small_table_padding" style="width:unset;">
+          <tr><td>Intersect</td><td>A, C, D, E, F, G, H, I, J, K, L, M, N, O</td></tr>
+          <tr><td>Intersect (DBMS)</td><td>A, C, D, E, F, G, H, I, J, K, L, M, N, O</td></tr>
+          <tr><td>Contains</td><td>A, D, G, H, I, O</td></tr>
+          <tr><td>Completely contains</td><td>A</td></tr>
+          <tr><td>Contains Clementini</td><td>A, D, G, H, I</td></tr>
+          <tr><td>Boundary touches</td><td>F, G, H, I, K, L, M, N, O</td></tr>
+          <tr><td>Share a line segment with</td><td>G, I, J, K, M, O</td></tr>
+          <tr><td>Crossed by the outline of</td><td>C, E, H, L, N</td></tr>
+          <tr><td>Have their center in</td><td>E, I, L</td></tr>
+        </table>
+
+    === "...v překrytu s POLYGONY"
+
+        ![](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/GUID-7802EBC1-8E73-4071-AE12-4445AB1C24B5-web.gif){ style="filter:none !important;" }
+        {: align=center}
+
+        <table id="small_table_padding" style="width:unset;">
+          <tr><td>Intersect</td><td>A, C, D, E, F, G, H, I, J, K, M</td></tr>
+          <tr><td>Intersect (DBMS)</td><td>A, C, D, E, F, G, H, I, J, K, M</td></tr>
+          <tr><td>Contains</td><td>C, E, H, M</td></tr>
+          <tr><td>Completely contains</td><td>C</td></tr>
+          <tr><td>Contains Clementini</td><td>C, E, H, M</td></tr>
+          <tr><td>Within</td><td>F, G, H, M</td></tr>
+          <tr><td>Completely within</td><td>F</td></tr>
+          <tr><td>Within Clementini</td><td>F, G, H, M</td></tr>
+          <tr><td>Are identical to</td><td>H, M</td></tr>
+          <tr><td>Boundary touches</td><td>D, E, G, H, I, J, M</td></tr>
+          <tr><td>Share a line segment with</td><td>D, H, I, M</td></tr>
+          <tr><td>Crossed by the outline of</td><td>A, E, G, J, K</td></tr>
+          <tr><td>Have their center in</td><td>C, E, F, G, H, K, L</td></tr>
+        </table>
+        
+</div>
+
+<figcaption markdown>zdroj: [Select By Location graphic examples](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/select-by-location-graphical-examples.htm)</figcaption>
+
+
+[:material-open-in-new: Select features by location](https://pro.arcgis.com/en/pro-app/latest/help/mapping/navigation/select-features-by-location.htm){ .md-button .md-button--primary .button_smaller target="\_blank"}
+[:material-open-in-new: Select Layer By Location (Data Management)](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/select-layer-by-location.htm){ .md-button .md-button--primary .button_smaller target="\_blank"}
+[:material-open-in-new: Select By Location graphic examples](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/select-by-location-graphical-examples.htm){ .md-button .md-button--primary .button_smaller target="\_blank"}
+{: align=center style="display:flex; justify-content:center; align-items:center; column-gap:20px; row-gap:10px; flex-wrap:wrap;"}
+
+???+ task-fg-color "Úlohy k prostorovým dotazům"
+
+    K řešení následujících úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složce
+    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete soubor s
+    popisem dat ve formátu PDF.
+
+    1. Existuje v ČR letiště, jehož reprezentační bod leží v lese? Jak se jmenuje?
+
+    2. Kolika obcemi v ČR neprochází žádná silnice?
+
+    3. Kolik obcí leží na hranici ČR?
+
+    4. Vyberte silnice, které kříží vodní toky. Kolik procent z těchto
+       silnic tvoří silnice první třídy?
+
+    5. Kolik procent rybníků z celkového počtu leží celou svojí plochou na
+       území Jihočeského kraje?
+
+    6. Na kolika mapových listech Základní mapy 1:25 000 leží alespoň
+       částečně okres Litoměřice. Kolik mapových listů potom leží v tomto
+       okresu celou svojí plochou?
+
+    7. Kolik železničních stanic leží v lese a zároveň jejich název
+       nezačíná na písmeno 'L'?
+
+    8. Které silnice (uveďte jejich číslo) druhé třídy procházejí oblastí
+       bažin a rašelinišť?
+
+    9. Jaká je průměrná nadmořská výška výškových kót na území
+       Středočeského kraje?
+
+    10. Kolik vodních ploch leží alespoň částí své plochy ve vzdálenosti
+        do 10 km od poledníku se zeměpisnou délkou 15°?
+
+    11. Kolik obcí se dotýká alespoň jedním liniovým segmentem hranice kraje?
+
+    12. Vyberte katastrální území, ve kterých leží alespoň částečně jedna
+        vodní plocha, seskupte tyto území podle kódu NUTS (LAU1). Uveďte
+        jaký kód NUTS má největší výměru a z kolika katastrálních území se
+        skládá?
+
+    13. Uveďte souřadnice reprezentačního bodu (centroidu) největší vodní
+        nádrže v Libereckém kraji. O jakou vodní nádrž se jedná?
+
+    14. Kolik obcí leží celou svojí plochou na mapovém listu "Pardubice"
+        ZM 1<nowiki>:</nowiki>25 000. Do kolika ORP tyto obce patří a
+        které to jsou?
+
+    15. Kolik obcí v ČR leží svoji plochou alespoň na dvou mapových
+        listech Základní mapy 1:50 000?
+
+<hr class="level-1">
+
+<br><br><br><br><br>
+
+<!-- __:material-account-edit:{.lg .middle}VC__{style="font-size:70%;color:var(--md-code-fg-color);background-color:var(--md-code-bg-color);padding:.3em .5em;border-radius:.5rem;"}
+{align=center} -->

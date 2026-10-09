@@ -3,7 +3,7 @@ icon: material/numeric-9-box
 title: Cvičení 9
 ---
 
-# Export 3D dat do CAD
+# 3D vizualizace v GIS
 
 <div class="gallery_container" markdown>
 ![](../assets/cviceni8/img_01_edit.jpg){: .no-filter }
@@ -25,130 +25,287 @@ title: Cvičení 9
 <!-- <hr class="level-1"> -->
 
 ## Náplň cvičení
-GIS je mocným nástrojem pro analýzy a správu geoprostorových dat. Není ale náhradou CAD systémů, a proto je někdy nutné **data přenést z GIS do CAD**.
+Úkolem je **vytvořit 3D scénu** (v ArcGIS Pro a ArcGIS Online) na podkladech dostupných GIS dat.  
+**Scéna bude obsahovat**:
 
-**Exportovat budeme**:
 
 <div style="margin-left:1rem;" markdown>
-:material-terrain:{.lg .middle style="margin-right:.4em"} vektorový model terénu (trojúhelníková síť)
+:material-terrain:{.lg .middle style="margin-right:.4em"} rastrový model terénu
 
-:material-selection-ellipse-remove:{.lg .middle style="margin-right:.4em"} vrstevnice (vyhlazené)
+:fontawesome-solid-house:{.lg .middle style="margin-right:.4em"} zjednodušené 3D modely budov (s výškami odvozenými z hodnot atributu)
 
-:fontawesome-solid-house:{.lg .middle style="margin-right:.4em"} 3D modely budov a vegetace
+:material-tree:{.lg .middle style="margin-right:.4em"} 3D modely vegetace (stromů, rozlišení min. dvou druhů)
 
-:material-vector-point-edit:{.lg .middle style="margin-right:.4em"} zpracování lidarových dat (mračen bodů laserového skenování)
-
+:fontawesome-solid-building-columns:{.lg .middle style="margin-right:.4em"} 3D model významného objektu (rozhledny)
 </div>
+
+![](../assets/cviceni8/img_102.gif){: .no-filter width="600em"}
+{align=center}
 
 <hr class="level-1">
 
 ## Pracovní postup
 
-### Konverze digitálního modelu terénu z ratru do CAD (TIN)
+### Model terénu
 
-Rastrová výšková data jsou běžným formátem v **GIS**. Ve světě **CAD** se ale pracuje výhradně ve vektoru. Před exportem je proto nutné provést **konverzi z :material-view-grid-outline: rastru do :material-vector-square: vektoru**.
+- výřez rastru z webové služby [Geoportálu ČÚZK](https://geoportal.cuzk.cz/(S(grqmhsoejjqzgx4ofarvzeq0))/Default.aspx?mode=TextMeta&text=uvod_uvod&head_tab=sekce-00-gp&menu=01&news=yes "→ Služby → Prohlížecí → Služby Esri ArcGIS Server → IMAGE služba AGS - Digitální model reliéfu České republiky 5. generace (DMR 5G)"){.underlined_dotted}: služba [**IMAGE služba AGS - (DMR 5G)**](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmr5g/ImageServer) – nástroj **:material-briefcase: Export Raster**{.no-dec .outlined}
 
-Konverzi je nutné provést přes tzv. **TIN** (**triangulated irregular network** = nepravidelná trojúhelnková síť). Jedná se o speciální datový formát, nejde uložit do geodatabáze a v tomto postupu **se jedná pouze o meziprodukt**.
-
-Nástroj pro převod se jmenuje [**:material-briefcase: Raster to TIN**{.outlined_code}](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/raster-to-tin.htm). Parametr `Z Tolerance` je **nutné vyzkoušet** tak, aby výsledek svou podrobností odpovídal svému finálnímu účelu (**větší podrobnost není vždy lepší**, narůstá pak počet polygonů a tedy i objem dat).
-
-TIN se automaticky zobrazí s výchozí symbolikou, pro **zobrazení jednotlivých trojúhelníků** je nutné v panelu symboliky **přepnout zobrazení hran** (viz obrázek).
-
-![](../assets/cviceni9/img_01.png)
-![](../assets/cviceni1/arrow.svg){: .off-glb .process_icon}
-![](../assets/cviceni9/img_04.png)
-![](../assets/cviceni1/arrow.svg){: .off-glb .process_icon}
-![](../assets/cviceni9/img_05.png)
+![](../assets/cviceni8/img_321.png)
+![](../assets/cviceni8/img_322.png)
+![](../assets/cviceni8/img_323.png)
 {.process_container}
 
-![](../assets/cviceni9/img_02.png){width="30%"}
-![](../assets/cviceni9/img_03.png){width="30%"}
+- nastavení rastru jako "*Ground*" v lokální scéně ArcGIS Pro
+
+![](../assets/cviceni8/img_204.png)
+![](../assets/cviceni8/img_205.png)
+{.process_container}
+
+---
+
+
+
+
+### Zjednodušené modely budov
+
+- extrakce prvků z webové služby [Geoportálu ČÚZK](https://geoportal.cuzk.cz/(S(grqmhsoejjqzgx4ofarvzeq0))/Default.aspx?mode=TextMeta&text=uvod_uvod&head_tab=sekce-00-gp&menu=01&news=yes "→ Služby → Prohlížecí → Služby Esri ArcGIS Server → Mapová služba nad daty RÚIAN → podvrstva StavebniObjekt (3)"){.underlined_dotted} – nástroj **:material-briefcase: Select**{.no-dec .outlined} (s nastaveným výběrem či rozsahem zobrazení)
+
+![](../assets/cviceni8/img_301.svg){width=300}
 {align=center}
 
-#### Převod do Polygonové třídy prvků
+- zapsání výšek do polygonů s půdorysy stavebních objektů (konverze z typu XY do typu XY**Z**)
 
-Protože neexistuje nástroj pro přímou konverzi z formátu TIN do CAD, je nutné TIN **převést na běžnou polygonovou třídu prvků** (Feature Class). Nástroj se jmenuje [**:material-briefcase: TIN Triangle**{.outlined_code}](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/tin-triangle.htm).
-
-![](../assets/cviceni9/img_06.png)
+![](../assets/cviceni8/img_324.png){width=300}
 {.process_container}
 
-#### Převod do Multipatch třídy prvků (kvůli plochování)
+- funkce extrusion (max height), expression: `Ceil(Random()*10+15)` nebo `pocet_podlazi*4` – vytáhne polygon podél osy Z o náhodný počet metrů v rozmezí 16 až 25 metrů nebo o počet podlaží ×4 metry
 
-V této fázi jsou trojúhelníky v podobě polygonů – ty se ale v CADu zobrazí jako uzavřené linie – ne jako plochy. Proto je ještě nutné provést **konverzi do Multipatch geometrie** – nástrojem [**:material-briefcase: Layer 3D To Feature Class**{.outlined_code}](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/layer-3d-to-feature-class.htm). Nástroj vyžaduje jako vstup vrstvu přidanou v mapě.
+![](../assets/cviceni8/img_303.jpg){width=300}
+{align=center}
 
-![](../assets/cviceni9/img_07.png)
+- volitelně přidat atribut "barva" s náhodnými hodnotami od 1 do 4 (barva fasády)
+- konverze geometrie z Polygon do Multipatch – nástroj **:material-briefcase: Layer 3D to Feature Class**{.no-dec .outlined} (nástroj zapíše do databáze extrudované polygony jako 3D geometrii)
+
+![](../assets/cviceni8/img_311.png)
 {.process_container}
-
-#### Sloučení objektů (volitelné)
-
-Při exportu do CADu v této podobě by bylo vše v pořádku, ale **každý trojúhelník by byl samostatným objektem**, což nemusí každému vyhovovat (velké množství objektů by také mohlo způsobit problémy s výkonem – pomalé prohlížení, zasekávání apod.). Lze to řešit **spojením trojúhelníků to jednoho objektu** (lze pouze u Multipatch geometrie) editačním nástrojem [**:material-vector-polyline-edit: Merge**{.outlined_code}](https://pro.arcgis.com/en/pro-app/latest/help/editing/merge-features-into-one-feature.htm) – **nejedná se o geoprocessingový nástroj Merge, ale o nástroj editační** (viz obrázek).
-
-__pozor__{style="color:#c22521;" .icon-exclm} – **při větším počtu spojovaných prvků je nástroj velmi pomalý**, pro 10 000 prvků proces trvá přibližně minutu, pro větší počty pak více (s nejasnou úměrností). Během cvičení je doporučeno tento krok vynechat nebo použít pro malé území. V praxi pak lze pracovat např. tak, že se nástroj pustí přes noc.
-
-![](../assets/cviceni9/img_08.png)
-![](../assets/cviceni1/arrow.svg){: .off-glb .process_icon}
-![](../assets/cviceni9/img_09.png)
-{.process_container}
-
-#### Export do DWG/DXF
-
-ArcGIS Pro obsahuje nástroj [**:material-briefcase: Export to CAD**{.outlined_code}](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/export-to-cad.htm), který umožňuje **konverzi jakéhokoliv typu vektorové geometrie do formátů DWG a DXF**. Opět **pozor na velikost a počet objektů**, které to funkce vstupují. Nástroj by mohl běžet velmi dlouho nebo vytvořit tak velký soubor, že by v CAD nešel otevřít.
 
 ---
 
-### Konverze digitálního modelu terénu z ratru do CAD (vrstevnice)
 
-Vrstevnice jsou v podstatě jedním z možných způsobů modelování terénu. V GISu je můžeme získat např. **konverzí z rastrového digitálního modelu terénu** – nástrojem [**:material-briefcase: Contour**{.outlined_code}](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/contour.htm). Parametry nástroje jsou vcelku intuitivní, nicméně vytvořené vrstevnice většinou **nejsou vyhlazené**, a tedy nijak zvlášť estetické.
 
-![](../assets/cviceni9/img_10.png)
+
+### Vegetace
+
+- získání ploch s vegetací ve formě polygonů (extrakce prvků z webové vrstvy ZABAGED – Polohopis či ručním kreslením)
+- ve městě fungují dobře vrstvy "Okrasná zahrada, park (134)" nebo "Ovocný sad, zahrada (135)", mimo města pak např. "Lesní půda se stromy (142)"
+
+![](../assets/cviceni8/img_302.svg){width=300}
+{align=center}
+
+- rozmístění bodů s náhodnou polohou v ploše polygonů – nástroj `Create Spatial Sampling Locations`
+- parametry "Number of Samples" a "Min. Dist. Between Sample Points" odhadněte na základě hustoty výsledku (hodnotu nepřehánět, webová scéna je potom pomalá)
+
+![](../assets/cviceni8/img_304.png)
 {.process_container}
 
-#### Vyhlazení vrstevnic
+- přidání číselného atributu "druh" rozlišujícího dva druhy stromu, které budou v 3D scéně rozlišeny odlišnými 3D modely
+- vyplnění atributu "druh" náhodnými hodnotami 1 a 2 – nástroj `Calculate Field`, expression: `Ceil(Random()*2)`
+- *volitelně: přidání číselného atributu "rotace" a jeho vyplnění náhodnými hodnotami azimutu (0 až 360°), tento atribut bude reprezentovat otočení modelu stromu, čímž scéně dodá na realističnosti
 
-Vyhlazení je možné řešit ve dvou krocích – jednak samotným **vyhlazením linií**, k čemuž slouží nástroj [**:material-briefcase: Smooth Line**{.outlined_code}](https://pro.arcgis.com/en/pro-app/latest/tool-reference/cartography/smooth-line.htm) (parametr `Smoothing Tolerance` je nutné vyzkoušet a postupně nalézt vhodnou hodnotu).
-
-A jako druhý krok lze **odstranit** (nebo skrýt) **vrstevnice kratší než stanovená tolerance** (závisí na podrobnosti).
-
-![](../assets/cviceni9/img_11.png)
-![](../assets/cviceni1/arrow.svg){: .off-glb .process_icon}
-![](../assets/cviceni9/img_12.png)
+![](../assets/cviceni8/img_305.png)
 {.process_container}
 
-#### Export do CAD
+- nastavení 3D bodové symboliky
 
-Export probíhá stejným způsobem jako v případě předchozího bodu – nástrojem [**:material-briefcase: Export to CAD**{.outlined_code}](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/export-to-cad.htm).
+![](../assets/cviceni8/img_306.png)
+![](../assets/cviceni8/img_307.png)
+![](../assets/cviceni8/img_309.png)
+![](../assets/cviceni8/img_310.png)
+![](../assets/cviceni8/img_308.jpg)
+{.process_container}
 
-Protože CAD formáty nepodporují atributy, není možné při exportu převést úplně všechny informace. Nicméně ArcGIS Pro umožňuje do konverze **zahrnout některé klíčové informace**, jako např. **název vrstvy**, ve které bude prvek umístěn, nebo jeho barvu. Všechna klíčová pole lze získat nástrojem [**:material-briefcase: Add CAD Fields**{.outlined_code}](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/add-cad-fields.htm). Pro účely úlohy můžeme **přidat textové pole `Layer`** (stačí obyčejně přes atributovou tabulku) a to vyplnit podle třídění vrstevnic na hlavní (např. každá pátá) a vedlejší (ty ostatní). V CADu pak díky tomu půjdou vedlejší vrstevnice snadno skrýt.
+- nastavení 3D bodové symboliky je pouze pro ArcGIS Pro (pro případné rendery nebo animace) – při exportu na web budeme exportovat pouze body jako takové, ArcGIS Online má modely vegetace vlastní
 
-![](../assets/cviceni9/img_13.png){width="30%"}
-![](../assets/cviceni9/img_14.png){width="30%"}
+- ~~konverze geometrie z Point do Multipatch – nástroj **:material-briefcase: Layer 3D to Feature Class**{.no-dec .outlined} (nástroj zapíše do databáze bodovou 3D symboliku jako 3D geometrii)~~
+
+---
+
+
+
+
+### 3D model významného objektu
+
+- získání souboru s modelem (formáty .DAE, .DWG, .FBX, .GLB, .GLTF, .IFC, .OBJ, .USDC, .USDZ, event. .IFC), příkladový model (Petřínská rozhledna) zde: [:material-cube-outline: OBJ](../assets/cviceni8/petrinska_rozhledna.obj){.md-button .md-button--primary .button_smaller}, [:material-cube-outline: MTL](../assets/cviceni8/petrinska_rozhledna.mtl){.md-button .md-button--primary .button_smaller}
+- import modelu do geodatabáze – nástroj `Import 3D Files` ~~nebo `Import 3D Objects`~~ (nastavit souřadnicový systém na S-JTSK 5514, ~~pozor na orientaci modelu – "Y is up"~~)
+- posun modelu na správné souřadnice – editační nástroj `Move to` (zjištění souřadnic finálního místa přes pravé tl. --> Copy Coordinates --> upravit formát, smazat mezery a písmena)
+
+![](../assets/cviceni8/img_312.jpg){width=300}
 {align=center}
 
 ---
 
-### Konverze 3D modelů budov do CAD
 
-[**:material-briefcase: Export to CAD**{.outlined_code}](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/export-to-cad.htm)
+
+
+### Export do webové scény
+
+- Budovy a rozhledna: konverze do formátu SLPK (balíček optimalizovaný pro zobrazení na webu) – nástroj `Create 3D Object Scene Layer Content` (nastavit souřadnicový systém na Web Mercator 3857 a správnou transformaci)
+
+![](../assets/cviceni8/img_313.png)
+{.process_container}
+
+- ~~Stromy: je možné aplikovat stejný postup (konverze do formátu SLPK, 3D symbolika zvolená v ArcGIS Pro bude pevně zapsána jako 3D geometrie) NEBO je možné data publikovat jako bodovou vrstvu (bez konverze, symboliku bude možné zvolit ve webové scéně jako 3D bodový symbol)~~
+
+- publikace do ArcGIS Online (proveďte celkem 3×: 1-SLPK vrstva s rozhlednou, 2-SLPK vrstva se stavebními objekty a 3-bodová vrstva se stromy)
+
+![](../assets/cviceni8/img_316.png)
+![](../assets/cviceni8/img_314.png)
+![](../assets/cviceni8/img_315.png)
+{.process_container}
+
+- konfigurace a sdílení scény
 
 ---
 
-### Konverze mračna bodů do digitálního modelu terénu (TIN a rastr)
-
-Produkt DMR5G je v půdovní podobě mračnem bodů leteckého laserového skenování. Tato data (po filtraci) je možné stáhnout přes aplikaci [**Geoprohlížeč**](https://ags.cuzk.cz/geoprohlizec/).
-
-![](../assets/cviceni9/img_15.png)
-![](../assets/cviceni1/arrow.svg){: .off-glb .process_icon}
-![](../assets/cviceni9/img_16.png)
-![](../assets/cviceni1/arrow.svg){: .off-glb .process_icon}
-![](../assets/cviceni9/img_17.png)
-![](../assets/cviceni1/arrow.svg){: .off-glb .process_icon}
-![](../assets/cviceni9/img_18.png)
-{.process_container}
-
-V ArcGIS Pro lze LAS soubor konvertovat do TIN nástrojem [**:material-briefcase: LAS Dataset To TIN**{.outlined_code}](https://pro.arcgis.com/en/pro-app/3.4/tool-reference/3d-analyst/las-dataset-to-tin.htm).
-
-Pro tvorbu vrstevnic pak existuje i nástroj, který je generuje **přímo z TIN sítě** – [**:material-briefcase: Surface Contour**{.outlined_code}](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/surface-contour.htm). Konverzi dokáže provést i přímo z LAS souboru, ale to ještě nebylo cvičícím otestováno...
 
 
-<hr class="level-1">
+
+### Datové zdroje
+
+[<span>geoportal.cuzk.cz</span><br>DMR 5G](https://geoportal.cuzk.cz/(S(grqmhsoejjqzgx4ofarvzeq0))/Default.aspx?mode=TextMeta&side=wms.AGS&text=WMS.AGS&head_tab=sekce-03-gp&menu=314){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>geoportal.cuzk.cz</span><br>RÚIAN](https://geoportal.cuzk.cz/(S(grqmhsoejjqzgx4ofarvzeq0))/Default.aspx?mode=TextMeta&side=wms.AGS&text=WMS.AGS&head_tab=sekce-03-gp&menu=314){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>geoportal.cuzk.cz</span><br>ZABAGED](https://geoportal.cuzk.cz/(S(grqmhsoejjqzgx4ofarvzeq0))/Default.aspx?mode=TextMeta&side=wms.AGS&text=WMS.AGS&head_tab=sekce-03-gp&menu=314){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>&nbsp;</span><br>3D model význ. objektu](../assets/cviceni8/petrinska_rozhledna.obj){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+{.button_array}
+
+---
+
+
+
+
+### Schéma pracovního postupu
+
+``` mermaid
+graph TD
+  A[("`**model terénu** 
+  rastr [2m/px] 
+  DMR 5G (ČÚZK)`")]
+  B[("`**půdorysy budov** 
+  polygonová třída prvků 
+  RÚIAN (ČÚZK)`")]
+  C[("`**lesní plochy** 
+  polygonová třída prvků 
+  ZABAGED (ČÚZK)`")]
+  D[("`**podrobný 3D model budovy** 
+  formát OBJ, FBX, DWG aj. 
+  vlastní zdroj`")]
+
+  E([Export Raster])
+  F([Select])
+  G([Select])
+  H([Import 3D Files])
+
+  I([Interpolate Shape])
+  J(["`Create Spatial Sampling Locations`"])
+  K(["Move To (Editing)"])
+
+  L(["`Calculate Field<br>přidat atribut 'barva'`"])
+  M(["`Calculate Field<br>přidat atribut 'druh'`"])
+
+  N[rastr jako Ground Elevation Surface]
+  O["`extruze<br>*pocet_pater×4* (nebo jinak)`"]
+  P["`bodová 3D symbolika<br>(stromy)`"]
+
+  Q([Layer 3D To Feature Class])
+
+  R([Create 3D Object Scene Layer Content])
+  S([Create 3D Object Scene Layer Content])
+  T([Create 3D Object Scene Layer Content])
+
+  U["*není nutné publikovat, web. službu už poskytuje přímo ČÚZK*"]
+  V[publikace do ArcGIS Online]
+
+  W[nová webová scéna]
+
+  X([přidat vrstvy])
+
+  Y[DMR5G]
+  Z[budovy]
+  AA[podrobný 3D model budovy]
+  AB[stromy]
+
+  AC(["nastavit symboliku podle atributu viditelnosti (a vhodnou barevnou stupnici)"])
+  AD(["nastavit 3D symbol (případně náhodné natočení)"])
+
+  AE([uložit scénu])
+  AF([nastavit veřejné sdílení])
+
+  
+  A-->E
+  B-->F
+  C-->G
+  D-->H
+
+  E---->N
+  E-->I
+  F-->I
+  G-->J
+  H--->K
+
+  I-->L
+  J-->M
+  K---->T
+  
+  L-->O
+  M-->P
+
+  N---->U
+  
+  O-->Q
+  P--->S
+
+  Q-->R
+
+  R-->V
+  S-->V
+  T-->V
+
+  V-->W
+
+  W-->X
+
+  X-->Y
+  X-->Z
+  X-->AA
+  X-->AB
+
+  Z-->AC
+  AB-->AD
+
+  Y--->AE
+  AC-->AE
+  AA--->AE
+  AD-->AE
+
+  AE-->AF
+
+  click E "https://pro.arcgis.com/en/pro-app/latest/help/data/imagery/export-or-convert-raster-datasets.htm" _blank
+  click F "https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/select.htm" _blank
+  click G "https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/select.htm" _blank
+  click H "https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/import-3d-files.htm" _blank
+  click I "https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/interpolate-shape.htm" _blank
+  click J "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/create-spatial-sampling-locations.htm" _blank
+  click K "https://pro.arcgis.com/en/pro-app/latest/help/editing/move-a-feature-to-specified-location.htm" _blank
+  click L "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/calculate-field.htm" _blank
+  click M "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/calculate-field.htm" _blank
+  click Q "https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/layer-3d-to-feature-class.htm" _blank
+  click R "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/create-3d-object-scene-layer-package.htm" _blank
+  click S "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/create-3d-object-scene-layer-package.htm" _blank
+  click T "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/create-3d-object-scene-layer-package.htm" _blank
+  click W "https://doc.arcgis.com/en/arcgis-online/get-started/get-started-with-scenes.htm" _blank
+
+  classDef default fill:#00948522,stroke:#009485,stroke-width:3px;
+
+
+```
 

@@ -3,309 +3,143 @@ icon: material/numeric-8-box
 title: Cvičení 8
 ---
 
-# 3D vizualizace v GIS
+# Topografická analýza povrchu, reklasifikace rastrových dat
 
-<div class="gallery_container" markdown>
-![](../assets/cviceni8/img_01_edit.jpg){: .no-filter }
-![](../assets/cviceni8/img_02_edit.jpg){: .no-filter }
-![](../assets/cviceni8/img_03_edit.jpg){: .no-filter }
-![](../assets/cviceni8/img_04_edit.jpg){: .no-filter }
-![](../assets/cviceni8/img_05_edit.jpg){: .no-filter }
-![](../assets/cviceni8/img_06_edit.jpg){: .no-filter }
-![](../assets/cviceni8/img_07_edit.jpg){: .no-filter }
-![](../assets/cviceni8/img_08_edit.jpg){: .no-filter }
-</div>
+Ve cvičení se naučíte
+{: align=center style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;"}
 
 <style>
     .smaller_padding li {padding:.4rem .8rem !important;}
     .primary_color {color:var(--md-primary-fg-color);}
 </style>
 
+<div class="grid cards smaller_padding" markdown>
 
-<!-- <hr class="level-1"> -->
+-   :material-terrain:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
 
-## Náplň cvičení
-Úkolem je **vytvořit 3D scénu** (v ArcGIS Pro a ArcGIS Online) na podkladech dostupných GIS dat.  
-**Scéna bude obsahovat**:
+    základy analýzy povrchu s využitím __topografických funkcí__
+    {.middle style="display:table-cell;line-height:normal;"}
 
+-   :material-grid:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
+    
+    __reklasifikovat__ rastrová data
+    {.middle style="display:table-cell;line-height:normal;"}
 
-<div style="margin-left:1rem;" markdown>
-:material-terrain:{.lg .middle style="margin-right:.4em"} rastrový model terénu
-
-:fontawesome-solid-house:{.lg .middle style="margin-right:.4em"} zjednodušené 3D modely budov (s výškami odvozenými z hodnot atributu)
-
-:material-tree:{.lg .middle style="margin-right:.4em"} 3D modely vegetace (stromů, rozlišení min. dvou druhů)
-
-:fontawesome-solid-building-columns:{.lg .middle style="margin-right:.4em"} 3D model významného objektu (rozhledny)
 </div>
-
-![](../assets/cviceni8/img_102.gif){: .no-filter width="600em"}
-{align=center}
 
 <hr class="level-1">
 
-## Pracovní postup
+## Základní pojmy
 
-### Model terénu
+- [**slope**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/slope.htm){target="_blank"}
+- [**aspect**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/aspect.htm){target="_blank"}
+- [**hillshade**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/hillshade.htm){target="_blank"}
+- [**viewshed**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/viewshed.htm){target="_blank"}
+- [**visibility**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/visibility.htm){target="_blank"}
+- [**raster surface toolset**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/an-overview-of-the-raster-surface-toolset.htm){target="_blank"}
+- [**aspect-slope**](https://pro.arcgis.com/en/pro-app/latest/help/analysis/raster-functions/aspect-slope-function.htm){target="_blank"}
+- [**raster calculator**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/raster-calculator.htm){target="_blank"}
 
-- výřez rastru z webové služby [Geoportálu ČÚZK](https://geoportal.cuzk.cz/(S(grqmhsoejjqzgx4ofarvzeq0))/Default.aspx?mode=TextMeta&text=uvod_uvod&head_tab=sekce-00-gp&menu=01&news=yes "→ Služby → Prohlížecí → Služby Esri ArcGIS Server → IMAGE služba AGS - Digitální model reliéfu České republiky 5. generace (DMR 5G)"){.underlined_dotted}: služba [**IMAGE služba AGS - (DMR 5G)**](https://ags.cuzk.gov.cz/arcgis2/rest/services/dmr5g/ImageServer) – nástroj **:material-briefcase: Export Raster**{.no-dec .outlined}
+<br>
+**Další zdroje:**
 
-![](../assets/cviceni8/img_321.png)
-![](../assets/cviceni8/img_322.png)
-![](../assets/cviceni8/img_323.png)
-{.process_container}
+[<span>pro.arcgis.com</span><br>How Geodesic Viewshed works](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-viewshed-2-works.htm/){ .md-button .md-button--primary .server_name .external_link_icon_small target="\_blank"}
+[<span>pro.arcgis.com</span><br>Viewshed and Observer Points for visibility analysis](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/using-viewshed-and-observer-points-for-visibility.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="\_blank"}
+[<span>pro.arcgis.com</span><br>Visibility toolset](https://pro.arcgis.com/en/pro-app/latest/tool-reference/defense/an-overview-of-the-visibility-toolset.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="\_blank"}
+{: .button_array}
 
-- nastavení rastru jako "*Ground*" v lokální scéně ArcGIS Pro
+## Náplň cvičení
+Vaším úkolem bude na základě rastrových dat vybraného území analyzovat lavinové svahy mají. K vyhodnocení lavinového svahu potřebujete znát sklonitost a expozici svahu, nadmořskou výšku či krajinný pokryv. Podmínky pro vznik lavin lze (zjednodušeně) shrnout v následujících bodech:
 
-![](../assets/cviceni8/img_204.png)
-![](../assets/cviceni8/img_205.png)
-{.process_container}
+1. Nadmořská výška
+Laviny se zpravidla vyskytují ve vyšších nadmořských výškách. Jako území vhodné pro vznik lavin volte lokality, které se nachází v nejvyšší třetině všech nadmořských výšek v rámci zájmového území.
 
----
+2. Sklon svahu
+Základní předpoklad pro uvolnění laviny je sklon svahu, s jehož růstem se zvyšuje pravděpodobnost a riziko vzniku lavin. Laviny suchého sněhu vzácně vznikají na svazích již od 25° sklonu a se vzrůstajícím sklonem jejich četnost narůstá, zejména ve svazích nad 30° sklonu. Pro účely práce tedy zvolte mezní hodnotu v tomto intervalu.
 
+3. Expozice svahu
+Uprostřed zimy bývají kritické zejména stinné svahy v severní expozici. Uvažujme tedy svahy severovýchodní, severní a severozápadní orientace.
 
+4. Krajinný pokryv
+Riziko vzniku lavin nastává na otevřených plochách bez většího vegetačního porostu. Hodnoty krajinného pokryvu jsou obsaženy ve sloupci *Code 18* (CLC 2018). Vyhovujícími hodnotami jsou 2.X.X a 3.X.X. (vyjma 3.1.1., 3.1.2 a 3.1.3.).
 
+## Použité datové podklady
+- DMR 5G
+- CORINE Land Cover 2018
 
-### Zjednodušené modely budov
+## Postup
+Řešení popisuje postupné použití jednotlivých nástrojů geoprocessingu, vaším úkolem je těmto funkcím porozumět a úlohu zpracovat v *Model Builderu*.
 
-- extrakce prvků z webové služby [Geoportálu ČÚZK](https://geoportal.cuzk.cz/(S(grqmhsoejjqzgx4ofarvzeq0))/Default.aspx?mode=TextMeta&text=uvod_uvod&head_tab=sekce-00-gp&menu=01&news=yes "→ Služby → Prohlížecí → Služby Esri ArcGIS Server → Mapová služba nad daty RÚIAN → podvrstva StavebniObjekt (3)"){.underlined_dotted} – nástroj **:material-briefcase: Select**{.no-dec .outlined} (s nastaveným výběrem či rozsahem zobrazení)
+**1.** Po založení nového projektu v ArcGIS a nastavení Křovákova zobrazení, importujte potřebná data: DMR Krkonošského parku a vrstva *Velkoplošná chráněná území* z ArcGIS Online (poskytuje AOPK ČR).
 
-![](../assets/cviceni8/img_301.svg){width=300}
-{align=center}
+**2.** Na základě DMR je nejprve možné vyhodnotit nejvyšší třetinu zájmového území. Rozpětí výšek je možné zjistit ve vlastnostech rastru a stanovit mezní hodnotu nejvyšší třetiny. Pomocí nástroje *Reclassify* následně proběhne reklasifikace dat: hodnotám menším než mezní nastavíme novou hodnotu 0; hodnotám od mezní výše přiřadíme novou hodnotu 1.
 
-- zapsání výšek do polygonů s půdorysy stavebních objektů (konverze z typu XY do typu XY**Z**)
+**3.** Nyní pokročíme k rastrové analýze, která vždy zahrnuje použití jedné z topografických funkcí a následnou reklasifikaci. Těmito funkcemi budou postupně: *Slope* (podmínka č. 2) a *Aspect* (podmínka č. 3). Nastavení reklasifikace rastrových výstupů proběhne dle podmínek v zadání; vždy přiřaďte novou hodnotu 0 pro nevyhovující hodnoty (tzn. oblasti nesplňující kritéria lavinových svahů) a hodnotu 1 pro vyhovující.
 
-![](../assets/cviceni8/img_324.png){width=300}
-{.process_container}
+Pro názornost následuje ukázka zpracování sklonitosti svahu (postup s výpočtem a reklasifikací expozice je analogický).
 
-- funkce extrusion (max height), expression: `Ceil(Random()*10+15)` nebo `pocet_podlazi*4` – vytáhne polygon podél osy Z o náhodný počet metrů v rozmezí 16 až 25 metrů nebo o počet podlaží ×4 metry
+<figure markdown>
+  ![Slope](../assets/cviceni7/slope.png){ width="600"}
+  <figcaption>Výstupní rastr po použití topografické funkce Slope (na vstupu DMR)</figcaption>
+</figure>
 
-![](../assets/cviceni8/img_303.jpg){width=300}
-{align=center}
+<figure markdown>
+  ![Reclassify](../assets/cviceni7/reclassify.png){ width="300"}
+  <figcaption>Parametry reklasifikace rastru sklonitosti terénu</figcaption>
+</figure>
 
-- volitelně přidat atribut "barva" s náhodnými hodnotami od 1 do 4 (barva fasády)
-- konverze geometrie z Polygon do Multipatch – nástroj **:material-briefcase: Layer 3D to Feature Class**{.no-dec .outlined} (nástroj zapíše do databáze extrudované polygony jako 3D geometrii)
+<figure markdown>
+  ![Reclassify](../assets/cviceni7/reclass_output.png){ width="600"}
+  <figcaption>Reklasifikovaný rastr sklonitosti terénu indikující hodnoty nad a pod mezní hodnotou</figcaption>
+</figure>
 
-![](../assets/cviceni8/img_311.png)
-{.process_container}
+**4.** Jakmile proběhne analýza DMR, přistoupíme ke zpracování CLC 2018. Jedná se o další reklasifikaci, která byla provedena již v předchozích fázích, avšak na vstupu je CLC 2018 a pravidla pro nastavení reklasifikace jsou obsáhlejší (viz zadání).
 
----
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+      V současné podobě nabízí produkt CORINE Land Cover (CLC) celoevropská data půdního pokryvu a využití půdy se 44 tematickými třídami, od rozsáhlých lesních ploch až po jednotlivé vinice. Produkt je každých šest let aktualizován o nové vrstvy stavu a změn - poslední aktualizace byla provedena v roce 2018. CLC slouží mnoha uživatelům a má téměř neomezené potenciální i reálné využití, včetně monitorování životního prostředí, územního plánování, hodnocení klimatických změn a krizového řízení (land.copernicus.eu).
 
+**5.** Na závěr přichází stěžejní část celé úlohy: vyhodnotit lavinové svahy. Nyní tedy využijeme dílčí výsledky (reklasifikované vrstvy obsahující pouze hodnoty 0 a 1). Cílem je zkombinovat podmínky a brát v potaz pouze taková místa, kde nastávají právě všechny čtyři. K tomuto účelu lze elegantně využít rastrovou kalkulačku *Raster Calculator* a sestavit správný algebraický výraz. Matice všech reklasifikovaných rastrů mezi sebou vynásobíme, čímž získáme nový rastr obsahující hodnoty 1 v místech, kde je splněna každá podmínka zadání, a hodnoty 0, kde není splněna žádná podmínka či pouze jedna, dvě nebo tři libovolné (aby byl výsledek roven 0, postačí jediná 0 mezi činiteli). Výstupní rastr tedy indikuje oblasti lavinového nebezpečí dle zadaných podmínek. Nakonec je vhodné nastavit vhodnou barvu pro jednotlivé hodnoty buněk.
 
+**6.** Alternativní přístup by mohl být reprezentován symbolizací různých úrovní lavinového rizika, kterých lze dosáhnout změnou výrazu v rastrové kalkulačce. Místo násobení hodnot čtyř rastrových vrstev je můžete jednoduše sečíst. Výstup bude tvořit 5 různých hodnot: 0, 1, 2, 3 nebo 4. Následně změňte symbologii rastru tak, abyste podle těchto hodnot označili rostoucí lavinové riziko.
 
+## Úlohy k procvičení
 
-### Vegetace
+!!! task-fg-color "Úlohy"
 
-- získání ploch s vegetací ve formě polygonů (extrakce prvků z webové vrstvy ZABAGED – Polohopis či ručním kreslením)
-- ve městě fungují dobře vrstvy "Okrasná zahrada, park (134)" nebo "Ovocný sad, zahrada (135)", mimo města pak např. "Lesní půda se stromy (142)"
+    K řešení následujích úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
+    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete souboru s
+    popisem dat ve formátu PDF.
 
-![](../assets/cviceni8/img_302.svg){width=300}
-{align=center}
+    1. Vytvořte DMT omezené na Ústecký kraj. Jaká je výměra území v ha s nadmořskou výškou větší než 700m?
 
-- rozmístění bodů s náhodnou polohou v ploše polygonů – nástroj `Create Spatial Sampling Locations`
-- parametry "Number of Samples" a "Min. Dist. Between Sample Points" odhadněte na základě hustoty výsledku (hodnotu nepřehánět, webová scéna je potom pomalá)
+    2. Jaká je výměra území v ha se sklonem svahu větším než 15 stupňů?
 
-![](../assets/cviceni8/img_304.png)
-{.process_container}
+    3. Jaká je výměra území v ha s orientací svahu na sever a zároveň se sklonem větším než 15 stupňů?
 
-- přidání číselného atributu "druh" rozlišujícího dva druhy stromu, které budou v 3D scéně rozlišeny odlišnými 3D modely
-- vyplnění atributu "druh" náhodnými hodnotami 1 a 2 – nástroj `Calculate Field`, expression: `Ceil(Random()*2)`
-- *volitelně: přidání číselného atributu "rotace" a jeho vyplnění náhodnými hodnotami azimutu (0 až 360°), tento atribut bude reprezentovat otočení modelu stromu, čímž scéně dodá na realističnosti
+    4. Jaká je výměra území v ha s orientací svahu na sever anebo se sklonem větším než 15 stupňů?
 
-![](../assets/cviceni8/img_305.png)
-{.process_container}
+    5. Jaká je výměra území v ha, které je viditelné z vrcholu Milešovky
+       [S-JTSK: 986668, 770118] a zároveň má orientaci svahu na sever?
 
-- nastavení 3D bodové symboliky
+    6. Jaká je výměra území v ha, kde jsou splněny alespoň 2 z
+       následujících podmínek - nadmořská výška nad 700 m, sklon větší než
+       15 stupňů, orientace na sever?
 
-![](../assets/cviceni8/img_306.png)
-![](../assets/cviceni8/img_307.png)
-![](../assets/cviceni8/img_309.png)
-![](../assets/cviceni8/img_310.png)
-![](../assets/cviceni8/img_308.jpg)
-{.process_container}
+    7. Jaká je výměra území v ha, které je do 500 m od nejbližší silnice a
+       zároveň má sklon větší než 15 stupňů?
 
-- nastavení 3D bodové symboliky je pouze pro ArcGIS Pro (pro případné rendery nebo animace) – při exportu na web budeme exportovat pouze body jako takové, ArcGIS Online má modely vegetace vlastní
+    8. Jak dlouhý úsek silnice E55 v km je vidět z vrcholu Milešovky [S-JTSK: 986668, 770118]?
 
-- ~~konverze geometrie z Point do Multipatch – nástroj **:material-briefcase: Layer 3D to Feature Class**{.no-dec .outlined} (nástroj zapíše do databáze bodovou 3D symboliku jako 3D geometrii)~~
+    9. Jaká ve výměra území v ha, kde nadmořská výška je menší než výraz "10 krát sklon svahu ve stupních"?
 
----
+    10. Jaká je nadmořská výška vrcholu Milešovky [S-JTSK: 986668, 770118] odvozená z DMT (správně je 836,5 m)?
 
+    11. Jaký je rozdíl celkové délky v metrech silnic 1.třídy měřeného po povrhu a jeho průmětu do roviny?
 
-
-
-### 3D model významného objektu
-
-- získání souboru s modelem (formáty .DAE, .DWG, .FBX, .GLB, .GLTF, .IFC, .OBJ, .USDC, .USDZ, event. .IFC), příkladový model (Petřínská rozhledna) zde: [:material-cube-outline: OBJ](../assets/cviceni8/petrinska_rozhledna.obj){.md-button .md-button--primary .button_smaller}, [:material-cube-outline: MTL](../assets/cviceni8/petrinska_rozhledna.mtl){.md-button .md-button--primary .button_smaller}
-- import modelu do geodatabáze – nástroj `Import 3D Files` ~~nebo `Import 3D Objects`~~ (nastavit souřadnicový systém na S-JTSK 5514, ~~pozor na orientaci modelu – "Y is up"~~)
-- posun modelu na správné souřadnice – editační nástroj `Move to` (zjištění souřadnic finálního místa přes pravé tl. --> Copy Coordinates --> upravit formát, smazat mezery a písmena)
-
-![](../assets/cviceni8/img_312.jpg){width=300}
-{align=center}
-
----
-
-
-
-
-### Export do webové scény
-
-- Budovy a rozhledna: konverze do formátu SLPK (balíček optimalizovaný pro zobrazení na webu) – nástroj `Create 3D Object Scene Layer Content` (nastavit souřadnicový systém na Web Mercator 3857 a správnou transformaci)
-
-![](../assets/cviceni8/img_313.png)
-{.process_container}
-
-- ~~Stromy: je možné aplikovat stejný postup (konverze do formátu SLPK, 3D symbolika zvolená v ArcGIS Pro bude pevně zapsána jako 3D geometrie) NEBO je možné data publikovat jako bodovou vrstvu (bez konverze, symboliku bude možné zvolit ve webové scéně jako 3D bodový symbol)~~
-
-- publikace do ArcGIS Online (proveďte celkem 3×: 1-SLPK vrstva s rozhlednou, 2-SLPK vrstva se stavebními objekty a 3-bodová vrstva se stromy)
-
-![](../assets/cviceni8/img_316.png)
-![](../assets/cviceni8/img_314.png)
-![](../assets/cviceni8/img_315.png)
-{.process_container}
-
-- konfigurace a sdílení scény
-
----
-
-
-
-
-### Datové zdroje
-
-[<span>geoportal.cuzk.cz</span><br>DMR 5G](https://geoportal.cuzk.cz/(S(grqmhsoejjqzgx4ofarvzeq0))/Default.aspx?mode=TextMeta&side=wms.AGS&text=WMS.AGS&head_tab=sekce-03-gp&menu=314){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
-[<span>geoportal.cuzk.cz</span><br>RÚIAN](https://geoportal.cuzk.cz/(S(grqmhsoejjqzgx4ofarvzeq0))/Default.aspx?mode=TextMeta&side=wms.AGS&text=WMS.AGS&head_tab=sekce-03-gp&menu=314){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
-[<span>geoportal.cuzk.cz</span><br>ZABAGED](https://geoportal.cuzk.cz/(S(grqmhsoejjqzgx4ofarvzeq0))/Default.aspx?mode=TextMeta&side=wms.AGS&text=WMS.AGS&head_tab=sekce-03-gp&menu=314){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
-[<span>&nbsp;</span><br>3D model význ. objektu](../assets/cviceni8/petrinska_rozhledna.obj){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
-{.button_array}
-
----
-
-
-
-
-### Schéma pracovního postupu
-
-``` mermaid
-graph TD
-  A[("`**model terénu** 
-  rastr [2m/px] 
-  DMR 5G (ČÚZK)`")]
-  B[("`**půdorysy budov** 
-  polygonová třída prvků 
-  RÚIAN (ČÚZK)`")]
-  C[("`**lesní plochy** 
-  polygonová třída prvků 
-  ZABAGED (ČÚZK)`")]
-  D[("`**podrobný 3D model budovy** 
-  formát OBJ, FBX, DWG aj. 
-  vlastní zdroj`")]
-
-  E([Export Raster])
-  F([Select])
-  G([Select])
-  H([Import 3D Files])
-
-  I([Interpolate Shape])
-  J(["`Create Spatial Sampling Locations`"])
-  K(["Move To (Editing)"])
-
-  L(["`Calculate Field<br>přidat atribut 'barva'`"])
-  M(["`Calculate Field<br>přidat atribut 'druh'`"])
-
-  N[rastr jako Ground Elevation Surface]
-  O["`extruze<br>*pocet_pater×4* (nebo jinak)`"]
-  P["`bodová 3D symbolika<br>(stromy)`"]
-
-  Q([Layer 3D To Feature Class])
-
-  R([Create 3D Object Scene Layer Content])
-  S([Create 3D Object Scene Layer Content])
-  T([Create 3D Object Scene Layer Content])
-
-  U["*není nutné publikovat, web. službu už poskytuje přímo ČÚZK*"]
-  V[publikace do ArcGIS Online]
-
-  W[nová webová scéna]
-
-  X([přidat vrstvy])
-
-  Y[DMR5G]
-  Z[budovy]
-  AA[podrobný 3D model budovy]
-  AB[stromy]
-
-  AC(["nastavit symboliku podle atributu viditelnosti (a vhodnou barevnou stupnici)"])
-  AD(["nastavit 3D symbol (případně náhodné natočení)"])
-
-  AE([uložit scénu])
-  AF([nastavit veřejné sdílení])
-
-  
-  A-->E
-  B-->F
-  C-->G
-  D-->H
-
-  E---->N
-  E-->I
-  F-->I
-  G-->J
-  H--->K
-
-  I-->L
-  J-->M
-  K---->T
-  
-  L-->O
-  M-->P
-
-  N---->U
-  
-  O-->Q
-  P--->S
-
-  Q-->R
-
-  R-->V
-  S-->V
-  T-->V
-
-  V-->W
-
-  W-->X
-
-  X-->Y
-  X-->Z
-  X-->AA
-  X-->AB
-
-  Z-->AC
-  AB-->AD
-
-  Y--->AE
-  AC-->AE
-  AA--->AE
-  AD-->AE
-
-  AE-->AF
-
-  click E "https://pro.arcgis.com/en/pro-app/latest/help/data/imagery/export-or-convert-raster-datasets.htm" _blank
-  click F "https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/select.htm" _blank
-  click G "https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/select.htm" _blank
-  click H "https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/import-3d-files.htm" _blank
-  click I "https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/interpolate-shape.htm" _blank
-  click J "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/create-spatial-sampling-locations.htm" _blank
-  click K "https://pro.arcgis.com/en/pro-app/latest/help/editing/move-a-feature-to-specified-location.htm" _blank
-  click L "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/calculate-field.htm" _blank
-  click M "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/calculate-field.htm" _blank
-  click Q "https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/layer-3d-to-feature-class.htm" _blank
-  click R "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/create-3d-object-scene-layer-package.htm" _blank
-  click S "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/create-3d-object-scene-layer-package.htm" _blank
-  click T "https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/create-3d-object-scene-layer-package.htm" _blank
-  click W "https://doc.arcgis.com/en/arcgis-online/get-started/get-started-with-scenes.htm" _blank
-
-  classDef default fill:#00948522,stroke:#009485,stroke-width:3px;
-
-
-```
+    12. Jaká je skutečná délka (v km, na jedno des. místo) silnice číslo
+        '112' po povrchu DMT? Uveďte minimální a maximální výšku u této
+        komunikace?
 
