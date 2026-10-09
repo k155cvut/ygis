@@ -93,6 +93,11 @@ V rámci cvičení si vyzkoušíme dva různé případy:
 - :material-map-marker-check: **Výkres se skutečnými souřadnicemi, ale bez definovaného CRS** – souřadnice jsou správné, stačí jim přiřadit odpovídající referenční systém.
 - :material-crosshairs-gps: **Výkres v lokálních souřadnicích** – kromě přiřazení CRS je nutné výkres také **georeferencovat**, tedy prostorově umístit do cílového referenčního systému.
 
+<figure markdown>
+  ![Georeferencování staré mapy](../assets/cviceni2/CADtoGIS.png "Prostorové umístění CAD dat v prostředí GIS"){ width=600px }
+  <figcaption>Prostorové umístění CAD dat v prostředí GIS</figcaption>
+</figure>
+
 ???+ tip "CAD data a souřadnicové systémy"
     - **Define Projection** určuje, jaký souřadnicový systém mají již uložené souřadnice. **Nemění jejich číselné hodnoty.**
     - **Project** převádí souřadnice mezi dvěma známými souřadnicovými systémy a vytváří nová data.
