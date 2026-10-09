@@ -84,7 +84,41 @@ Každý prostorový prvek má geometrii uloženou jako souřadnice. Aby GIS věd
 
 <hr class="level-1">
 
+## Import CAD dat a jejich prostorové umístění
+
+V projektové dokumentaci se často setkáme s výkresy ve formátu **DXF** nebo **DWG**. ArcGIS Pro umožňuje CAD data přímo načíst a zobrazit spolu s dalšími geografickými daty. Aby však bylo možné výkres správně umístit do mapy, je potřeba vědět, **v jakých souřadnicích byl vytvořen** a zda má **definovaný souřadnicový referenční systém (CRS)**.
+
+V rámci cvičení si vyzkoušíme dva různé případy:
+
+- :material-map-marker-check: **Výkres se skutečnými souřadnicemi, ale bez definovaného CRS** – souřadnice jsou správné, stačí jim přiřadit odpovídající referenční systém.
+- :material-crosshairs-gps: **Výkres v lokálních souřadnicích** – kromě přiřazení CRS je nutné výkres také **georeferencovat**, tedy prostorově umístit do cílového referenčního systému.
+
+???+ tip "CAD data a souřadnicové systémy"
+    - **Define Projection** určuje, jaký souřadnicový systém mají již uložené souřadnice. **Nemění jejich číselné hodnoty.**
+    - **Project** převádí souřadnice mezi dvěma známými souřadnicovými systémy a vytváří nová data.
+    - **Georeference** prostorově umisťuje data, jejichž souřadnice neodpovídají skutečné poloze. U CAD dat může zahrnovat posun, otočení a změnu měřítka.
+
+
+### CAD data v ArcGIS Pro
+
+DXF soubor může obsahovat body, linie, polygony, popisy i další prvky organizované do CAD hladin (*layers*). V ArcGIS Pro se CAD soubor zobrazuje jako sada geografických vrstev podle typu geometrie, například **Point**, **Polyline**, **Polygon** a **Annotation**. CAD data jsou při přímém načtení určena především ke čtení; pro další úpravy je nutné data převést na prvkové třídy geodatabáze pomocí nástroje [**CAD To Geodatabase**](https://support.esri.com/en-us/knowledge-base/how-to-convert-cad-data-to-gis-data-in-arcgis-pro-000026432).
+
+__Zdroje:__
+{: align=center }
+
+[<span>pro.arcgis.com</span><br>Introduction to CAD data](https://doc.esri.com/en/arcgis-pro/latest/help/data/cad/what-is-cad-data.html){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank" }
+[<span>pro.arcgis.com</span><br>Geospatial position of CAD and BIM data](https://doc.esri.com/en/arcgis-pro/latest/help/data/cad/geospatial-position-of-cad-and-bim-data.html){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank" }
+[<span>pro.arcgis.com</span><br>Georeference CAD data](https://doc.esri.com/en/arcgis-pro/latest/help/data/cad/georeferencing-cad-data.html){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank" }
+{: .button_array }
+
+
+<hr class="level-1">
+
 ## Georeferencování rastrových dat
+
+**VZOROVÁ DATA:**
+[:material-map: Plán Prahy (1920–1930)](../assets/cviceni2/Prague_Plan_1920-1930_detail.jpg){ .md-button .md-button--primary .button_smaller target="_blank"}
+{: .button_array style="justify-content:flex-start;"}
 
 Rastrová data mohou pocházet z různých zdrojů, například z družicových snímků, leteckých snímků nebo skenovaných map. Zatímco moderní družicové a letecké snímky obvykle obsahují poměrně přesné informace o své poloze a pro správné zobrazení společně s ostatními daty GIS mohou vyžadovat pouze drobné úpravy, skenované mapy a historické podklady zpravidla žádnou informaci o prostorovém umístění neobsahují. V takových případech je nutné provést tzv. [**georeferencování**](https://k155cvut.github.io/ygis/cviceni/cviceni5/#georeferencovani-rastru).
 
@@ -98,9 +132,28 @@ Georeferencování má v kartografii a GIS zásadní význam, protože umožňuj
   <figcaption>Georeferencování staré mapy</figcaption>
 </figure>
 
-**VZOROVÁ DATA:**
-    [:material-map: Plán Prahy (1920–1930)](../assets/cviceni2/Prague_Plan_1920-1930_detail.jpg){ .md-button .md-button--primary .button_smaller target="_blank"}
-{: .button_array style="justify-content:flex-start;"}
+### Typy transformací při georeferencování rastrových dat
+
+Při georeferencování rastru propojujeme **vlícovací body** (*control points*) na původním obrázku s odpovídajícími body v referenčních datech. Zvolená transformační metoda určuje, jakým způsobem se rastr posune, otočí, změní měřítko nebo geometricky deformuje.
+
+| Transformace (ArcGIS Pro) | Min. počet vlícovacích bodů | Co umožňuje | Typické použití |
+| :--- | :---: | :--- | :--- |
+| **Zero-order Polynomial** | **1** | Pouze posun rastru v osách X a Y; zachovává měřítko, orientaci i tvar. | Rastr má již správné měřítko a orientaci, ale je mírně posunutý. |
+| **Similarity Polynomial** | **3** | Posun, otočení a **stejnou změnu měřítka** v obou směrech; zachovává úhly a poměry délek. | Obraz je správně geometricky utvářený, ale má jinou polohu, orientaci nebo velikost. |
+| **1st Order Polynomial (Affine)** | **3** | Posun, otočení, rozdílnou změnu měřítka v osách a zkosení; přímky zůstávají přímkami a rovnoběžnost se zachovává. | **Nejběžnější výchozí volba** pro skenované mapy a letecké snímky bez výrazných lokálních deformací. |
+| **Projective** | **4** | Perspektivní deformaci: přímky zůstávají přímkami, ale původně rovnoběžné linie již nemusí být rovnoběžné. | Šikmé snímky nebo fotografie pořízené z perspektivy. |
+| **2nd Order Polynomial** | **6** | Nelineární zakřivení a deformaci obrazu včetně ohýbání původně přímých linií. | Mapy nebo snímky s plynulými, složitějšími geometrickými deformacemi. |
+| **3rd Order Polynomial** | **10** | Ještě složitější nelineární deformaci než transformace 2. řádu. | Výrazně deformované historické mapy; vyžaduje kvalitně rozmístěné vlícovací body. |
+| **Adjust** | **3** | Kombinuje celkové polynomické přizpůsobení s lokálními úpravami založenými na triangulaci (TIN). | Když je potřeba vyvážit celkové přizpůsobení mapy a přesnost ve vybraných místech. |
+| **Spline** | **10** | Lokálně „natahuje“ rastr tak, aby vlícovací body odpovídaly přesně; mezi nimi může docházet k výrazným deformacím. | Silně nepravidelně deformované podklady, u kterých je prioritou shoda v kontrolních bodech. |
+
+<figure markdown>
+  ![Ukázka deformace původního rastru při využití polynomické transfformace I., II. a III. řádu](../assets/cviceni2/georef_transformace.gif){ width="80%" }
+  <figcaption>Ukázka deformace původního rastru při využití polynomické transfformace I., II. a III. řádu. <br>(Zdroj: ArcGIS Pro)</figcaption>
+</figure>
+
+???+ tip "Jakou transformaci vybrat?"
+    Pro běžné cvičení začněte metodou **1st Order Polynomial (Affine)**. Pokud má být zachován původní tvar rastru, porovnejte výsledek se **Similarity Polynomial**. Vyšší řády a **Spline** používejte pouze tehdy, pokud to vyžaduje charakter deformace a máte dostatek kvalitních, rovnoměrně rozmístěných vlícovacích bodů.
 
 ???+ note-fg-color "Kde hledat staré mapy?"
 
