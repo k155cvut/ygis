@@ -15,6 +15,11 @@ V průběhu semestru jsou zpracovány tři modelové úlohy zaměřené na využ
 <div class="annotate" markdown>
 ## :material-dump-truck:{ .lg .middle } **SKLÁDKA**
 
+## Datové podklady
+
+- datové úložiště Shares, složka ``\K155\Public\155YGIS\Beroun_skladka.gdb``
+- [:material-download: DATA :material-layers:](../assets/SP/Beroun_skladka_data.zip){ .md-button .md-button--primary .button_smaller } 
+
 ### **Cíl**
 
 Cílem úlohy je procvičit přípravu vektorových prostorových dat z různých datových zdrojů a využití základních nástrojů prostorové analýzy nad vektorovými daty při řešení jednoduché multikriteriální úlohy v zadaném území.
